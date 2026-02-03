@@ -1,20 +1,554 @@
-<svg width="360" height="260" viewBox="0 0 360 260" aria-label="valentine hearts and arrow">
-  <defs>
-    <linearGradient id="heartBack" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ff2f78"/>
-      <stop offset="100%" stop-color="#ff9cc4"/>
-    </linearGradient>
-    <linearGradient id="heartFront" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ff6aa1"/>
-      <stop offset="100%" stop-color="#ffd0e3"/>
-    </linearGradient>
-  </defs>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chrissy 💗 Valentine</title>
 
-  <!-- ARROW FIRST (behind hearts) -->
-  <g>
-    <!-- shaft -->
-    <line x1="300" y1="40" x2="120" y2="210"
-          stroke="#ffcc4d" stroke-width="6" stroke-linecap="round"/>
+<style>
+  :root{
+    --bg1:#ffe2ee;
+    --bg2:#fff7fb;
+    --ink:#2b2b35;
+    --muted:#6b6b7a;
 
-    <!-- fletching -->
-    <path d="M300 40 L318 28
+    --panel: rgba(255,255,255,.88);
+    --panel2: rgba(255,255,255,.74);
+    --border: rgba(0,0,0,.08);
+    --shadow: 0 22px 60px rgba(30,10,20,.18);
+
+    --yes1:#ff4d87;
+    --yes2:#ff9bbd;
+    --no:#232335;
+
+    --heart1:#ff2f78;
+    --heart2:#ff9cc4;
+    --heart3:#ff6aa1;
+    --arrow:#ffcc4d;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(900px 700px at 20% 15%, rgba(255,77,135,.22), transparent 60%),
+      radial-gradient(900px 600px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
+      linear-gradient(180deg,var(--bg1),var(--bg2));
+    overflow:hidden;
+  }
+
+  .card{
+    width:min(980px,100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+  }
+
+  .grid{
+    display:grid;
+    gap:16px;
+    grid-template-columns: 1fr;
+    align-items:center;
+  }
+  @media (min-width: 900px){
+    .grid{ grid-template-columns: 1fr 1fr; }
+  }
+
+  .art{
+    position:relative;
+    background: var(--panel2);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 24px;
+    padding: 16px;
+    min-height: 440px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* Sparkles (kept) */
+  .sparkleSVG{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    opacity: .95;
+    filter: drop-shadow(0 10px 14px rgba(255,77,135,.14));
+  }
+
+  .copy{
+    text-align:center;
+    padding: 10px 6px;
+  }
+
+  h1{
+    margin:0;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .sub{
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .zone{
+    margin: 12px auto 0;
+    width:min(520px,100%);
+    height: 170px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 22px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  button{
+    border:none;
+    border-radius: 18px;
+    padding: 14px 20px;
+    font-weight: 900;
+    font-size: 15px;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition: transform .08s ease, filter .2s ease;
+  }
+  button:active{ transform: scale(.98); }
+
+  .yes{
+    background: linear-gradient(135deg,var(--yes1),var(--yes2));
+    color: #12050b;
+    box-shadow: 0 14px 28px rgba(255,77,135,.25);
+    min-width: 190px;
+    position:absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+  }
+
+  .no{
+    background: rgba(35,35,53,.94);
+    color:white;
+    min-width: 190px;
+    position:absolute;
+    left: 50%;
+    top: 74%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+  }
+
+  .hint{
+    position:absolute;
+    left:0;
+    bottom: 10px;
+    width:100%;
+    text-align:center;
+    font-size: 12px;
+    color: var(--muted);
+    opacity:.95;
+    padding: 0 10px;
+  }
+
+  .result{
+    margin-top: 10px;
+    font-weight: 900;
+    min-height: 22px;
+  }
+
+  /* Celebration overlay */
+  .moment{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity: 0;
+    transform: translateY(10px) scale(.82);
+    filter: drop-shadow(0 18px 24px rgba(255,77,135,.18));
+  }
+  .showMoment .moment{
+    animation: momentIn .55s ease forwards;
+  }
+  @keyframes momentIn{
+    0% { opacity:0; transform: translateY(22px) scale(0.58); }
+    70%{ opacity:1; transform: translateY(10px) scale(0.95); }
+    100% { opacity:1; transform: translateY(10px) scale(0.92); }
+  }
+
+  /* Floating hearts */
+  .floatArea{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .fHeart{
+    position:absolute;
+    bottom: -30px;
+    opacity: 0;
+    transform: rotate(45deg);
+    background: linear-gradient(135deg, var(--heart1), var(--heart2));
+    border-radius: 8px;
+    filter: drop-shadow(0 12px 14px rgba(255,77,135,.14));
+  }
+  .fHeart:before,
+  .fHeart:after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+    background: inherit;
+  }
+  .fHeart:before{ left:-50%; top:0; }
+  .fHeart:after{ left:0; top:-50%; }
+
+  @keyframes floatUp{
+    0% { opacity:0; transform: translateY(0) rotate(45deg) scale(.92); }
+    15%{ opacity:1; }
+    100% { opacity:0; transform: translateY(-330px) rotate(45deg) scale(1.14); }
+  }
+
+  /* Bear head bounce */
+  .bounce{
+    animation: bounce .55s ease;
+    transform-origin: 50% 75%;
+  }
+  @keyframes bounce{
+    0%{ transform: translateY(0) scale(1); }
+    45%{ transform: translateY(-8px) scale(1.03); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="grid">
+
+      <div class="art" id="art">
+
+        <!-- Sparkles -->
+        <svg class="sparkleSVG" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <g>
+            <circle cx="12" cy="18" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/></circle>
+            <circle cx="88" cy="18" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.4s" repeatCount="indefinite"/></circle>
+            <circle cx="18" cy="80" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/></circle>
+            <circle cx="82" cy="80" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.1s" repeatCount="indefinite"/></circle>
+            <circle cx="52" cy="14" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.8s" repeatCount="indefinite"/></circle>
+            <circle cx="46" cy="86" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.7s" repeatCount="indefinite"/></circle>
+
+            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
+                  fill="white" transform="translate(24 26)">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.25;0.85" dur="2.0s" repeatCount="indefinite"/>
+            </path>
+
+            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
+                  fill="white" transform="translate(78 30)">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.3s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.8;1.22;0.8" dur="2.3s" repeatCount="indefinite"/>
+            </path>
+
+            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
+                  fill="white" transform="translate(70 76)">
+              <animate attributeName="opacity" values="0.2;0.95;0.2" dur="2.6s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.75;1.18;0.75" dur="2.6s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
+
+        <!-- Cute bear HEAD ONLY -->
+        <svg id="bear" width="320" height="320" viewBox="0 0 240 240" role="img" aria-label="cute pink bear head">
+          <defs>
+            <radialGradient id="bearPink" cx="45%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#fff3f8"/>
+              <stop offset="65%" stop-color="#ffd6e6"/>
+              <stop offset="100%" stop-color="#ffbcd6"/>
+            </radialGradient>
+            <filter id="headShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="16" stdDeviation="10" flood-color="rgba(43,43,53,.16)"/>
+            </filter>
+          </defs>
+
+          <g filter="url(#headShadow)">
+            <!-- ears -->
+            <circle cx="58" cy="70" r="28" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="6"/>
+            <circle cx="182" cy="70" r="28" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="6"/>
+            <circle cx="58" cy="76" r="14" fill="#ff9fc0" opacity="0.95"/>
+            <circle cx="182" cy="76" r="14" fill="#ff9fc0" opacity="0.95"/>
+
+            <!-- head -->
+            <circle cx="120" cy="128" r="76" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="7"/>
+
+            <!-- eyes -->
+            <ellipse cx="94" cy="120" rx="10" ry="12" fill="#2b2b35"/>
+            <ellipse cx="146" cy="120" rx="10" ry="12" fill="#2b2b35"/>
+            <circle cx="90" cy="116" r="3.5" fill="#ffffff"/>
+            <circle cx="142" cy="116" r="3.5" fill="#ffffff"/>
+
+            <!-- blush -->
+            <ellipse cx="78" cy="146" rx="14" ry="9" fill="#ff9fc0" opacity="0.80"/>
+            <ellipse cx="162" cy="146" rx="14" ry="9" fill="#ff9fc0" opacity="0.80"/>
+
+            <!-- muzzle -->
+            <ellipse cx="120" cy="152" rx="26" ry="20"
+                     fill="#ffe7c9" stroke="#2b2b35" stroke-width="5"/>
+
+            <!-- nose -->
+            <ellipse cx="120" cy="144" rx="6" ry="4.5" fill="#2b2b35"/>
+
+            <!-- smile -->
+            <path d="M112 158 C118 164,122 164,128 158"
+                  stroke="#2b2b35" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+
+        <!-- YES moment: big hearts + arrow behind -->
+        <div class="moment" aria-hidden="true">
+          <svg viewBox="0 0 360 260" width="440" height="360">
+            <defs>
+              <linearGradient id="heartBack" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--heart1)"/>
+                <stop offset="100%" stop-color="var(--heart2)"/>
+              </linearGradient>
+              <linearGradient id="heartFront" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--heart3)"/>
+                <stop offset="100%" stop-color="#ffd0e3"/>
+              </linearGradient>
+            </defs>
+
+            <!-- ARROW FIRST (behind hearts): top-right -> bottom-left -->
+            <g opacity="0.98">
+              <line x1="300" y1="40" x2="120" y2="210"
+                    stroke="var(--arrow)" stroke-width="6" stroke-linecap="round"/>
+
+              <!-- fletching (top-right) -->
+              <path d="M300 40 L318 28 L314 48 Z" fill="var(--arrow)"/>
+              <path d="M300 40 L320 40 L310 58 Z" fill="var(--arrow)"/>
+
+              <!-- small arrow head (bottom-left) -->
+              <g transform="translate(120 210) rotate(140)">
+                <path d="M0 0 L16 -7 L13 0 L16 7 Z" fill="var(--arrow)"/>
+              </g>
+
+              <circle cx="300" cy="40" r="3.5" fill="white" opacity="0.85"/>
+            </g>
+
+            <!-- back heart (slightly bigger) -->
+            <g transform="translate(158 76) rotate(-10) scale(2.05)">
+              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
+                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
+                    fill="url(#heartBack)" stroke="rgba(43,43,53,.16)" stroke-width="2.5"/>
+            </g>
+
+            <!-- front heart (smaller overlap) -->
+            <g transform="translate(98 102) rotate(-10) scale(1.72)">
+              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
+                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
+                    fill="url(#heartFront)" stroke="rgba(43,43,53,.14)" stroke-width="2.5"/>
+            </g>
+
+            <!-- tiny hearts -->
+            <g opacity=".92">
+              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
+                    fill="white" opacity=".75" transform="translate(70 86) scale(0.62)"/>
+              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
+                    fill="white" opacity=".70" transform="translate(314 96) scale(0.58)"/>
+              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
+                    fill="white" opacity=".62" transform="translate(298 216) scale(0.50)"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="floatArea" id="floatArea"></div>
+      </div>
+
+      <div class="copy">
+        <h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
+        <p class="sub" id="sub">No is an option. It is just a very difficult option.</p>
+
+        <div class="zone" id="zone">
+          <button class="yes" id="yesBtn" type="button">Yes 💗</button>
+          <button class="no" id="noBtn" type="button" aria-label="No">No</button>
+          <div class="hint" id="hint">Go ahead. Try “No”.</div>
+        </div>
+
+        <div class="result" id="result"></div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const zone = document.getElementById("zone");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const hint = document.getElementById("hint");
+  const result = document.getElementById("result");
+  const sub = document.getElementById("sub");
+  const bear = document.getElementById("bear");
+  const art = document.getElementById("art");
+  const floatArea = document.getElementById("floatArea");
+
+  let yesLocked = false;
+  let noMoves = 0;
+
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function placeNoStart(){
+    const rect = zone.getBoundingClientRect();
+    noBtn.style.position = "absolute";
+    noBtn.style.transform = "translate(-50%, -50%)";
+    noBtn.style.left = Math.round(rect.width * 0.50) + "px";
+    noBtn.style.top  = Math.round(rect.height * 0.74) + "px";
+  }
+
+  // Trickier No: dodges cursor proximity + hover + touch
+  function moveNoButton(){
+    if (yesLocked) return;
+
+    const rect = zone.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    const yesRect = yesBtn.getBoundingClientRect();
+
+    const padding = 10;
+    const maxX = rect.width - btnRect.width - padding;
+    const maxY = rect.height - btnRect.height - padding;
+
+    // Try several candidates; also keep away from Yes
+    for (let i=0; i<18; i++){
+      const x = clamp(Math.random() * maxX + padding, padding, maxX);
+      const y = clamp(Math.random() * maxY + padding, padding, maxY);
+
+      const zoneRect = zone.getBoundingClientRect();
+      const candidate = {
+        left: zoneRect.left + x,
+        top:  zoneRect.top  + y,
+        right: zoneRect.left + x + btnRect.width,
+        bottom: zoneRect.top  + y + btnRect.height
+      };
+
+      const overlapsYes = !(candidate.right < yesRect.left ||
+                            candidate.left > yesRect.right ||
+                            candidate.bottom < yesRect.top ||
+                            candidate.top > yesRect.bottom);
+
+      if (!overlapsYes){
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        noBtn.style.transform = "translate(0,0)";
+        break;
+      }
+    }
+
+    noMoves++;
+    if (noMoves === 1) hint.textContent = "Nope.";
+    else if (noMoves === 2) hint.textContent = "Still nope.";
+    else if (noMoves === 3) hint.textContent = "The bear said no.";
+    else if (noMoves === 4) hint.textContent = "Try again.";
+    else if (noMoves === 6) hint.textContent = "Okay… maybe press Yes.";
+    else if (noMoves >= 8) hint.textContent = "You already know.";
+
+    if (noMoves >= 5) sub.textContent = "No is an option. It is just not an achievable option.";
+  }
+
+  // Hover-based dodge (desktop)
+  noBtn.addEventListener("mouseenter", moveNoButton);
+  noBtn.addEventListener("mouseover", moveNoButton);
+
+  // Touch-based dodge (mobile)
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+
+  // Proximity dodge so you can’t “chase” it easily
+  zone.addEventListener("mousemove", (e) => {
+    if (yesLocked) return;
+    const r = noBtn.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    const dist = Math.hypot(dx, dy);
+    if (dist < 110) moveNoButton();
+  });
+
+  function spawnFloatingHearts(count=28){
+    for (let i = 0; i < count; i++){
+      const h = document.createElement("div");
+      h.className = "fHeart";
+
+      const left = 6 + Math.random() * 88;
+      const size = 16 + Math.random() * 24;
+
+      h.style.left = left + "%";
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+
+      const dur = 1400 + Math.random() * 1500;
+      const delay = Math.random() * 280;
+      h.style.animation = `floatUp ${dur}ms ease forwards`;
+      h.style.animationDelay = delay + "ms";
+
+      floatArea.appendChild(h);
+      requestAnimationFrame(() => { h.style.opacity = "1"; });
+
+      setTimeout(() => h.remove(), dur + delay + 160);
+    }
+  }
+
+  function doYes(){
+    if (yesLocked) return;
+    yesLocked = true;
+
+    result.textContent = "Yay. You’re my Valentine now. 🧸💘";
+    hint.textContent = "";
+    sub.textContent = "Correct choice.";
+
+    bear.classList.add("bounce");
+    setTimeout(() => bear.classList.remove("bounce"), 650);
+
+    art.classList.add("showMoment");
+    spawnFloatingHearts(34);
+
+    // keep No visible but effectively done
+    noBtn.disabled = true;
+    noBtn.style.opacity = ".55";
+    noBtn.style.cursor = "default";
+  }
+
+  yesBtn.addEventListener("click", doYes);
+
+  placeNoStart();
+  window.addEventListener("resize", () => {
+    if (!yesLocked) placeNoStart();
+  });
+</script>
+
+</body>
+</html>
