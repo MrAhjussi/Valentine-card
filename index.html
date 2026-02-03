@@ -3,39 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Will you be my Valentine?</title>
+  <title>Chrissy, will you be my Valentine?</title>
   <style>
     :root{
-      --bg1:#ffd6e7;
-      --bg2:#ffe9f3;
+      --bg1:#ffe2ee;
+      --bg2:#fff6fb;
       --ink:#2b2b35;
       --muted:#6b6b7a;
-      --card:#ffffffcc;
-      --shadow: 0 18px 50px rgba(31, 18, 28, .18);
-      --btn:#ff4d87;
-      --btn2:#ff8fb5;
-      --no:#1f1f2a;
-      --cream:#fff2d8;
-      --bear:#f7d4b5;
-      --bear2:#f2c7a4;
-      --blush:#ff7aa6;
-      --stitch:#b88475;
+
+      --panel: rgba(255,255,255,.72);
+      --panel2: rgba(255,255,255,.58);
+      --border: rgba(0,0,0,.08);
+      --shadow: 0 18px 55px rgba(25, 10, 20, .18);
+
+      --yes1:#ff4d87;
+      --yes2:#ff9bbd;
+
+      --no:#232335;
+
+      --heart1:#ff2f78;
+      --heart2:#ff8fb9;
+
+      --radius: 26px;
+
+      --outline:#2b2b35;
+      --fur:#fff2f7;
+      --fur2:#ffe7f0;
+      --cheek:#ff9fc0;
+      --ear:#ffd1e1;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(255,77,135,.22), transparent 55%),
-        radial-gradient(1000px 650px at 80% 30%, rgba(255,143,181,.20), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
       min-height:100vh;
       display:flex;
-      align-items:center;
       justify-content:center;
+      align-items:center;
       padding: 18px;
+      background:
+        radial-gradient(1000px 700px at 20% 15%, rgba(255,77,135,.22), transparent 58%),
+        radial-gradient(900px 650px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
       overflow:hidden;
     }
 
@@ -43,61 +54,86 @@
       width:min(980px, 100%);
       display:grid;
       gap: 16px;
-      grid-template-columns: 1fr;
     }
 
     .card{
-      background: var(--card);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 18px;
-      position:relative;
       overflow:hidden;
+      position:relative;
     }
 
-    .header{
+    .top{
+      padding: 18px 18px 10px;
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:12px;
-      margin-bottom: 8px;
+      align-items:center;
+      gap: 12px;
     }
 
-    .badge{
+    .pill{
       display:inline-flex;
       align-items:center;
       gap:8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       border: 1px solid rgba(0,0,0,.06);
       font-size: 12px;
       color: var(--muted);
-      width: fit-content;
+      white-space:nowrap;
     }
 
     .grid{
       display:grid;
-      gap: 18px;
+      gap: 16px;
       grid-template-columns: 1fr;
+      padding: 0 18px 18px;
       align-items:center;
     }
     @media (min-width: 900px){
       .grid{ grid-template-columns: 1fr 1fr; }
-      .card{ padding: 22px; }
     }
 
-    .message{
+    .artPanel{
+      background: var(--panel2);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 22px;
+      padding: 14px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      min-height: 360px;
+    }
+
+    .sparkle{
+      position:absolute;
+      inset:0;
+      opacity:.55;
+      background-image:
+        radial-gradient(circle at 15% 22%, rgba(255,255,255,.95) 0 2px, transparent 3px),
+        radial-gradient(circle at 86% 18%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 74% 78%, rgba(255,255,255,.85) 0 2px, transparent 3px),
+        radial-gradient(circle at 24% 72%, rgba(255,255,255,.92) 0 2px, transparent 3px);
+      pointer-events:none;
+    }
+
+    .copy{
+      text-align:center;
       display:grid;
       gap: 10px;
-      text-align:center;
+      padding: 6px 4px;
     }
 
     h1{
       margin:0;
-      font-size: 22px;
+      font-size: 20px;
       letter-spacing: -0.02em;
+      line-height: 1.25;
     }
 
     .sub{
@@ -107,283 +143,110 @@
       line-height: 1.4;
     }
 
-    .buttonZone{
-      position:relative;
-      height: 150px;
-      margin-top: 10px;
+    .zoneWrap{
       display:flex;
-      align-items:center;
       justify-content:center;
+      margin-top: 8px;
     }
 
-    .btnRow{
-      position:relative;
-      width:min(420px, 100%);
-      height: 120px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.55);
+    .zone{
+      width:min(460px, 100%);
+      height: 140px;
+      background: rgba(255,255,255,.70);
       border: 1px solid rgba(0,0,0,.06);
+      border-radius: 22px;
+      position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      gap: 14px;
       padding: 14px;
+      overflow:hidden;
     }
 
     button{
-      appearance:none;
-      border:none;
+      border: none;
       border-radius: 18px;
       padding: 14px 18px;
-      font-weight: 800;
+      font-weight: 900;
       cursor:pointer;
       font-size: 15px;
-      transition: transform .08s ease;
       user-select:none;
       touch-action: manipulation;
+      transition: transform .08s ease, filter .2s ease;
     }
     button:active{ transform: scale(.98); }
 
     .yes{
-      background: linear-gradient(135deg, var(--btn), var(--btn2));
+      background: linear-gradient(135deg, var(--yes1), var(--yes2));
       color: #14040b;
-      box-shadow: 0 14px 26px rgba(255,77,135,.28);
-      min-width: 120px;
+      box-shadow: 0 16px 30px rgba(255,77,135,.25);
+      min-width: 140px;
     }
+    .yes:hover{ filter: brightness(1.02); }
 
     .no{
-      background: rgba(31,31,42,.92);
+      background: rgba(35,35,53,.94);
       color: #fff;
-      min-width: 120px;
+      min-width: 140px;
       position:absolute;
-      left: 56%;
-      top: 52%;
+      left: 62%;
+      top: 55%;
       transform: translate(-50%, -50%);
     }
 
-    .noHint{
+    .hint{
       position:absolute;
-      bottom: -2px;
-      width: 100%;
+      bottom: 10px;
+      left: 0;
+      width:100%;
       text-align:center;
       font-size: 12px;
       color: var(--muted);
       opacity: .95;
+      padding: 0 10px;
     }
 
-    /* Plushie bear container */
-    .bearStage{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 10px 0 6px;
-    }
-
-    .bearCard{
-      width: min(380px, 100%);
-      aspect-ratio: 1 / 1;
-      border-radius: 28px;
-      background:
-        radial-gradient(220px 160px at 30% 20%, rgba(255,255,255,.65), transparent 55%),
-        radial-gradient(260px 190px at 75% 35%, rgba(255,255,255,.55), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 20px 44px rgba(31,18,28,.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-    }
-
-    /* Sparkle dots */
-    .sparkles{
-      position:absolute;
-      inset:0;
-      opacity:.45;
-      pointer-events:none;
-      background-image:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 82% 22%, rgba(255,255,255,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 65% 78%, rgba(255,255,255,.8) 0 2px, transparent 3px),
-        radial-gradient(circle at 20% 70%, rgba(255,255,255,.85) 0 2px, transparent 3px);
-    }
-
-    /* Bear made of simple shapes */
-    .bear{
-      width: 260px;
-      height: 260px;
-      position:relative;
-      transform: translateY(6px);
-      filter: drop-shadow(0 18px 18px rgba(31,18,28,.12));
-    }
-
-    .ear{
-      position:absolute;
-      width: 84px;
-      height: 84px;
-      border-radius: 999px;
-      background: radial-gradient(60px 60px at 30% 30%, rgba(255,255,255,.55), transparent 55%),
-                  linear-gradient(180deg, var(--bear), var(--bear2));
-      border: 2px solid rgba(0,0,0,.06);
-      top: 18px;
-    }
-    .ear.left{ left: 22px; transform: rotate(-10deg); }
-    .ear.right{ right: 22px; transform: rotate(10deg); }
-
-    .ear:after{
-      content:"";
-      position:absolute;
-      inset: 18px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.4), transparent 55%),
-                  linear-gradient(180deg, #ffd9e7, #ffbdd3);
-      border: 2px solid rgba(0,0,0,.04);
-    }
-
-    .head{
-      position:absolute;
-      left: 50%;
-      top: 44px;
-      transform: translateX(-50%);
-      width: 210px;
-      height: 200px;
-      border-radius: 90px 90px 86px 86px;
-      background: radial-gradient(120px 80px at 30% 20%, rgba(255,255,255,.55), transparent 55%),
-                  linear-gradient(180deg, var(--bear), var(--bear2));
-      border: 2px solid rgba(0,0,0,.06);
-    }
-
-    .muzzle{
-      position:absolute;
-      left: 50%;
-      top: 108px;
-      transform: translateX(-50%);
-      width: 140px;
-      height: 110px;
-      border-radius: 60px 60px 70px 70px;
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.65), transparent 55%),
-                  linear-gradient(180deg, var(--cream), #ffe6be);
-      border: 2px solid rgba(0,0,0,.05);
-    }
-
-    .eye{
-      position:absolute;
-      width: 18px;
-      height: 26px;
-      border-radius: 999px;
-      background: #1d1d2a;
-      top: 88px;
-    }
-    .eye.left{ left: 72px; }
-    .eye.right{ right: 72px; }
-    .eye:after{
-      content:"";
-      position:absolute;
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.9);
-      left: 3px;
-      top: 4px;
-    }
-
-    .blush{
-      position:absolute;
-      width: 26px;
-      height: 16px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.4), transparent 55%),
-                  rgba(255,122,166,.55);
-      top: 116px;
-      filter: blur(.1px);
-    }
-    .blush.left{ left: 44px; }
-    .blush.right{ right: 44px; }
-
-    .nose{
-      position:absolute;
-      left: 50%;
-      top: 132px;
-      transform: translateX(-50%);
-      width: 22px;
-      height: 16px;
-      border-radius: 10px 10px 14px 14px;
-      background: #1d1d2a;
-    }
-
-    .smile{
-      position:absolute;
-      left: 50%;
-      top: 150px;
-      transform: translateX(-50%);
-      width: 46px;
-      height: 26px;
-      border-bottom: 4px solid rgba(29,29,42,.92);
-      border-radius: 0 0 40px 40px;
-      opacity: .9;
-    }
-
-    .stitches{
-      position:absolute;
-      left: 50%;
-      top: 66px;
-      transform: translateX(-50%) rotate(-6deg);
-      width: 70px;
-      height: 0;
-      border-top: 3px dashed rgba(184,132,117,.8);
-      opacity: .75;
-    }
-
-    .tag{
-      position:absolute;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,.78);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      display:flex;
-      align-items:center;
-      gap:8px;
+    .result{
+      min-height: 22px;
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 6px;
     }
 
     /* Hearts */
-    .heartBurst{
+    .burst{
       position:absolute;
       inset:0;
       pointer-events:none;
       overflow:hidden;
     }
+
     .bigHeart{
       position:absolute;
       left: 50%;
-      top: 60%;
-      width: 180px;
-      height: 180px;
+      top: 58%;
+      width: 190px;
+      height: 190px;
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      filter: drop-shadow(0 18px 22px rgba(255,77,135,.25));
+      filter: drop-shadow(0 20px 24px rgba(255,77,135,.22));
     }
-
     .bigHeart.two{
-      width: 140px;
-      height: 140px;
-      left: 62%;
-      top: 54%;
-      filter: drop-shadow(0 18px 22px rgba(255,143,181,.22));
+      width: 150px;
+      height: 150px;
+      left: 63%;
+      top: 52%;
+      filter: drop-shadow(0 20px 24px rgba(255,155,189,.20));
     }
 
     .heartShape{
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 55%),
-                  linear-gradient(135deg, #ff2f78, #ff89b2);
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 55%),
+        linear-gradient(135deg, var(--heart1), var(--heart2));
       transform: rotate(45deg);
-      border-radius: 20px;
+      border-radius: 22px;
       position:relative;
     }
     .heartShape:before,
@@ -400,14 +263,14 @@
 
     @keyframes popIn {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      60% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+      60% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
       100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(.9); opacity: 0; }
       15% { opacity: 1; }
-      100% { transform: translateY(-220px) scale(1.1); opacity: 0; }
+      100% { transform: translateY(-240px) scale(1.12); opacity: 0; }
     }
 
     .floatHeart{
@@ -417,31 +280,18 @@
       height: 22px;
       opacity: 0;
     }
-    .floatHeart .heartShape{
-      border-radius: 7px;
-    }
-
-    .result{
-      margin-top: 8px;
-      font-weight: 800;
-      font-size: 14px;
-      color: #2b2b35;
-      min-height: 20px;
-    }
+    .floatHeart .heartShape{ border-radius: 8px; }
 
     /* Bear reaction */
-    .happy .smile{ border-bottom-width: 6px; }
-    .happy .blush{ background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%), rgba(255,122,166,.7); }
     .bounce{
       animation: bearBounce .55s ease;
     }
     @keyframes bearBounce{
-      0%{ transform: translateY(6px) scale(1); }
-      45%{ transform: translateY(-2px) scale(1.02); }
-      100%{ transform: translateY(6px) scale(1); }
+      0%{ transform: translateY(0) scale(1); }
+      45%{ transform: translateY(-6px) scale(1.02); }
+      100%{ transform: translateY(0) scale(1); }
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{ animation: none !important; transition: none !important; }
     }
@@ -451,51 +301,115 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="header">
-        <div class="badge">🧸 plushie blindbox bear</div>
-        <div class="badge">tap Yes</div>
+      <div class="top">
+        <div class="pill">🧸 Sanrio-ish plush bear</div>
+        <div class="pill">made for Chrissy</div>
       </div>
 
       <div class="grid">
-        <div class="bearStage">
-          <div class="bearCard">
-            <div class="sparkles"></div>
+        <div class="artPanel">
+          <div class="sparkle"></div>
 
-            <div class="bear" id="bear">
-              <div class="ear left"></div>
-              <div class="ear right"></div>
+          <!-- Cuter bear as inline SVG -->
+          <svg id="bear" class="" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="cute plush bear">
+            <!-- soft shadow -->
+            <ellipse cx="160" cy="278" rx="92" ry="18" fill="rgba(43,43,53,.10)"/>
 
-              <div class="head">
-                <div class="stitches"></div>
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="blush left"></div>
-                <div class="blush right"></div>
+            <!-- body -->
+            <g>
+              <path d="M95 255c0-48 32-86 65-86s65 38 65 86c0 20-12 36-65 36s-65-16-65-36z"
+                    fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              <ellipse cx="160" cy="252" rx="54" ry="44" fill="url(#bellyGrad)" stroke="var(--outline)" stroke-width="6"/>
+              <circle cx="132" cy="252" r="6" fill="rgba(43,43,53,.22)"/>
+              <circle cx="188" cy="252" r="6" fill="rgba(43,43,53,.22)"/>
+            </g>
 
-                <div class="muzzle"></div>
-                <div class="nose"></div>
-                <div class="smile"></div>
-              </div>
+            <!-- head -->
+            <g>
+              <!-- ears -->
+              <g>
+                <circle cx="98" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
+                <circle cx="98" cy="98" r="26" fill="url(#earGrad)" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
+              </g>
+              <g>
+                <circle cx="222" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
+                <circle cx="222" cy="98" r="26" fill="url(#earGrad)" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
+              </g>
 
-              <div class="tag">💌 Will you be my Valentine?</div>
-            </div>
+              <path d="M70 155c0-62 42-104 90-104s90 42 90 104c0 54-40 96-90 96s-90-42-90-96z"
+                    fill="url(#furGrad)" stroke="var(--outline)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <div class="heartBurst" id="burst">
-              <div class="bigHeart" id="big1"><div class="heartShape"></div></div>
-              <div class="bigHeart two" id="big2"><div class="heartShape"></div></div>
-            </div>
+              <!-- highlight -->
+              <path d="M108 84c-22 14-36 40-36 70" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="10" stroke-linecap="round"/>
+
+              <!-- eyes -->
+              <g>
+                <ellipse cx="125" cy="152" rx="16" ry="22" fill="var(--outline)"/>
+                <circle cx="120" cy="145" r="6" fill="white" opacity=".95"/>
+                <circle cx="130" cy="160" r="3" fill="white" opacity=".75"/>
+              </g>
+              <g>
+                <ellipse cx="195" cy="152" rx="16" ry="22" fill="var(--outline)"/>
+                <circle cx="190" cy="145" r="6" fill="white" opacity=".95"/>
+                <circle cx="200" cy="160" r="3" fill="white" opacity=".75"/>
+              </g>
+
+              <!-- blush -->
+              <g opacity=".9">
+                <ellipse cx="98" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
+                <ellipse cx="222" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
+              </g>
+
+              <!-- muzzle -->
+              <path d="M118 205c0-28 20-48 42-48s42 20 42 48c0 26-20 42-42 42s-42-16-42-42z"
+                    fill="url(#muzzleGrad)" stroke="var(--outline)" stroke-width="6" stroke-linejoin="round"/>
+
+              <!-- nose -->
+              <path d="M150 186c0-8 6-14 10-14s10 6 10 14c0 8-6 12-10 12s-10-4-10-12z"
+                    fill="var(--outline)"/>
+
+              <!-- smile -->
+              <path d="M148 206c8 12 16 12 24 0" fill="none" stroke="var(--outline)" stroke-width="6" stroke-linecap="round"/>
+
+              <!-- tiny stitched detail -->
+              <path d="M140 86h40" stroke="rgba(43,43,53,.35)" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 8" opacity=".8"/>
+            </g>
+
+            <defs>
+              <linearGradient id="furGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="var(--fur)"/>
+                <stop offset="1" stop-color="var(--fur2)"/>
+              </linearGradient>
+              <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff7fb"/>
+                <stop offset="1" stop-color="#ffe7f2"/>
+              </linearGradient>
+              <linearGradient id="earGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffe2ee"/>
+                <stop offset="1" stop-color="var(--ear)"/>
+              </linearGradient>
+              <linearGradient id="muzzleGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff3df"/>
+                <stop offset="1" stop-color="#ffe1b6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <div class="burst" id="burst">
+            <div class="bigHeart" id="big1"><div class="heartShape"></div></div>
+            <div class="bigHeart two" id="big2"><div class="heartShape"></div></div>
           </div>
         </div>
 
-        <div class="message">
-          <h1>Will you be my Valentine?</h1>
-          <p class="sub">Warning: the bear might be a little determined.</p>
+        <div class="copy">
+          <h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
+          <p class="sub" id="subline">No is an option. It is just a very difficult option.</p>
 
-          <div class="buttonZone">
-            <div class="btnRow" id="zone">
+          <div class="zoneWrap">
+            <div class="zone" id="zone">
               <button class="yes" id="yesBtn">Yes 💗</button>
               <button class="no" id="noBtn" aria-label="No">No</button>
-              <div class="noHint" id="hint">Try clicking “No”.</div>
+              <div class="hint" id="hint">Go ahead. Try “No”.</div>
             </div>
           </div>
 
@@ -511,6 +425,7 @@
     const yesBtn = document.getElementById("yesBtn");
     const hint = document.getElementById("hint");
     const result = document.getElementById("result");
+    const subline = document.getElementById("subline");
     const bear = document.getElementById("bear");
 
     const big1 = document.getElementById("big1");
@@ -521,6 +436,12 @@
     let noMoves = 0;
 
     function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+    function placeNo(x, y){
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.transform = "translate(0, 0)";
+    }
 
     function moveNoButton(){
       if (yesLocked) return;
@@ -535,53 +456,50 @@
       const x = clamp(Math.random() * maxX + padding, padding, maxX);
       const y = clamp(Math.random() * maxY + padding, padding, maxY);
 
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-      noBtn.style.transform = "translate(0, 0)";
+      placeNo(x, y);
 
       noMoves++;
 
       if (noMoves === 1) hint.textContent = "Nope.";
       else if (noMoves === 2) hint.textContent = "Still nope.";
-      else if (noMoves === 3) hint.textContent = "It’s shy.";
-      else if (noMoves === 5) hint.textContent = "Okay, you get it.";
+      else if (noMoves === 3) hint.textContent = "The bear said no.";
+      else if (noMoves === 4) hint.textContent = "Try again.";
+      else if (noMoves === 6) hint.textContent = "Okay. Maybe press Yes.";
+      else if (noMoves >= 8) hint.textContent = "You know what to do.";
+
+      if (noMoves >= 5) subline.textContent = "No is an option. It is just not an achievable option.";
     }
 
-    // Desktop dodge
+    // Dodge on desktop
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mouseover", moveNoButton);
 
-    // Mobile dodge
+    // Dodge on mobile
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveNoButton();
     }, { passive: false });
 
-    // Also dodge if they get close in the zone
+    // Also dodge if they get close inside the zone
     zone.addEventListener("mousemove", (e) => {
       if (yesLocked) return;
       const rect = noBtn.getBoundingClientRect();
       const dx = e.clientX - (rect.left + rect.width / 2);
       const dy = e.clientY - (rect.top + rect.height / 2);
       const dist = Math.hypot(dx, dy);
-      if (dist < 80) moveNoButton();
+      if (dist < 85) moveNoButton();
     });
 
-    function spawnFloatingHearts(count=14){
+    function spawnFloatingHearts(count=16){
       for (let i = 0; i < count; i++){
         const h = document.createElement("div");
         h.className = "floatHeart";
         h.style.left = (Math.random() * 100) + "%";
         h.style.animation = `floatUp ${1200 + Math.random()*900}ms ease forwards`;
-        h.style.animationDelay = (Math.random() * 250) + "ms";
+        h.style.animationDelay = (Math.random() * 260) + "ms";
         h.innerHTML = `<div class="heartShape"></div>`;
-        h.style.opacity = "0";
         burst.appendChild(h);
-
-        requestAnimationFrame(() => {
-          h.style.opacity = "1";
-        });
-
+        requestAnimationFrame(() => { h.style.opacity = "1"; });
         setTimeout(() => h.remove(), 2600);
       }
     }
@@ -590,35 +508,36 @@
       if (yesLocked) return;
       yesLocked = true;
 
-      result.textContent = "Yay. The bear is happy now. 🧸💘";
+      result.textContent = "Yay. You are my Valentine now. 🧸💘";
       hint.textContent = "";
+      subline.textContent = "Correct choice.";
 
-      // Bear reaction
-      bear.classList.add("happy", "bounce");
+      // bear bounce
+      bear.classList.add("bounce");
       setTimeout(() => bear.classList.remove("bounce"), 650);
 
-      // Big hearts pop
+      // big hearts
       big1.style.animation = "popIn 520ms ease forwards";
       big2.style.animation = "popIn 560ms ease forwards";
 
-      // Extra floating hearts
+      // extra hearts
       spawnFloatingHearts(18);
 
-      // Disable No button
+      // disable No
       noBtn.disabled = true;
-      noBtn.style.opacity = ".6";
+      noBtn.style.opacity = ".55";
       noBtn.style.cursor = "default";
     }
 
     yesBtn.addEventListener("click", doYes);
 
-    // Set initial position for No button (absolute within zone)
+    // Initial placement of No
     (function initNo(){
-      // Convert from percent positioning to pixel placement for more consistent dodging
       const rect = zone.getBoundingClientRect();
-      noBtn.style.left = Math.round(rect.width * 0.58) + "px";
-      noBtn.style.top = Math.round(rect.height * 0.52) + "px";
+      noBtn.style.position = "absolute";
       noBtn.style.transform = "translate(-50%, -50%)";
+      noBtn.style.left = Math.round(rect.width * 0.66) + "px";
+      noBtn.style.top = Math.round(rect.height * 0.55) + "px";
     })();
 
     window.addEventListener("resize", () => {
