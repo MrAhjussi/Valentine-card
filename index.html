@@ -6,18 +6,16 @@
   <title>Valentine Card</title>
   <style>
     :root{
-      --bg1:#ffe7f2;
-      --bg2:#ffd3e7;
-      --ink:#4d3440;
-      --soft:#7b5a69;
-      --card:#fff8fc;
+      --bg1:#ffe6f1;
+      --bg2:#ffd6e8;
+      --ink:#5a3f4c;
+      --soft-ink:#7a5a68;
+      --card:#fff7fb;
       --card2:#ffeef7;
       --accent:#ff6fae;
       --accent2:#ff9bc8;
-      --cream1:#fff1e6;
-      --cream2:#efd8c4;
-      --shadow: 0 18px 45px rgba(77,52,64,.18);
-      --shadow2: 0 10px 22px rgba(77,52,64,.12);
+      --shadow: 0 18px 45px rgba(90,63,76,.18);
+      --shadow2: 0 10px 25px rgba(90,63,76,.12);
       --radius: 28px;
     }
 
@@ -28,46 +26,60 @@
       font-family: ui-rounded, system-ui, -apple-system, "SF Pro Rounded", "SF Pro Text", "Segoe UI", Arial, sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(900px 700px at 18% 12%, rgba(255,255,255,.55), transparent 58%),
-        radial-gradient(800px 600px at 82% 18%, rgba(255,255,255,.45), transparent 60%),
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.55), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,.45), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
       overflow:hidden;
     }
 
-    /* soft sparkles */
-    .sparkles{position:fixed; inset:0; pointer-events:none; overflow:hidden;}
-    .sp{
+    /* Gentle floating sparkles */
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      filter: saturate(1.05);
+      z-index: 0;
+    }
+    .sparkle{
       position:absolute;
       width:10px; height:10px;
       opacity:.55;
-      animation: spFloat var(--dur) ease-in-out infinite;
-      filter: drop-shadow(0 10px 18px rgba(255,111,174,.10));
+      transform: translate3d(0,0,0) rotate(0deg);
+      animation: floatUp var(--dur) ease-in-out infinite;
     }
-    .sp:before{
+    .sparkle::before{
       content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(circle at 40% 35%, rgba(255,255,255,.95), rgba(255,255,255,.35) 52%, rgba(255,255,255,0) 70%);
-      border-radius:999px;
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 40% 35%, rgba(255,255,255,.95), rgba(255,255,255,.25) 55%, rgba(255,255,255,0) 70%);
+      border-radius: 999px;
     }
-    .sp:after{
+    .sparkle::after{
       content:"";
-      position:absolute; inset:-7px;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 190, 220, .55), rgba(255, 190, 220, 0) 60%);
-      border-radius:999px;
+      position:absolute;
+      inset:-6px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 190, 220, .65), rgba(255, 190, 220, 0) 62%);
+      border-radius: 999px;
       opacity:.55;
     }
-    @keyframes spFloat{
-      0%   { transform: translate3d(0, 30px, 0) scale(.92); opacity:.20; }
-      35%  { opacity:.65; }
-      100% { transform: translate3d(0, -140px, 0) scale(1.05); opacity:.10; }
+    @keyframes floatUp{
+      0%   { transform: translate3d(0, 20px, 0) scale(.9); opacity:.25; }
+      40%  { opacity:.6; }
+      60%  { opacity:.5; }
+      100% { transform: translate3d(0, -120px, 0) scale(1.05); opacity:.15; }
     }
 
+    /* Layout */
     .wrap{
+      position:relative;
       height:100%;
       display:flex;
       align-items:center;
       justify-content:center;
       padding: 22px 16px calc(22px + env(safe-area-inset-bottom));
+      z-index: 1;
     }
 
     .card{
@@ -75,84 +87,86 @@
       background: linear-gradient(180deg, var(--card), var(--card2));
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.75);
       padding: 18px 18px 16px;
       position:relative;
     }
 
-    .badge{
+    .topBadge{
       display:inline-flex;
       align-items:center;
       gap:8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.78);
-      border: 1px solid rgba(255, 170, 210, .30);
+      background: rgba(255,255,255,.75);
       box-shadow: var(--shadow2);
+      border: 1px solid rgba(255, 170, 210, .35);
       font-size: 12.5px;
-      color: var(--soft);
+      color: var(--soft-ink);
       user-select:none;
     }
     .dot{
       width:9px;height:9px;border-radius:999px;
       background: radial-gradient(circle at 35% 30%, #fff, var(--accent));
-      box-shadow: 0 10px 18px rgba(255,111,174,.20);
+      box-shadow: 0 6px 18px rgba(255,111,174,.35);
     }
 
-    .stage{
+    .bearStage{
       margin-top: 14px;
+      background: rgba(255,255,255,.6);
+      border: 1px solid rgba(255, 170, 210, .28);
       border-radius: 22px;
-      padding: 14px 10px;
-      background: rgba(255,255,255,.70);
-      border: 1px solid rgba(255, 170, 210, .24);
-      box-shadow: 0 14px 30px rgba(77,52,64,.10);
-      position:relative;
-      overflow:hidden;
+      padding: 14px;
       display:flex;
       justify-content:center;
+      box-shadow: 0 12px 35px rgba(90,63,76,.10);
+      position:relative;
+      overflow:hidden;
     }
-    .stage:before{
+
+    .bearStage::before{
       content:"";
-      position:absolute; inset:-50px;
+      position:absolute;
+      inset:-40px;
       background:
-        radial-gradient(220px 160px at 32% 30%, rgba(255, 214, 232, .52), transparent 62%),
-        radial-gradient(240px 180px at 74% 36%, rgba(255, 230, 241, .48), transparent 60%),
-        radial-gradient(280px 200px at 50% 80%, rgba(255, 255, 255, .55), transparent 65%);
-      opacity:.95;
+        radial-gradient(160px 120px at 30% 30%, rgba(255, 214, 232, .55), transparent 62%),
+        radial-gradient(180px 140px at 70% 35%, rgba(255, 230, 241, .55), transparent 60%),
+        radial-gradient(220px 160px at 45% 75%, rgba(255, 255, 255, .55), transparent 65%);
+      opacity:.9;
     }
 
     .bear{
-      width:min(320px, 82vw);
+      width:min(300px, 78vw);
       aspect-ratio: 1 / 1;
       position:relative;
       z-index:1;
-      animation: bob 3.4s ease-in-out infinite;
-      transform-origin: 50% 72%;
+      animation: bob 3.8s ease-in-out infinite;
+      transform-origin: 50% 70%;
     }
     @keyframes bob{
-      0%{transform:translateY(0)}
-      50%{transform:translateY(-6px)}
-      100%{transform:translateY(0)}
+      0% { transform: translateY(0px); }
+      50%{ transform: translateY(-6px); }
+      100%{ transform: translateY(0px); }
     }
 
-    .q{
+    .question{
       margin: 14px 6px 10px;
       text-align:center;
       font-size: 15.5px;
       line-height: 1.35;
       color: var(--ink);
     }
-    .q strong{ color:#3f2a34; }
+    .question strong{ color: #4b3440; }
 
     .btnRow{
       margin-top: 10px;
       display:flex;
       justify-content:center;
       align-items:center;
-      gap: 12px;
+      gap: 10px;
       position:relative;
-      min-height: 62px;
-      padding-bottom: 2px;
+      padding-bottom: 6px;
+      min-height: 58px;
     }
 
     button{
@@ -165,12 +179,12 @@
       font-size: 15px;
       box-shadow: var(--shadow2);
       cursor:pointer;
-      transition: transform .12s ease, filter .12s ease;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
       user-select:none;
       touch-action: manipulation;
     }
     button:active{ transform: translateY(1px) scale(.99); filter: brightness(.98); }
-    button:focus{ outline:none; }
+    button:focus{ outline: none; }
     button:focus-visible{
       outline: 3px solid rgba(255,111,174,.35);
       outline-offset: 3px;
@@ -178,360 +192,349 @@
 
     .yes{
       background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255, 230, 241, .92));
-      border: 1px solid rgba(255,111,174,.34);
-      color: #46303a;
-      min-width: 128px;
+      border: 1px solid rgba(255,111,174,.35);
+      color: #513641;
+      min-width: 122px;
+      z-index: 1;
     }
+    .yes:hover{ transform: translateY(-1px); }
 
-    /* No button container is absolute so it can dodge without shifting layout */
-    .noSlot{
-      width: 128px;
-      height: 52px;
-      position: relative;
-    }
+    /* No button is positioned absolutely inside the row so it can truly dodge */
     .noWrap{
       position:absolute;
-      left:0; top:0;
-      width:128px;
-      height:52px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition: transform .12s ease;
+      left: 62%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display:inline-block;
+      z-index: 2;
     }
     .no{
-      width:128px;
+      position:relative;
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255, 240, 248, .92));
-      border: 1px solid rgba(255,155,200,.26);
+      border: 1px solid rgba(255,155,200,.28);
       color: #7a5a68;
+      min-width: 122px;
     }
-    .hint{
+
+    .noHint{
       position:absolute;
       left:50%;
       transform: translateX(-50%);
-      bottom: -24px;
+      bottom: -28px;
       font-size: 12px;
-      color: rgba(77,52,64,.60);
-      opacity:0;
-      transition: opacity .16s ease;
+      color: rgba(90,63,76,.62);
       white-space:nowrap;
       user-select:none;
+      opacity:0;
+      transition: opacity .18s ease;
       pointer-events:none;
     }
-    .noWrap.show .hint{opacity:1}
+    .noWrap.showHint .noHint{ opacity:1; }
 
-    .tiny{
+    .tinyNote{
       margin-top: 10px;
       text-align:center;
       font-size: 12.5px;
-      color: rgba(77,52,64,.60);
+      color: rgba(90,63,76,.62);
       user-select:none;
     }
 
-    /* Overlay */
+    /* Celebration overlay */
     .overlay{
-      position:fixed; inset:0;
+      position:fixed;
+      inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
-      background: rgba(255, 214, 232, .30);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      padding: 20px;
+      background: rgba(255, 214, 232, .35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 50;
       overflow:hidden;
     }
-    .overlay.on{display:flex}
-
-    .close{
-      position:fixed;
-      top: calc(14px + env(safe-area-inset-top));
-      right: 14px;
-      z-index: 60;
-      background: rgba(255,255,255,.82);
-      border: 1px solid rgba(255,111,174,.22);
-      color: #4d3440;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-size: 13px;
-    }
+    .overlay.on{ display:flex; }
 
     .pop{
       width:min(520px, 92vw);
       aspect-ratio: 1 / 1;
       position:relative;
-      animation: popIn .20s ease-out both;
+      animation: popIn .22s ease-out both;
     }
     @keyframes popIn{
-      from{transform:scale(.94); opacity:0}
-      to{transform:scale(1); opacity:1}
+      from{ transform: scale(.92); opacity:0; }
+      to{ transform: scale(1); opacity:1; }
+    }
+
+    .close{
+      position:fixed;
+      top: calc(16px + env(safe-area-inset-top));
+      right: 16px;
+      z-index: 60;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,111,174,.25);
+      color: #5a3f4c;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
     }
 
     .floatHearts{
-      position:absolute; inset:0;
+      position:absolute;
+      inset:0;
       pointer-events:none;
     }
-    .mini{
+    .miniHeart{
       position:absolute;
-      width: 16px; height: 16px;
-      opacity:0;
-      animation: rise var(--d) ease-in-out infinite;
-      filter: drop-shadow(0 10px 18px rgba(255,111,174,.15));
+      opacity: 0;
+      animation: riseBlink var(--hdur) ease-in-out infinite;
+      transform: translate3d(0,0,0);
+      filter: drop-shadow(0 8px 16px rgba(255,111,174,.22));
     }
-    @keyframes rise{
+    @keyframes riseBlink{
       0%   { transform: translate3d(0, 120%, 0) scale(.9); opacity:0; }
-      18%  { opacity:.85; }
-      55%  { opacity:.65; }
-      70%  { opacity:.90; }
-      100% { transform: translate3d(0, -8%, 0) scale(1.06); opacity:0; }
+      18%  { opacity:.9; }
+      45%  { opacity:.65; }
+      62%  { opacity:.95; }
+      82%  { opacity:.55; }
+      100% { transform: translate3d(0, -10%, 0) scale(1.05); opacity:0; }
     }
 
+    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
-      .bear,.sp,.mini,.pop{animation:none !important}
-      button{transition:none !important}
+      .bear, .sparkle, .miniHeart, .pop{ animation: none !important; }
+      button{ transition:none !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+  <div class="sparkles" aria-hidden="true" id="sparkles"></div>
 
   <main class="wrap">
-    <section class="card" aria-label="Valentine card">
-      <div class="badge" aria-hidden="true">
+    <section class="card" role="group" aria-label="Valentine card">
+      <div class="topBadge" aria-hidden="true">
         <span class="dot"></span>
         <span>soft, cute, and brave</span>
       </div>
 
-      <div class="stage">
-        <!-- Plush bear (clean, cute proportions) -->
+      <div class="bearStage">
+        <!-- Plush bear SVG -->
         <svg class="bear" viewBox="0 0 420 420" role="img" aria-label="A cute plush bear wearing a diaper">
           <defs>
-            <linearGradient id="furA" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fff1e6"/>
-              <stop offset="1" stop-color="#efd8c4"/>
+            <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6eadc"/>
+              <stop offset="1" stop-color="#eedac6"/>
             </linearGradient>
-            <linearGradient id="furB" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#fff7f0"/>
-              <stop offset="1" stop-color="#ead0bc"/>
+            <linearGradient id="fur2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff2e7"/>
+              <stop offset="1" stop-color="#e9d2be"/>
             </linearGradient>
-            <linearGradient id="diA" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="diaper" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#ffffff"/>
-              <stop offset="1" stop-color="#ffe5f2"/>
+              <stop offset="1" stop-color="#ffe3f1"/>
             </linearGradient>
-            <radialGradient id="blush" cx="50%" cy="50%" r="50%">
+            <radialGradient id="cheek" cx="50%" cy="50%" r="50%">
               <stop offset="0" stop-color="#ff9bc8" stop-opacity=".85"/>
               <stop offset="1" stop-color="#ff9bc8" stop-opacity="0"/>
             </radialGradient>
-            <filter id="sdrop" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="rgba(77,52,64,.20)"/>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="0.25"/>
+            </filter>
+            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="rgba(90,63,76,.22)"/>
             </filter>
           </defs>
 
-          <!-- ground shadow -->
-          <ellipse cx="210" cy="350" rx="150" ry="24" fill="rgba(77,52,64,.10)"/>
+          <!-- Ground shadow -->
+          <ellipse cx="210" cy="350" rx="140" ry="26" fill="rgba(90,63,76,.10)" filter="url(#soft)"/>
 
-          <g filter="url(#sdrop)">
-            <!-- BODY (dominant, wider than head) -->
-            <path d="M108 210
-                     C92 246 98 308 132 340
-                     C170 376 250 376 288 340
-                     C322 308 328 246 312 210
-                     C295 175 255 156 210 156
-                     C165 156 125 175 108 210Z"
-                  fill="url(#furA)" stroke="rgba(120,80,92,.10)" stroke-width="2"/>
+          <!-- Body (dominant mass) -->
+          <g filter="url(#shadow)">
+            <path d="M120,215
+                     C95,250 98,312 132,342
+                     C165,372 255,372 288,342
+                     C322,312 325,250 300,215
+                     C280,185 245,168 210,168
+                     C175,168 140,185 120,215Z"
+                  fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
 
-            <!-- HEAD (slightly larger than body but narrower) -->
-            <path d="M136 128
-                     C132 78 170 50 210 50
-                     C250 50 288 78 284 128
-                     C280 176 248 202 210 202
-                     C172 202 140 176 136 128Z"
-                  fill="url(#furB)" stroke="rgba(120,80,92,.10)" stroke-width="2"/>
+            <!-- Head (slightly larger than body, but body wider than head) -->
+            <path d="M135,120
+                     C132,75 170,52 210,52
+                     C250,52 288,75 285,120
+                     C282,168 250,196 210,196
+                     C170,196 138,168 135,120Z"
+                  fill="url(#fur2)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
 
-            <!-- EARS -->
+            <!-- Ears -->
             <g>
-              <path d="M152 104
-                       C132 78 150 52 178 64
-                       C170 82 168 98 152 104Z"
-                    fill="url(#furA)" stroke="rgba(120,80,92,.10)" stroke-width="2"/>
-              <path d="M268 104
-                       C288 78 270 52 242 64
-                       C250 82 252 98 268 104Z"
-                    fill="url(#furA)" stroke="rgba(120,80,92,.10)" stroke-width="2"/>
-              <ellipse cx="168" cy="78" rx="18" ry="13" fill="rgba(255,155,200,.20)"/>
-              <ellipse cx="252" cy="78" rx="18" ry="13" fill="rgba(255,155,200,.20)"/>
+              <path d="M146,94 C130,66 150,44 176,56 C166,74 163,88 146,94Z"
+                    fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
+              <path d="M274,94 C290,66 270,44 244,56 C254,74 257,88 274,94Z"
+                    fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
+              <ellipse cx="165" cy="72" rx="18" ry="14" fill="rgba(255,155,200,.22)"/>
+              <ellipse cx="255" cy="72" rx="18" ry="14" fill="rgba(255,155,200,.22)"/>
             </g>
 
-            <!-- ARMS (quiet) -->
-            <path d="M118 234
-                     C92 256 96 286 120 296
-                     C140 304 154 288 148 270
-                     C142 252 134 238 118 234Z"
-                  fill="url(#furA)" opacity=".96"/>
-            <path d="M302 234
-                     C328 256 324 286 300 296
-                     C280 304 266 288 272 270
-                     C278 252 286 238 302 234Z"
-                  fill="url(#furA)" opacity=".96"/>
+            <!-- Arms (quieter) -->
+            <path d="M118,230 C92,252 95,280 118,292 C135,301 150,286 146,268 C143,250 135,235 118,230Z"
+                  fill="url(#fur)" opacity=".96"/>
+            <path d="M302,230 C328,252 325,280 302,292 C285,301 270,286 274,268 C277,250 285,235 302,230Z"
+                  fill="url(#fur)" opacity=".96"/>
 
-            <!-- LEGS -->
-            <path d="M158 314
-                     C136 322 126 346 140 362
-                     C158 382 198 386 210 366
-                     C220 348 200 320 158 314Z"
-                  fill="url(#furA)"/>
-            <path d="M262 314
-                     C284 322 294 346 280 362
-                     C262 382 222 386 210 366
-                     C200 348 220 320 262 314Z"
-                  fill="url(#furA)"/>
+            <!-- Legs and feet (wide and grounded) -->
+            <path d="M160,314 C140,320 130,342 142,360 C158,384 196,387 206,366 C214,350 196,320 160,314Z"
+                  fill="url(#fur)"/>
+            <path d="M260,314 C280,320 290,342 278,360 C262,384 224,387 214,366 C206,350 224,320 260,314Z"
+                  fill="url(#fur)"/>
+            <ellipse cx="176" cy="372" rx="48" ry="20" fill="rgba(255,255,255,.35)"/>
+            <ellipse cx="244" cy="372" rx="48" ry="20" fill="rgba(255,255,255,.35)"/>
 
-            <!-- FEET (wide + grounded) -->
-            <ellipse cx="172" cy="374" rx="56" ry="20" fill="rgba(255,255,255,.35)"/>
-            <ellipse cx="248" cy="374" rx="56" ry="20" fill="rgba(255,255,255,.35)"/>
+            <!-- Diaper -->
+            <path d="M145,270
+                     C150,242 182,222 210,222
+                     C238,222 270,242 275,270
+                     C279,294 262,318 240,330
+                     C226,338 194,338 180,330
+                     C158,318 141,294 145,270Z"
+                  fill="url(#diaper)" stroke="rgba(255,111,174,.35)" stroke-width="2"/>
+            <path d="M172,246 C190,258 230,258 248,246" fill="none" stroke="rgba(255,111,174,.28)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="160" cy="286" r="6" fill="rgba(255,111,174,.55)"/>
+            <circle cx="260" cy="286" r="6" fill="rgba(255,111,174,.55)"/>
 
-            <!-- DIAPER (cute, readable) -->
-            <path d="M142 268
-                     C152 238 184 218 210 218
-                     C236 218 268 238 278 268
-                     C286 292 270 320 246 334
-                     C228 344 192 344 174 334
-                     C150 320 134 292 142 268Z"
-                  fill="url(#diA)" stroke="rgba(255,111,174,.34)" stroke-width="2"/>
-            <path d="M176 246 C192 258 228 258 244 246"
-                  fill="none" stroke="rgba(255,111,174,.24)" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="160" cy="288" r="6" fill="rgba(255,111,174,.55)"/>
-            <circle cx="260" cy="288" r="6" fill="rgba(255,111,174,.55)"/>
-
-            <!-- FACE (even spacing, tiny smile, blush) -->
+            <!-- Face: simple, cute -->
             <g>
-              <circle cx="182" cy="132" r="10.5" fill="#2f2027"/>
-              <circle cx="238" cy="132" r="10.5" fill="#2f2027"/>
-              <circle cx="178" cy="128" r="3.4" fill="#ffffff" opacity=".9"/>
-              <circle cx="234" cy="128" r="3.4" fill="#ffffff" opacity=".9"/>
+              <circle cx="182" cy="126" r="10" fill="#3b2a31"/>
+              <circle cx="238" cy="126" r="10" fill="#3b2a31"/>
+              <circle cx="178" cy="122" r="3.2" fill="#ffffff" opacity=".9"/>
+              <circle cx="234" cy="122" r="3.2" fill="#ffffff" opacity=".9"/>
 
-              <path d="M210 144
-                       C203 144 198 150 198 156
-                       C198 164 205 168 210 168
-                       C215 168 222 164 222 156
-                       C222 150 217 144 210 144Z"
-                    fill="rgba(77,52,64,.92)"/>
-              <path d="M196 176 C205 184 215 184 224 176"
-                    fill="none" stroke="rgba(77,52,64,.68)" stroke-width="5" stroke-linecap="round"/>
+              <path d="M210,138
+                       C203,138 198,144 198,150
+                       C198,158 205,162 210,162
+                       C215,162 222,158 222,150
+                       C222,144 217,138 210,138Z"
+                    fill="rgba(90,63,76,.88)"/>
+              <path d="M196,168 C205,176 215,176 224,168" fill="none"
+                    stroke="rgba(90,63,76,.70)" stroke-width="5" stroke-linecap="round"/>
 
-              <ellipse cx="156" cy="156" rx="24" ry="18" fill="url(#blush)" opacity=".95"/>
-              <ellipse cx="264" cy="156" rx="24" ry="18" fill="url(#blush)" opacity=".95"/>
+              <!-- Blush -->
+              <ellipse cx="156" cy="150" rx="24" ry="18" fill="url(#cheek)" opacity=".95"/>
+              <ellipse cx="264" cy="150" rx="24" ry="18" fill="url(#cheek)" opacity=".95"/>
             </g>
 
-            <!-- tiny stitch detail -->
-            <path d="M210 202 C212 212 212 222 210 232"
-                  stroke="rgba(120,80,92,.20)" stroke-width="3" stroke-linecap="round"/>
+            <!-- Tiny stitched detail -->
+            <path d="M210,196 C212,206 212,216 210,226" stroke="rgba(150,110,120,.22)" stroke-width="3" stroke-linecap="round"/>
           </g>
         </svg>
       </div>
 
-      <p class="q">
+      <p class="question">
         <strong>Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?</strong>
       </p>
 
       <div class="btnRow" id="btnRow">
-        <button class="yes" id="yesBtn" type="button">Yes</button>
+        <button class="yes" id="yesBtn" type="button" aria-label="Yes">Yes</button>
 
-        <div class="noSlot" aria-hidden="false">
-          <div class="noWrap" id="noWrap">
-            <button class="no" id="noBtn" type="button">No</button>
-            <div class="hint" id="hint">teehee</div>
-          </div>
-        </div>
+        <span class="noWrap" id="noWrap">
+          <button class="no" id="noBtn" type="button" aria-label="No">No</button>
+          <span class="noHint" id="noHint" aria-live="polite">teehee</span>
+        </span>
       </div>
 
-      <div class="tiny" aria-hidden="true">made to feel like a tiny blind box surprise</div>
+      <div class="tinyNote" aria-hidden="true">
+        made to feel like a tiny blind box surprise
+      </div>
     </section>
   </main>
 
   <!-- Celebration overlay -->
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
-    <button class="close" id="closeBtn" type="button">Close</button>
+    <button class="close" id="closeOverlay" type="button" aria-label="Close celebration">Close</button>
 
     <div class="pop" aria-hidden="true">
+      <!-- Two hearts + cupid arrow (filled silhouettes) -->
       <svg viewBox="0 0 520 520" width="100%" height="100%">
         <defs>
-          <filter id="hShadow" x="-30%" y="-30%" width="160%" height="160%">
-            <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="rgba(77,52,64,.22)"/>
+          <filter id="hshadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="rgba(90,63,76,.22)"/>
           </filter>
-          <linearGradient id="hb" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ff7fba"/>
-            <stop offset="1" stop-color="#ff4f9a"/>
+          <linearGradient id="heartBack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff84bb"/>
+            <stop offset="1" stop-color="#ff5aa4"/>
           </linearGradient>
-          <linearGradient id="hf" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffd6ea"/>
+          <linearGradient id="heartFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd2e6"/>
             <stop offset="1" stop-color="#ff9bc8"/>
           </linearGradient>
 
-          <!-- Heart path -->
-          <path id="heart" d="
-            M260 430
-            C210 395 135 334 135 248
-            C135 192 176 154 228 154
-            C247 154 259 162 260 164
-            C261 162 273 154 292 154
-            C344 154 385 192 385 248
-            C385 334 310 395 260 430Z
+          <!-- Heart silhouette -->
+          <path id="heartShape" d="
+            M260 428
+            C210 392 136 332 136 248
+            C136 194 174 158 224 158
+            C244 158 258 166 260 168
+            C262 166 276 158 296 158
+            C346 158 384 194 384 248
+            C384 332 310 392 260 428Z
           "/>
 
-          <!-- Arrow: one unified die-cut silhouette (filled shapes only) -->
-          <path id="arrow" d="
-            M476 120
-            L452 96
-            L414 134
-            L428 148
-            L238 338
-            L252 352
-            L442 162
-            L456 176
-            L494 138
+          <!-- Single unified arrow silhouette (shaft + head + fletching) -->
+          <path id="arrowSil" d="
+            M418 126
+            L392 152
+            L404 164
+            L216 352
+            L234 370
+            L422 182
+            L434 194
+            L460 168
+            L498 130
+            L464 96
             Z
 
-            M210 366
-            L172 404
-            L156 388
-            L110 434
-            L86 410
-            L132 364
-            L116 348
-            L154 310
+            M194 374
+            L154 414
+            L158 418
+            L98 478
+            L72 452
+            L132 392
+            L136 396
+            L176 356
             Z
           "/>
 
-          <!-- Mask for hearts area (used to hide the "front" arrow inside hearts so it looks behind) -->
-          <mask id="heartMask">
+          <!-- Hide middle portion to simulate passing behind hearts -->
+          <mask id="hideMiddle">
             <rect width="520" height="520" fill="white"/>
-            <!-- black = hidden (inside hearts) -->
-            <use href="#heart" fill="black" transform="translate(-18,-10) scale(1.05)"/>
-            <use href="#heart" fill="black" transform="translate(10,12) scale(.98)"/>
+            <path d="M360 180 L180 360" stroke="black" stroke-width="86" stroke-linecap="round"/>
           </mask>
         </defs>
 
-        <!-- Arrow behind hearts (so it disappears under them) -->
-        <g filter="url(#hShadow)" opacity=".92">
-          <use href="#arrow" fill="#ff4f9a"/>
-        </g>
-
         <!-- Back heart -->
-        <g filter="url(#hShadow)" opacity=".95">
-          <use href="#heart" fill="url(#hb)" transform="translate(-18,-10) scale(1.05)"/>
+        <g filter="url(#hshadow)" opacity=".95">
+          <use href="#heartShape" fill="url(#heartBack)" transform="translate(-16,-8) scale(1.04)"/>
         </g>
 
         <!-- Front heart -->
-        <g filter="url(#hShadow)">
-          <use href="#heart" fill="url(#hf)" transform="translate(10,12) scale(.98)"/>
+        <g filter="url(#hshadow)">
+          <use href="#heartShape" fill="url(#heartFront)" transform="translate(8,10) scale(.98)"/>
         </g>
 
-        <!-- Arrow re-emerge (only outside hearts) -->
-        <g mask="url(#heartMask)" opacity=".96">
-          <use href="#arrow" fill="#ff4f9a"/>
+        <!-- Arrow: behind segment hint (filled, clear) -->
+        <g opacity=".92">
+          <path d="M420 126 L404 142 L250 296 L266 312 L420 158 Z" fill="#ff6fae"/>
+          <path d="M498 130 L464 96 L418 142 L452 176 Z" fill="#ff6fae"/>
         </g>
+
+        <!-- Full arrow silhouette with hidden middle -->
+        <g mask="url(#hideMiddle)">
+          <use href="#arrowSil" fill="#ff4f9a" opacity=".95"/>
+        </g>
+
+        <!-- Front re-emerge segment -->
+        <path d="M236 330 L150 416 L176 442 L262 356 Z" fill="#ff4f9a" opacity=".98"/>
       </svg>
 
       <div class="floatHearts" id="floatHearts" aria-hidden="true"></div>
@@ -539,143 +542,191 @@
   </div>
 
   <script>
-    (function(){
+    (function () {
       const sparkles = document.getElementById("sparkles");
-      const yesBtn = document.getElementById("yesBtn");
-      const overlay = document.getElementById("overlay");
-      const closeBtn = document.getElementById("closeBtn");
-
-      const noWrap = document.getElementById("noWrap");
-      const noBtn = document.getElementById("noBtn");
-      const hint = document.getElementById("hint");
       const btnRow = document.getElementById("btnRow");
-
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const noWrap = document.getElementById("noWrap");
+      const noHint = document.getElementById("noHint");
+      const overlay = document.getElementById("overlay");
+      const closeOverlay = document.getElementById("closeOverlay");
       const floatHearts = document.getElementById("floatHearts");
 
-      // sparkles
-      const n = 18;
-      for(let i=0;i<n;i++){
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Sparkles
+      const sparkleCount = 18;
+      for (let i = 0; i < sparkleCount; i++) {
         const s = document.createElement("div");
-        s.className = "sp";
-        const size = 7 + Math.random()*10;
-        const dur  = 3.5 + Math.random()*4.5;
-        s.style.width = size+"px";
-        s.style.height = size+"px";
-        s.style.left = (Math.random()*100)+"vw";
-        s.style.top  = (Math.random()*100)+"vh";
-        s.style.setProperty("--dur", dur+"s");
-        s.style.animationDelay = (-Math.random()*dur)+"s";
+        s.className = "sparkle";
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 7 + Math.random() * 10;
+        const dur = 3.8 + Math.random() * 4.6;
+        const delay = -Math.random() * dur;
+        s.style.left = left + "vw";
+        s.style.top = top + "vh";
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.setProperty("--dur", dur + "s");
+        s.style.animationDelay = delay + "s";
         sparkles.appendChild(s);
       }
 
-      // No button dodge (cute, not aggressive; becomes clickable)
+      // No button: playful dodge, but possible to click
       let dodges = 0;
-      let allowClick = false;
+      let allowNoClick = reduceMotion ? true : false;
 
-      function showHint(text){
-        hint.textContent = text;
-        noWrap.classList.add("show");
-        setTimeout(()=>noWrap.classList.remove("show"), 700);
+      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+      function placeNoButton(x, y) {
+        const rowRect = btnRow.getBoundingClientRect();
+        const wrapRect = noWrap.getBoundingClientRect();
+
+        const padding = 8;
+        const minX = padding;
+        const maxX = rowRect.width - wrapRect.width - padding;
+
+        const centerY = (rowRect.height - wrapRect.height) / 2;
+        const minY = centerY - 8;
+        const maxY = centerY + 8;
+
+        const nx = clamp(x, minX, maxX);
+        const ny = clamp(y, minY, maxY);
+
+        noWrap.style.left = nx + "px";
+        noWrap.style.top = ny + "px";
+        noWrap.style.transform = "none";
       }
 
-      function dodge(){
-        if(allowClick) return;
-        dodges++;
+      function dodge() {
+        if (allowNoClick) return;
 
-        if(dodges >= 7){
-          allowClick = true;
-          showHint("ok ok, you can click now");
+        dodges += 1;
+        if (dodges >= 8) {
+          allowNoClick = true;
+          noWrap.classList.add("showHint");
+          noHint.textContent = "ok ok, you can click now";
+          setTimeout(() => noWrap.classList.remove("showHint"), 1400);
           return;
         } else {
-          showHint("teehee");
+          noWrap.classList.add("showHint");
+          noHint.textContent = "teehee";
+          setTimeout(() => noWrap.classList.remove("showHint"), 650);
         }
 
-        // noWrap lives inside a 128x52 slot; move within it
-        const maxX = 18;  // small playful dodge
-        const maxY = 10;
+        const rowRect = btnRow.getBoundingClientRect();
+        const wrapRect = noWrap.getBoundingClientRect();
 
-        const x = (Math.random()*2-1)*maxX;
-        const y = (Math.random()*2-1)*maxY;
+        const centerX = rowRect.width / 2;
+        let best = null;
 
-        noWrap.style.transform = `translate(${x}px, ${y}px)`;
+        for (let i = 0; i < 7; i++) {
+          const rx = Math.random() * (rowRect.width - wrapRect.width);
+          const ry = ((Math.random() * 16) - 8) + (rowRect.height - wrapRect.height) / 2;
+          const score = Math.abs((rx + wrapRect.width / 2) - centerX) + Math.abs(ry - (rowRect.height/2)) * 3.5;
+          if (!best || score > best.score) best = { x: rx, y: ry, score };
+        }
+        placeNoButton(best.x, best.y);
       }
 
-      noBtn.addEventListener("pointerenter", (e)=>{
-        if(e.pointerType === "mouse") dodge();
+      // Desktop hover
+      noBtn.addEventListener("pointerenter", (e) => {
+        if (e.pointerType === "mouse") dodge();
       });
 
-      noBtn.addEventListener("pointerdown", (e)=>{
-        if(e.pointerType !== "mouse" && !allowClick){
-          e.preventDefault();
-          dodge();
+      // Mobile tap: dodge on press (but not forever)
+      noBtn.addEventListener("pointerdown", (e) => {
+        if (e.pointerType !== "mouse") {
+          if (!allowNoClick) {
+            e.preventDefault();
+            dodge();
+          }
         }
-      }, {passive:false});
+      }, { passive: false });
 
-      noBtn.addEventListener("click", ()=>{
-        if(!allowClick){
+      // Clicking No (when allowed) gives gentle reaction
+      noBtn.addEventListener("click", () => {
+        if (!allowNoClick) {
           dodge();
           return;
         }
-        showHint("still cute though.");
+        noWrap.classList.add("showHint");
+        noHint.textContent = "you chose no. still cute though.";
+        setTimeout(() => noWrap.classList.remove("showHint"), 1400);
       });
 
-      // celebration hearts
-      function makeMiniHeart(){
-        const el = document.createElement("div");
-        el.className = "mini";
+      // Mini hearts for celebration
+      function makeMiniHeart() {
+        const h = document.createElement("div");
+        h.className = "miniHeart";
 
-        // put them into middle + upper portions
-        const x = 8 + Math.random()*84;           // %
-        const size = 12 + Math.random()*16;
-        const dur = 2.6 + Math.random()*2.8;
-        const delay = Math.random()*1.2;
+        // Spread across scene, rise into middle+upper areas
+        const x = 6 + Math.random() * 88;     // %
+        const size = 12 + Math.random() * 16; // px
+        const dur = 2.6 + Math.random() * 2.8;
+        const delay = Math.random() * 1.2;
 
-        el.style.left = x + "%";
-        el.style.bottom = "-10%";
-        el.style.width = size + "px";
-        el.style.height = size + "px";
-        el.style.setProperty("--d", dur+"s");
-        el.style.animationDelay = delay+"s";
+        h.style.left = x + "%";
+        h.style.bottom = "-12%";
+        h.style.width = size + "px";
+        h.style.height = size + "px";
+        h.style.setProperty("--hdur", dur + "s");
+        h.style.animationDelay = delay + "s";
 
-        const fill = (Math.random()<0.5) ? "#ff6fae" : "#ffd6ea";
+        const fill = (Math.random() < 0.5) ? "#ff6fae" : "#ffd2e6";
         const svg = encodeURIComponent(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="${fill}" d="M12 21s-6.7-4.4-9.3-8C.7 9.7 2.4 6.6 5.6 6.1c1.7-.3 3.2.4 4.1 1.5.9-1.1 2.4-1.8 4.1-1.5 3.2.5 4.9 3.6 2.9 6.9-2.6 3.6-9.3 8-9.3 8z"/>
           </svg>`
         );
-        el.style.backgroundImage = `url("data:image/svg+xml,${svg}")`;
-        el.style.backgroundRepeat = "no-repeat";
-        el.style.backgroundSize = "contain";
-        return el;
+        h.style.backgroundImage = `url("data:image/svg+xml,${svg}")`;
+        h.style.backgroundRepeat = "no-repeat";
+        h.style.backgroundSize = "contain";
+        return h;
       }
 
-      function startHearts(){
+      function startHearts() {
         floatHearts.innerHTML = "";
-        for(let i=0;i<14;i++) floatHearts.appendChild(makeMiniHeart());
+        const count = 16;
+        for (let i = 0; i < count; i++) floatHearts.appendChild(makeMiniHeart());
       }
 
-      function openOverlay(){
+      function openOverlay() {
         overlay.classList.add("on");
         startHearts();
-        closeBtn.focus({preventScroll:true});
+        document.body.style.overflow = "hidden";
+        closeOverlay.focus({ preventScroll: true });
       }
 
-      function closeOverlay(){
+      function closeIt() {
         overlay.classList.remove("on");
         floatHearts.innerHTML = "";
-        yesBtn.focus({preventScroll:true});
+        document.body.style.overflow = "hidden";
+        yesBtn.focus({ preventScroll: true });
       }
 
       yesBtn.addEventListener("click", openOverlay);
-      closeBtn.addEventListener("click", closeOverlay);
+      closeOverlay.addEventListener("click", closeIt);
 
-      overlay.addEventListener("click", (e)=>{
+      overlay.addEventListener("click", (e) => {
         const pop = overlay.querySelector(".pop");
-        if(!pop.contains(e.target) && e.target !== closeBtn) closeOverlay();
+        if (!pop.contains(e.target) && e.target !== closeOverlay) closeIt();
       });
 
-      window.addEventListener("keydown", (e)=>{
-        if(e.key === "Escape" && overlay.classList.contains("on")) closeOverlay();
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("on")) closeIt();
+      });
+
+      // Initial No position (slightly right of center)
+      const rowRect = btnRow.getBoundingClientRect();
+      placeNoButton(rowRect.width * 0.62, (rowRect.height - noWrap.getBoundingClientRect().height)/2);
+
+      // Keep No inside row on resize/orientation changes
+      window.addEventListener("resize", () => {
+        const rr = btnRow.getBoundingClientRect();
+        placeNoButton(rr.width * 0.62, (rr.height - noWrap.getBoundingClientRect().height)/2);
       });
     })();
   </script>
