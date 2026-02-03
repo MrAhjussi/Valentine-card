@@ -8,20 +8,12 @@
     :root{
       --bg: #ffd6e6;
       --panel: rgba(255,255,255,0.72);
-      --panel-stroke: rgba(255,255,255,0.85);
       --ink: #3a2b33;
       --muted: rgba(58,43,51,0.62);
-
-      --pink-1:#ff7fb0;
-      --pink-2:#ff5a98;
 
       --bear: #f7d7c2;
       --bear-shadow: #f0c7ae;
       --bear-inner: #ffe9dd;
-
-      --diaper: #ffffff;
-      --diaper-stroke: rgba(255,255,255,0.9);
-      --diaper-accent: #bfe6ff;
 
       --btn-yes: #ff6ea7;
       --btn-yes-2: #ff8bb9;
@@ -87,11 +79,7 @@
       padding: 18px 14px 28px;
       z-index:1;
     }
-<!-- REMOVE ALL OF THIS -->
-<path id="arrowSil" ... />
-<path id="fletch" ... />
-<path id="head" ... />
-<clipPath id="arrowFrontClip">...</clipPath>
+
     .card{
       width:min(420px, 92vw);
       background: var(--panel);
@@ -340,43 +328,59 @@
       opacity: 0.9;
     }
 
-    /* Diaper */
-    .diaper{
+    /* Envelope (converted from diaper) */
+    .envelope{
       position:absolute;
       left:50%;
-      bottom: 44px;
+      bottom: 48px;
       transform: translateX(-50%);
-      width: 160px;
+      width: 156px;
       height: 92px;
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.88) 65%, rgba(240,248,255,0.92) 100%);
+      border-radius: 18px;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.98) 0%,
+        rgba(255,255,255,0.92) 70%,
+        rgba(245,245,245,0.96) 100%
+      );
       border: 1px solid rgba(255,255,255,0.9);
       box-shadow: 0 10px 18px rgba(58,43,51,0.08);
       z-index:4;
+      overflow:hidden;
     }
-    .diaper::before{
-      content:"";
+    .envelope-flap{
       position:absolute;
-      left: 14px;
-      right: 14px;
-      top: 18px;
-      height: 44px;
-      border-radius: 18px;
-      background: linear-gradient(90deg, rgba(191,230,255,0.0) 0%, rgba(191,230,255,0.65) 50%, rgba(191,230,255,0.0) 100%);
-      opacity: 0.85;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 60px;
+      background: linear-gradient(
+        180deg,
+        rgba(250,250,250,0.98),
+        rgba(235,235,235,0.95)
+      );
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      opacity: 0.95;
     }
-    .tape{
+    .envelope-seal{
       position:absolute;
-      top: 18px;
-      width: 30px;
-      height: 18px;
-      border-radius: 8px;
-      background: rgba(191,230,255,0.75);
-      box-shadow: 0 6px 10px rgba(58,43,51,0.06);
+      top: 42px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #ff7fb0;
+      clip-path: polygon(
+        50% 85%,
+        10% 45%,
+        30% 15%,
+        50% 30%,
+        70% 15%,
+        90% 45%
+      );
       opacity: 0.9;
     }
-    .tape.left{ left: 10px; transform: rotate(-6deg); }
-    .tape.right{ right: 10px; transform: rotate(6deg); }
 
     .buttons{
       width:100%;
@@ -385,6 +389,7 @@
       justify-content:center;
       padding: 10px 0 6px;
       position:relative;
+      align-items:center;
     }
 
     button{
@@ -414,19 +419,29 @@
       outline-offset: 3px;
     }
 
+    /* Tiny No + bigger playground */
     .no-wrap{
       position:relative;
-      width: 128px;
-      height: 46px;
+      width: 190px;
+      height: 86px;
     }
     .no{
       position:absolute;
-      inset:0;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      padding: 6px 10px;
+      min-width: 0;
+      font-size: 12px;
+      border-radius: 12px;
+
       color: var(--ink);
       background: var(--btn-no);
       border: 1px solid rgba(255,255,255,0.85);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-soft);
     }
     .no:focus-visible{
       outline: 3px solid rgba(58,43,51,0.15);
@@ -492,6 +507,7 @@
       filter: drop-shadow(0 10px 14px rgba(58,43,51,0.10));
     }
     .mini-heart svg{ width:100%; height:100%; display:block; }
+
     @keyframes miniRise{
       from{ transform: translate3d(0, 16px, 0); opacity: 0.0; }
       12%{ opacity: 0.9; }
@@ -524,7 +540,9 @@
     /* Small phones */
     @media (max-width: 360px){
       .bear{ width: 210px; height: 236px; }
-      button{ min-width: 108px; }
+      button.yes{ min-width: 108px; }
+      .no-wrap{ width: 170px; height: 78px; }
+      .no{ font-size: 11px; padding: 5px 8px; }
     }
   </style>
 </head>
@@ -554,9 +572,10 @@
             <div class="foot left"></div>
             <div class="foot right"></div>
 
-            <div class="diaper">
-              <div class="tape left"></div>
-              <div class="tape right"></div>
+            <!-- Envelope -->
+            <div class="envelope">
+              <div class="envelope-flap"></div>
+              <div class="envelope-seal"></div>
             </div>
 
             <div class="ear left"></div>
@@ -589,14 +608,13 @@
     </section>
   </main>
 
-  <!-- Celebration overlay -->
+  <!-- Celebration overlay (arrow removed) -->
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
     <div class="overlay-inner">
       <div class="hero" aria-hidden="true">
-        <!-- Hearts + Arrow: single SVG, clear silhouettes, phone-readable -->
-        <svg viewBox="0 0 520 520" width="100%" height="100%" role="img" aria-label="Two hearts with a cupid arrow">
+        <!-- Hearts only: phone-readable silhouettes -->
+        <svg viewBox="0 0 520 520" width="100%" height="100%" role="img" aria-label="Two hearts">
           <defs>
-            <!-- Soft heart shape path -->
             <path id="softHeart" d="M260 420
               C245 410, 165 360, 120 290
               C80 230, 92 165, 145 135
@@ -604,84 +622,19 @@
               C285 130, 330 110, 375 135
               C428 165, 440 230, 400 290
               C355 360, 275 410, 260 420Z" />
-
-            <!-- Arrow silhouette (unified die-cut) -->
-            <path id="arrowSil" d="
-              M410 110
-              L392 128
-              L402 138
-              L245 295
-              L260 310
-              L103 467
-              L121 485
-              L278 328
-              L293 343
-              L450 186
-              L460 196
-              L478 178
-              L454 154
-              L470 138
-              L442 110
-              Z
-              " />
-
-            <!-- Fletching (grouped fins) merged into the shaft area -->
-            <path id="fletch" d="
-              M408 112
-              L378 142
-              L362 126
-              L382 106
-              Z
-              M424 128
-              L394 158
-              L378 142
-              L408 112
-              Z
-              " />
-
-            <!-- Arrowhead -->
-            <path id="head" d="
-              M100 468
-              L68 500
-              L118 508
-              L135 491
-              Z
-              " />
-
-            <!-- Clip to show only two small arrow segments on top (re-emerge effect) -->
-            <clipPath id="arrowFrontClip">
-              <!-- segment near top-right -->
-              <rect x="340" y="80" width="170" height="140" rx="26" />
-              <!-- segment near bottom-left -->
-              <rect x="40" y="360" width="220" height="170" rx="26" />
-            </clipPath>
           </defs>
 
-          <!-- Back heart (slightly larger) -->
+          <!-- Back heart -->
           <g transform="translate(10,0) scale(1.02)">
             <use href="#softHeart" fill="#ff5a98" opacity="0.90"></use>
           </g>
 
-          <!-- Arrow behind hearts -->
-          <g opacity="0.98" transform="translate(0,0)">
-            <use href="#arrowSil" fill="#f0478f"></use>
-            <use href="#fletch" fill="#f0478f"></use>
-            <use href="#head" fill="#f0478f"></use>
-          </g>
-
-          <!-- Front heart (slightly smaller, on top) -->
+          <!-- Front heart -->
           <g transform="translate(-12,10) scale(0.965)">
             <use href="#softHeart" fill="#ff7fb0" opacity="0.96"></use>
           </g>
 
-          <!-- Arrow re-emerge segments on top (still a unified silhouette) -->
-          <g clip-path="url(#arrowFrontClip)">
-            <use href="#arrowSil" fill="#e93a82"></use>
-            <use href="#fletch" fill="#e93a82"></use>
-            <use href="#head" fill="#e93a82"></use>
-          </g>
-
-          <!-- Soft highlight on hearts for readability -->
+          <!-- Soft highlight -->
           <g opacity="0.35">
             <path d="M175 185 C165 160, 190 140, 215 155 C235 168, 245 188, 248 206"
               fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="10" stroke-linecap="round"/>
@@ -726,75 +679,69 @@
         sparkleLayer.appendChild(s);
       }
 
-      // "No" button playful dodge, but still clickable (not aggressive)
+      // Tiny No + moves around more, but still catchable
       const noWrap = document.getElementById("noWrap");
       const noBtn = document.getElementById("noBtn");
       const hint = document.getElementById("hint");
 
       let dodges = 0;
-      const maxDodges = 6; // after this, it calms down so it never feels broken
-      const pad = 4;
+      const pad = 6;
 
-      function moveNoButton(soft){
+      function placeNoRandom(){
         if (prefersReduced) return;
+
         const wrapRect = noWrap.getBoundingClientRect();
         const btnRect = noBtn.getBoundingClientRect();
 
         const maxX = Math.max(pad, wrapRect.width - btnRect.width - pad);
         const maxY = Math.max(pad, wrapRect.height - btnRect.height - pad);
 
-        // Keep movement small and cute (never flinging away)
-        const dx = soft ? rand(-10, 10) : rand(-22, 22);
-        const dy = soft ? rand(-8, 8) : rand(-16, 16);
-
-        // Current position (from transform)
-        const m = new DOMMatrixReadOnly(getComputedStyle(noBtn).transform);
-        let currentX = (m.isIdentity ? 0 : m.m41);
-        let currentY = (m.isIdentity ? 0 : m.m42);
-
-        let nextX = Math.min(maxX, Math.max(-maxX, currentX + dx));
-        let nextY = Math.min(maxY, Math.max(-maxY, currentY + dy));
+        const x = rand(pad, maxX);
+        const y = rand(pad, maxY);
 
         noBtn.style.transition = "transform 170ms ease";
-        noBtn.style.transform = `translate(${nextX}px, ${nextY}px)`;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
       }
 
-      function dodgeIfNeeded(){
-        if (dodges >= maxDodges) return;
+      function dodgeAggressively(){
         dodges++;
-        moveNoButton(false);
-        if (dodges === 3){
-          hint.textContent = "Okay okay... it’s still clickable.";
-        }
-        if (dodges === maxDodges){
-          hint.textContent = "It’ll stay put now.";
-        }
+
+        // Every 5th interaction: no dodge (keeps it technically clickable)
+        if (dodges % 5 === 0) return;
+
+        placeNoRandom();
       }
 
       // Desktop hover
       noBtn.addEventListener("pointerenter", () => {
-        if (dodges < maxDodges) dodgeIfNeeded();
+        dodgeAggressively();
       });
 
-      // Mobile tap tease: move on early touch, but allow click
-      noBtn.addEventListener("pointerdown", (e) => {
-        // If user is actually clicking (pointerdown), do a gentle move first sometimes
+      // Desktop chase
+      noWrap.addEventListener("pointermove", () => {
         if (prefersReduced) return;
-        if (dodges < maxDodges){
-          dodgeIfNeeded();
-          // Prevent accidental click on the same tap while it moves (feels intentional, not broken)
+        if (Math.random() < 0.12) dodgeAggressively();
+      });
+
+      // Mobile tap tease
+      noBtn.addEventListener("touchstart", (e) => {
+        if (prefersReduced) return;
+
+        // 75% chance to dodge on touchstart
+        if (Math.random() < 0.75){
+          dodgeAggressively();
           e.preventDefault();
         }
-      }, {passive:false});
+      }, { passive: false });
 
-      // After it calms down, clicking "No" just closes the tease
+      // Still clickable if they catch it
       noBtn.addEventListener("click", () => {
-        hint.textContent = "Noted. Still here with you.";
+        hint.textContent = "Okay. I’ll be gentle.";
         noBtn.style.filter = "brightness(0.98)";
         setTimeout(()=>{ noBtn.style.filter=""; }, 250);
       });
 
-      // Celebration overlay + floating mini hearts
+      // Celebration overlay + clustered mini hearts near big hearts
       const overlay = document.getElementById("overlay");
       const yesBtn = document.getElementById("yesBtn");
       const closeBtn = document.getElementById("closeBtn");
@@ -817,17 +764,18 @@
         clearMiniHearts();
         if (prefersReduced) return;
 
-        // Place hearts mostly in middle + upper thirds, not bottom
-        const count = 16;
+        const count = 26; // more hearts
         for(let i=0;i<count;i++){
           const h = document.createElement("div");
           h.className = "mini-heart";
           h.innerHTML = miniHeartSVG();
 
-          const x = rand(12, 88);
-          const y = rand(38, 78); // avoid clustering at bottom
-          const size = rand(14, 22);
-          const dur = rand(4.8, 6.6);
+          // Cluster around center of main hearts
+          const x = 50 + rand(-18, 18);
+          const y = 50 + rand(-22, 10);
+
+          const size = rand(12, 18); // slightly smaller, more atmosphere
+          const dur = rand(4.6, 6.4);
           const delay = rand(0, 3.2);
 
           h.style.left = x + "%";
@@ -853,7 +801,7 @@
       yesBtn.addEventListener("click", openOverlay);
       closeBtn.addEventListener("click", closeOverlay);
 
-      // Tap outside to close (gentle)
+      // Tap outside to close
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) closeOverlay();
       });
