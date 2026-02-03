@@ -1,548 +1,297 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chrissy, will you be my Valentine?</title>
-  <style>
-    :root{
-      --bg1:#ffe2ee;
-      --bg2:#fff6fb;
-      --ink:#2b2b35;
-      --muted:#6b6b7a;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chrissy 💗 Valentine</title>
 
-      --panel: rgba(255,255,255,.72);
-      --panel2: rgba(255,255,255,.58);
-      --border: rgba(0,0,0,.08);
-      --shadow: 0 18px 55px rgba(25, 10, 20, .18);
+<style>
+:root{
+  --bg1:#ffe2ee;
+  --bg2:#fff7fb;
+  --ink:#2b2b35;
+  --muted:#6b6b7a;
+  --panel:rgba(255,255,255,.78);
+  --border:rgba(0,0,0,.08);
+  --shadow:0 22px 60px rgba(30,10,20,.18);
 
-      --yes1:#ff4d87;
-      --yes2:#ff9bbd;
+  --yes1:#ff4d87;
+  --yes2:#ff9bbd;
+  --heart1:#ff2f78;
+  --heart2:#ff8fb9;
 
-      --no:#232335;
+  --fur:#fff2f7;
+  --fur2:#ffe6f1;
+  --outline:#2b2b35;
+  --cheek:#ff9fc0;
+}
 
-      --heart1:#ff2f78;
-      --heart2:#ff8fb9;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:
+    radial-gradient(1000px 700px at 20% 15%, rgba(255,77,135,.22), transparent 60%),
+    radial-gradient(900px 600px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  overflow:hidden;
+}
 
-      --radius: 26px;
+.card{
+  width:min(980px,100%);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  padding:18px;
+}
 
-      --outline:#2b2b35;
-      --fur:#fff2f7;
-      --fur2:#ffe7f0;
-      --cheek:#ff9fc0;
-      --ear:#ffd1e1;
-    }
+.grid{
+  display:grid;
+  gap:16px;
+}
+@media(min-width:900px){
+  .grid{grid-template-columns:1fr 1fr;align-items:center;}
+}
 
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--ink);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 18px;
-      background:
-        radial-gradient(1000px 700px at 20% 15%, rgba(255,77,135,.22), transparent 58%),
-        radial-gradient(900px 650px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      overflow:hidden;
-    }
+.art{
+  position:relative;
+  background:rgba(255,255,255,.6);
+  border-radius:24px;
+  padding:16px;
+  overflow:hidden;
+  min-height:380px;
+}
 
-    .wrap{
-      width:min(980px, 100%);
-      display:grid;
-      gap: 16px;
-    }
+.sparkles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle at 12% 18%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 26% 38%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 14%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 64% 18%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 22%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 20% 70%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 48% 78%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 74% 70%, #fff 0 2px, transparent 3px);
+  animation:twinkle 2.6s ease-in-out infinite;
+  opacity:.75;
+}
 
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
+@keyframes twinkle{
+  0%{opacity:.5}
+  50%{opacity:1}
+  100%{opacity:.5}
+}
 
-    .top{
-      padding: 18px 18px 10px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 12px;
-    }
+.star{
+  position:absolute;
+  color:white;
+  font-size:18px;
+  animation:star 1.8s infinite ease-in-out;
+}
+.star.s1{left:14%;top:20%}
+.star.s2{left:82%;top:18%;animation-delay:.6s}
+.star.s3{left:70%;top:76%;animation-delay:1s}
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.78);
-      border: 1px solid rgba(0,0,0,.06);
-      font-size: 12px;
-      color: var(--muted);
-      white-space:nowrap;
-    }
+@keyframes star{
+  0%{transform:scale(.8);opacity:.5}
+  50%{transform:scale(1.2);opacity:1}
+  100%{transform:scale(.8);opacity:.5}
+}
 
-    .grid{
-      display:grid;
-      gap: 16px;
-      grid-template-columns: 1fr;
-      padding: 0 18px 18px;
-      align-items:center;
-    }
-    @media (min-width: 900px){
-      .grid{ grid-template-columns: 1fr 1fr; }
-    }
+.copy{
+  text-align:center;
+  padding:10px;
+}
 
-    .artPanel{
-      background: var(--panel2);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 22px;
-      padding: 14px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      position:relative;
-      overflow:hidden;
-      min-height: 360px;
-    }
+h1{
+  margin:0;
+  font-size:20px;
+  line-height:1.3;
+}
 
-    .sparkle{
-      position:absolute;
-      inset:0;
-      opacity:.55;
-      background-image:
-        radial-gradient(circle at 15% 22%, rgba(255,255,255,.95) 0 2px, transparent 3px),
-        radial-gradient(circle at 86% 18%, rgba(255,255,255,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 74% 78%, rgba(255,255,255,.85) 0 2px, transparent 3px),
-        radial-gradient(circle at 24% 72%, rgba(255,255,255,.92) 0 2px, transparent 3px);
-      pointer-events:none;
-    }
+.sub{
+  font-size:13px;
+  color:var(--muted);
+}
 
-    .copy{
-      text-align:center;
-      display:grid;
-      gap: 10px;
-      padding: 6px 4px;
-    }
+.zone{
+  margin-top:12px;
+  background:#fff;
+  border-radius:22px;
+  height:140px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    h1{
-      margin:0;
-      font-size: 20px;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-    }
+button{
+  border:none;
+  border-radius:18px;
+  padding:14px 20px;
+  font-weight:900;
+  font-size:15px;
+  cursor:pointer;
+}
 
-    .sub{
-      margin:0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
+.yes{
+  background:linear-gradient(135deg,var(--yes1),var(--yes2));
+}
 
-    .zoneWrap{
-      display:flex;
-      justify-content:center;
-      margin-top: 8px;
-    }
+.no{
+  background:#222;
+  color:white;
+  position:absolute;
+}
 
-    .zone{
-      width:min(460px, 100%);
-      height: 140px;
-      background: rgba(255,255,255,.70);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 22px;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 14px;
-      overflow:hidden;
-    }
+.result{
+  margin-top:8px;
+  font-weight:900;
+}
 
-    button{
-      border: none;
-      border-radius: 18px;
-      padding: 14px 18px;
-      font-weight: 900;
-      cursor:pointer;
-      font-size: 15px;
-      user-select:none;
-      touch-action: manipulation;
-      transition: transform .08s ease, filter .2s ease;
-    }
-    button:active{ transform: scale(.98); }
+.burst{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
 
-    .yes{
-      background: linear-gradient(135deg, var(--yes1), var(--yes2));
-      color: #14040b;
-      box-shadow: 0 16px 30px rgba(255,77,135,.25);
-      min-width: 140px;
-    }
-    .yes:hover{ filter: brightness(1.02); }
+.bigHeart{
+  position:absolute;
+  width:180px;
+  height:180px;
+  left:50%;
+  top:55%;
+  transform:translate(-50%,-50%) scale(0);
+  opacity:0;
+}
 
-    .no{
-      background: rgba(35,35,53,.94);
-      color: #fff;
-      min-width: 140px;
-      position:absolute;
-      left: 62%;
-      top: 55%;
-      transform: translate(-50%, -50%);
-    }
+.bigHeart.two{
+  width:140px;
+  height:140px;
+  left:62%;
+  top:50%;
+}
 
-    .hint{
-      position:absolute;
-      bottom: 10px;
-      left: 0;
-      width:100%;
-      text-align:center;
-      font-size: 12px;
-      color: var(--muted);
-      opacity: .95;
-      padding: 0 10px;
-    }
+.heart{
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,var(--heart1),var(--heart2));
+  transform:rotate(45deg);
+  border-radius:22px;
+  position:relative;
+}
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:inherit;
+}
+.heart:before{left:-50%}
+.heart:after{top:-50%}
 
-    .result{
-      min-height: 22px;
-      font-size: 14px;
-      font-weight: 900;
-      margin-top: 6px;
-    }
-
-    /* Hearts */
-    .burst{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-
-    .bigHeart{
-      position:absolute;
-      left: 50%;
-      top: 58%;
-      width: 190px;
-      height: 190px;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      filter: drop-shadow(0 20px 24px rgba(255,77,135,.22));
-    }
-    .bigHeart.two{
-      width: 150px;
-      height: 150px;
-      left: 63%;
-      top: 52%;
-      filter: drop-shadow(0 20px 24px rgba(255,155,189,.20));
-    }
-
-    .heartShape{
-      width: 100%;
-      height: 100%;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 55%),
-        linear-gradient(135deg, var(--heart1), var(--heart2));
-      transform: rotate(45deg);
-      border-radius: 22px;
-      position:relative;
-    }
-    .heartShape:before,
-    .heartShape:after{
-      content:"";
-      position:absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      background: inherit;
-    }
-    .heartShape:before{ left: -50%; top: 0; }
-    .heartShape:after{ top: -50%; left: 0; }
-
-    @keyframes popIn {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      60% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(.9); opacity: 0; }
-      15% { opacity: 1; }
-      100% { transform: translateY(-240px) scale(1.12); opacity: 0; }
-    }
-
-    .floatHeart{
-      position:absolute;
-      bottom: -40px;
-      width: 22px;
-      height: 22px;
-      opacity: 0;
-    }
-    .floatHeart .heartShape{ border-radius: 8px; }
-
-    /* Bear reaction */
-    .bounce{
-      animation: bearBounce .55s ease;
-    }
-    @keyframes bearBounce{
-      0%{ transform: translateY(0) scale(1); }
-      45%{ transform: translateY(-6px) scale(1.02); }
-      100%{ transform: translateY(0) scale(1); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ animation: none !important; transition: none !important; }
-    }
-  </style>
+@keyframes pop{
+  to{transform:translate(-50%,-50%) scale(1);opacity:1}
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="top">
-        <div class="pill">🧸 Sanrio-ish plush bear</div>
-        <div class="pill">made for Chrissy</div>
-      </div>
+<div class="card">
+<div class="grid">
 
-      <div class="grid">
-        <div class="artPanel">
-          <div class="sparkle"></div>
+<div class="art">
+<div class="sparkles"></div>
+<div class="star s1">✦</div>
+<div class="star s2">✦</div>
+<div class="star s3">✦</div>
 
-          <!-- Cuter bear as inline SVG -->
-          <svg id="bear" class="" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="cute plush bear">
-            <!-- soft shadow -->
-            <ellipse cx="160" cy="278" rx="92" ry="18" fill="rgba(43,43,53,.10)"/>
+<svg id="bear" width="320" height="320" viewBox="0 0 320 320">
+<g>
+<circle cx="98" cy="92" r="44" fill="var(--fur)" stroke="var(--outline)" stroke-width="6"/>
+<circle cx="222" cy="92" r="44" fill="var(--fur)" stroke="var(--outline)" stroke-width="6"/>
 
-            <!-- body -->
-            <g>
-              <path d="M95 255c0-48 32-86 65-86s65 38 65 86c0 20-12 36-65 36s-65-16-65-36z"
-                    fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-              <ellipse cx="160" cy="252" rx="54" ry="44" fill="url(#bellyGrad)" stroke="var(--outline)" stroke-width="6"/>
-              <circle cx="132" cy="252" r="6" fill="rgba(43,43,53,.22)"/>
-              <circle cx="188" cy="252" r="6" fill="rgba(43,43,53,.22)"/>
-            </g>
+<ellipse cx="160" cy="160" rx="90" ry="100" fill="var(--fur)" stroke="var(--outline)" stroke-width="7"/>
 
-            <!-- head -->
-            <g>
-              <!-- ears -->
-              <g>
-                <circle cx="98" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
-                <circle cx="98" cy="98" r="26" fill="url(#earGrad)" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
-              </g>
-              <g>
-                <circle cx="222" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
-                <circle cx="222" cy="98" r="26" fill="url(#earGrad)" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
-              </g>
+<ellipse cx="125" cy="150" rx="18" ry="24" fill="var(--outline)"/>
+<ellipse cx="195" cy="150" rx="18" ry="24" fill="var(--outline)"/>
+<circle cx="118" cy="142" r="6" fill="white"/>
+<circle cx="188" cy="142" r="6" fill="white"/>
 
-              <path d="M70 155c0-62 42-104 90-104s90 42 90 104c0 54-40 96-90 96s-90-42-90-96z"
-                    fill="url(#furGrad)" stroke="var(--outline)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="100" cy="175" rx="18" ry="10" fill="var(--cheek)"/>
+<ellipse cx="220" cy="175" rx="18" ry="10" fill="var(--cheek)"/>
 
-              <!-- highlight -->
-              <path d="M108 84c-22 14-36 40-36 70" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="10" stroke-linecap="round"/>
+<ellipse cx="160" cy="200" rx="40" ry="30" fill="#fff3df" stroke="var(--outline)" stroke-width="6"/>
+<circle cx="160" cy="190" r="8" fill="var(--outline)"/>
 
-              <!-- eyes -->
-              <g>
-                <ellipse cx="125" cy="152" rx="16" ry="22" fill="var(--outline)"/>
-                <circle cx="120" cy="145" r="6" fill="white" opacity=".95"/>
-                <circle cx="130" cy="160" r="3" fill="white" opacity=".75"/>
-              </g>
-              <g>
-                <ellipse cx="195" cy="152" rx="16" ry="22" fill="var(--outline)"/>
-                <circle cx="190" cy="145" r="6" fill="white" opacity=".95"/>
-                <circle cx="200" cy="160" r="3" fill="white" opacity=".75"/>
-              </g>
+<path d="M150 210c8 10 12 10 20 0" stroke="var(--outline)" stroke-width="6" fill="none"/>
+<path d="M158 214c2 6 6 6 8 0c-2 8-6 10-8 0z" fill="#ff8fb9"/>
 
-              <!-- blush -->
-              <g opacity=".9">
-                <ellipse cx="98" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
-                <ellipse cx="222" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
-              </g>
+<!-- bow -->
+<g transform="translate(200 92)">
+<path d="M0 0c10-10 26-10 34 2c-8 12-24 14-34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5"/>
+<path d="M0 0c-10-10-26-10-34 2c8 12 24 14 34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5"/>
+<circle cx="0" cy="6" r="8" fill="#ffd1e1" stroke="var(--outline)" stroke-width="5"/>
+</g>
+</g>
+</svg>
 
-              <!-- muzzle -->
-              <path d="M118 205c0-28 20-48 42-48s42 20 42 48c0 26-20 42-42 42s-42-16-42-42z"
-                    fill="url(#muzzleGrad)" stroke="var(--outline)" stroke-width="6" stroke-linejoin="round"/>
+<div class="burst">
+<div class="bigHeart" id="h1"><div class="heart"></div></div>
+<div class="bigHeart two" id="h2"><div class="heart"></div></div>
+</div>
+</div>
 
-              <!-- nose -->
-              <path d="M150 186c0-8 6-14 10-14s10 6 10 14c0 8-6 12-10 12s-10-4-10-12z"
-                    fill="var(--outline)"/>
+<div class="copy">
+<h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
+<p class="sub" id="sub">No is an option. It’s just very difficult.</p>
 
-              <!-- smile -->
-              <path d="M148 206c8 12 16 12 24 0" fill="none" stroke="var(--outline)" stroke-width="6" stroke-linecap="round"/>
+<div class="zone" id="zone">
+<button class="yes" id="yes">Yes 💗</button>
+<button class="no" id="no">No</button>
+</div>
 
-              <!-- tiny stitched detail -->
-              <path d="M140 86h40" stroke="rgba(43,43,53,.35)" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 8" opacity=".8"/>
-            </g>
+<div class="result" id="result"></div>
+</div>
 
-            <defs>
-              <linearGradient id="furGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="var(--fur)"/>
-                <stop offset="1" stop-color="var(--fur2)"/>
-              </linearGradient>
-              <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#fff7fb"/>
-                <stop offset="1" stop-color="#ffe7f2"/>
-              </linearGradient>
-              <linearGradient id="earGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#ffe2ee"/>
-                <stop offset="1" stop-color="var(--ear)"/>
-              </linearGradient>
-              <linearGradient id="muzzleGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#fff3df"/>
-                <stop offset="1" stop-color="#ffe1b6"/>
-              </linearGradient>
-            </defs>
-          </svg>
+</div>
+</div>
 
-          <div class="burst" id="burst">
-            <div class="bigHeart" id="big1"><div class="heartShape"></div></div>
-            <div class="bigHeart two" id="big2"><div class="heartShape"></div></div>
-          </div>
-        </div>
+<script>
+const no=document.getElementById("no");
+const zone=document.getElementById("zone");
+const yes=document.getElementById("yes");
+const h1=document.getElementById("h1");
+const h2=document.getElementById("h2");
+const result=document.getElementById("result");
+let locked=false;
 
-        <div class="copy">
-          <h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
-          <p class="sub" id="subline">No is an option. It is just a very difficult option.</p>
+function moveNo(){
+  if(locked) return;
+  const r=zone.getBoundingClientRect();
+  no.style.left=Math.random()*(r.width-120)+"px";
+  no.style.top=Math.random()*(r.height-50)+"px";
+}
 
-          <div class="zoneWrap">
-            <div class="zone" id="zone">
-              <button class="yes" id="yesBtn">Yes 💗</button>
-              <button class="no" id="noBtn" aria-label="No">No</button>
-              <div class="hint" id="hint">Go ahead. Try “No”.</div>
-            </div>
-          </div>
+no.addEventListener("mouseenter",moveNo);
+no.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo();});
 
-          <div class="result" id="result"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const zone = document.getElementById("zone");
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const hint = document.getElementById("hint");
-    const result = document.getElementById("result");
-    const subline = document.getElementById("subline");
-    const bear = document.getElementById("bear");
-
-    const big1 = document.getElementById("big1");
-    const big2 = document.getElementById("big2");
-    const burst = document.getElementById("burst");
-
-    let yesLocked = false;
-    let noMoves = 0;
-
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-    function placeNo(x, y){
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-      noBtn.style.transform = "translate(0, 0)";
-    }
-
-    function moveNoButton(){
-      if (yesLocked) return;
-
-      const rect = zone.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const padding = 10;
-      const maxX = rect.width - btnRect.width - padding;
-      const maxY = rect.height - btnRect.height - padding;
-
-      const x = clamp(Math.random() * maxX + padding, padding, maxX);
-      const y = clamp(Math.random() * maxY + padding, padding, maxY);
-
-      placeNo(x, y);
-
-      noMoves++;
-
-      if (noMoves === 1) hint.textContent = "Nope.";
-      else if (noMoves === 2) hint.textContent = "Still nope.";
-      else if (noMoves === 3) hint.textContent = "The bear said no.";
-      else if (noMoves === 4) hint.textContent = "Try again.";
-      else if (noMoves === 6) hint.textContent = "Okay. Maybe press Yes.";
-      else if (noMoves >= 8) hint.textContent = "You know what to do.";
-
-      if (noMoves >= 5) subline.textContent = "No is an option. It is just not an achievable option.";
-    }
-
-    // Dodge on desktop
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("mouseover", moveNoButton);
-
-    // Dodge on mobile
-    noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    }, { passive: false });
-
-    // Also dodge if they get close inside the zone
-    zone.addEventListener("mousemove", (e) => {
-      if (yesLocked) return;
-      const rect = noBtn.getBoundingClientRect();
-      const dx = e.clientX - (rect.left + rect.width / 2);
-      const dy = e.clientY - (rect.top + rect.height / 2);
-      const dist = Math.hypot(dx, dy);
-      if (dist < 85) moveNoButton();
-    });
-
-    function spawnFloatingHearts(count=16){
-      for (let i = 0; i < count; i++){
-        const h = document.createElement("div");
-        h.className = "floatHeart";
-        h.style.left = (Math.random() * 100) + "%";
-        h.style.animation = `floatUp ${1200 + Math.random()*900}ms ease forwards`;
-        h.style.animationDelay = (Math.random() * 260) + "ms";
-        h.innerHTML = `<div class="heartShape"></div>`;
-        burst.appendChild(h);
-        requestAnimationFrame(() => { h.style.opacity = "1"; });
-        setTimeout(() => h.remove(), 2600);
-      }
-    }
-
-    function doYes(){
-      if (yesLocked) return;
-      yesLocked = true;
-
-      result.textContent = "Yay. You are my Valentine now. 🧸💘";
-      hint.textContent = "";
-      subline.textContent = "Correct choice.";
-
-      // bear bounce
-      bear.classList.add("bounce");
-      setTimeout(() => bear.classList.remove("bounce"), 650);
-
-      // big hearts
-      big1.style.animation = "popIn 520ms ease forwards";
-      big2.style.animation = "popIn 560ms ease forwards";
-
-      // extra hearts
-      spawnFloatingHearts(18);
-
-      // disable No
-      noBtn.disabled = true;
-      noBtn.style.opacity = ".55";
-      noBtn.style.cursor = "default";
-    }
-
-    yesBtn.addEventListener("click", doYes);
-
-    // Initial placement of No
-    (function initNo(){
-      const rect = zone.getBoundingClientRect();
-      noBtn.style.position = "absolute";
-      noBtn.style.transform = "translate(-50%, -50%)";
-      noBtn.style.left = Math.round(rect.width * 0.66) + "px";
-      noBtn.style.top = Math.round(rect.height * 0.55) + "px";
-    })();
-
-    window.addEventListener("resize", () => {
-      if (!yesLocked) moveNoButton();
-    });
-  </script>
+yes.onclick=()=>{
+  locked=true;
+  h1.style.animation="pop .5s forwards";
+  h2.style.animation="pop .6s forwards";
+  result.textContent="Yay. You’re my Valentine now 🧸💘";
+  no.style.display="none";
+};
+</script>
 </body>
 </html>
