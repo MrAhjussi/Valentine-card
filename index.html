@@ -134,7 +134,6 @@
       transform: translateY(2px);
     }
 
-    /* soft base shadow */
     .bear .floor{
       position:absolute;
       left:50%;
@@ -205,7 +204,6 @@
       background: rgba(255,233,221,0.85);
     }
 
-    /* No neck: head grows out of torso */
     .bear .head-join{
       position:absolute;
       left:50%;
@@ -215,7 +213,6 @@
       height: 44px;
       border-radius: 30px;
       background: linear-gradient(180deg, rgba(249,222,207,0.0) 0%, rgba(247,215,194,0.95) 60%, rgba(240,199,174,1) 100%);
-      filter: blur(0.1px);
       z-index:2;
     }
 
@@ -230,7 +227,7 @@
     }
     .eye{
       position:absolute;
-      top: 34px; /* slightly lower than center */
+      top: 34px;
       width: 10px;
       height: 12px;
       border-radius: 999px;
@@ -259,7 +256,7 @@
       height: 10px;
       border-bottom: 2px solid rgba(58,43,51,0.40);
       border-radius: 0 0 14px 14px;
-      opacity: 0.75; /* almost neutral */
+      opacity: 0.75;
     }
 
     .blush{
@@ -269,13 +266,11 @@
       height: 14px;
       border-radius: 999px;
       background: radial-gradient(circle, rgba(255,130,175,0.45) 0%, rgba(255,130,175,0.0) 70%);
-      filter: blur(0.2px);
       opacity: 0.9;
     }
     .blush.left{ left: 6px; }
     .blush.right{ right: 6px; }
 
-    /* Quiet limbs */
     .arm{
       position:absolute;
       top: 130px;
@@ -302,7 +297,6 @@
     .leg.left{ left: 52px; }
     .leg.right{ right: 52px; }
 
-    /* Heavy grounded feet */
     .foot{
       position:absolute;
       bottom: 8px;
@@ -328,7 +322,7 @@
       opacity: 0.9;
     }
 
-    /* Envelope (converted from diaper) */
+    /* Envelope */
     .envelope{
       position:absolute;
       left:50%;
@@ -337,12 +331,7 @@
       width: 156px;
       height: 92px;
       border-radius: 18px;
-      background: linear-gradient(
-        180deg,
-        rgba(255,255,255,0.98) 0%,
-        rgba(255,255,255,0.92) 70%,
-        rgba(245,245,245,0.96) 100%
-      );
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 70%, rgba(245,245,245,0.96) 100%);
       border: 1px solid rgba(255,255,255,0.9);
       box-shadow: 0 10px 18px rgba(58,43,51,0.08);
       z-index:4;
@@ -355,11 +344,7 @@
       transform: translateX(-50%);
       width: 130px;
       height: 60px;
-      background: linear-gradient(
-        180deg,
-        rgba(250,250,250,0.98),
-        rgba(235,235,235,0.95)
-      );
+      background: linear-gradient(180deg, rgba(250,250,250,0.98), rgba(235,235,235,0.95));
       clip-path: polygon(0 0, 50% 55%, 100% 0);
       opacity: 0.95;
     }
@@ -371,14 +356,7 @@
       width: 12px;
       height: 12px;
       background: #ff7fb0;
-      clip-path: polygon(
-        50% 85%,
-        10% 45%,
-        30% 15%,
-        50% 30%,
-        70% 15%,
-        90% 45%
-      );
+      clip-path: polygon(50% 85%, 10% 45%, 30% 15%, 50% 30%, 70% 15%, 90% 45%);
       opacity: 0.9;
     }
 
@@ -402,7 +380,6 @@
       min-width: 118px;
       box-shadow: var(--shadow-soft);
       cursor:pointer;
-      transform: translateZ(0);
       transition: transform 180ms ease, filter 180ms ease;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
@@ -422,16 +399,15 @@
     /* Tiny No + bigger playground */
     .no-wrap{
       position:relative;
-      width: 190px;
-      height: 86px;
+      width: 230px;
+      height: 110px;
     }
     .no{
       position:absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-
-      padding: 6px 10px;
+      padding: 5px 9px;
       min-width: 0;
       font-size: 12px;
       border-radius: 12px;
@@ -471,15 +447,18 @@
 
     .overlay-inner{
       width:min(520px, 92vw);
-      height: min(560px, 82vh);
+      height: min(600px, 84vh);
       border-radius: 26px;
       background: rgba(255,255,255,0.55);
       border: 1px solid rgba(255,255,255,0.85);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
-      display:grid;
-      place-items:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
       padding: 18px;
     }
 
@@ -499,30 +478,46 @@
     }
     .mini-heart{
       position:absolute;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       opacity: 0.0;
       transform: translate3d(0,0,0);
-      animation: miniRise 5.2s linear infinite, miniBlink 2.6s ease-in-out infinite;
+      animation: miniRise 4.9s linear infinite, miniBlink 2.4s ease-in-out infinite;
       filter: drop-shadow(0 10px 14px rgba(58,43,51,0.10));
     }
     .mini-heart svg{ width:100%; height:100%; display:block; }
 
     @keyframes miniRise{
-      from{ transform: translate3d(0, 16px, 0); opacity: 0.0; }
-      12%{ opacity: 0.9; }
-      to{ transform: translate3d(0, -140px, 0); opacity: 0.0; }
+      from{ transform: translate3d(0, 14px, 0); opacity: 0.0; }
+      14%{ opacity: 0.95; }
+      to{ transform: translate3d(0, -160px, 0); opacity: 0.0; }
     }
     @keyframes miniBlink{
       0%,100%{ filter: drop-shadow(0 10px 14px rgba(58,43,51,0.10)); }
       50%{ filter: drop-shadow(0 12px 16px rgba(58,43,51,0.14)); }
     }
 
+    .sweet{
+      width: min(420px, 86vw);
+      text-align:center;
+      color: rgba(58,43,51,0.78);
+      font-size: 15px;
+      line-height: 1.35;
+      padding: 10px 12px 2px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    .overlay.show .sweet{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .overlay-actions{
       width:100%;
       display:flex;
       justify-content:center;
-      margin-top: 12px;
+      margin-top: 6px;
     }
     .close{
       background: rgba(255,255,255,0.72);
@@ -531,18 +526,18 @@
       min-width: 140px;
     }
 
-    /* Motion rules */
     @media (prefers-reduced-motion: reduce){
       .sparkle, .mini-heart{ animation: none !important; opacity: 0.28; }
       button{ transition:none; }
+      .sweet{ transition:none; opacity:1; transform:none; }
     }
 
-    /* Small phones */
     @media (max-width: 360px){
       .bear{ width: 210px; height: 236px; }
       button.yes{ min-width: 108px; }
-      .no-wrap{ width: 170px; height: 78px; }
-      .no{ font-size: 11px; padding: 5px 8px; }
+      .no-wrap{ width: 210px; height: 104px; }
+      .no{ font-size: 11px; padding: 4px 8px; }
+      .sweet{ font-size: 14px; }
     }
   </style>
 </head>
@@ -560,7 +555,6 @@
         <div class="bear-stage" aria-hidden="true">
           <div class="bear">
             <div class="floor"></div>
-
             <div class="torso"></div>
 
             <div class="arm left"></div>
@@ -572,7 +566,6 @@
             <div class="foot left"></div>
             <div class="foot right"></div>
 
-            <!-- Envelope -->
             <div class="envelope">
               <div class="envelope-flap"></div>
               <div class="envelope-seal"></div>
@@ -608,11 +601,9 @@
     </section>
   </main>
 
-  <!-- Celebration overlay (arrow removed) -->
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
     <div class="overlay-inner">
       <div class="hero" aria-hidden="true">
-        <!-- Hearts only: phone-readable silhouettes -->
         <svg viewBox="0 0 520 520" width="100%" height="100%" role="img" aria-label="Two hearts">
           <defs>
             <path id="softHeart" d="M260 420
@@ -624,17 +615,14 @@
               C355 360, 275 410, 260 420Z" />
           </defs>
 
-          <!-- Back heart -->
           <g transform="translate(10,0) scale(1.02)">
             <use href="#softHeart" fill="#ff5a98" opacity="0.90"></use>
           </g>
 
-          <!-- Front heart -->
           <g transform="translate(-12,10) scale(0.965)">
             <use href="#softHeart" fill="#ff7fb0" opacity="0.96"></use>
           </g>
 
-          <!-- Soft highlight -->
           <g opacity="0.35">
             <path d="M175 185 C165 160, 190 140, 215 155 C235 168, 245 188, 248 206"
               fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="10" stroke-linecap="round"/>
@@ -644,6 +632,10 @@
         </svg>
 
         <div class="float-hearts" id="miniHearts" aria-hidden="true"></div>
+      </div>
+
+      <div class="sweet" id="sweetLine">
+        Chrissy, you’re my favorite place to be. Thank you for choosing me.
       </div>
 
       <div class="overlay-actions">
@@ -656,36 +648,40 @@
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // Sparkles (always visible, gentle)
-      const sparkleLayer = document.getElementById("sparkles");
-      const sparkleCount = 26;
-
       function rand(min, max){ return Math.random() * (max - min) + min; }
 
+      // Sparkles
+      const sparkleLayer = document.getElementById("sparkles");
+      const sparkleCount = 26;
       for(let i=0;i<sparkleCount;i++){
         const s = document.createElement("div");
         s.className = "sparkle";
-        const x = rand(0, 100);
-        const y = rand(0, 100);
+        s.style.left = rand(0, 100) + "vw";
+        s.style.top = rand(0, 100) + "vh";
         const size = rand(5.5, 9.5);
-        const dur = rand(6.2, 10.5);
-        const delay = rand(0, 6.0);
-        s.style.left = x + "vw";
-        s.style.top = y + "vh";
         s.style.width = size + "px";
         s.style.height = size + "px";
-        s.style.animationDuration = dur + "s, " + rand(2.1, 3.8) + "s";
-        s.style.animationDelay = (-delay) + "s, " + (-rand(0, 2.2)) + "s";
+        s.style.animationDuration = rand(6.2, 10.5) + "s, " + rand(2.1, 3.8) + "s";
+        s.style.animationDelay = (-rand(0, 6.0)) + "s, " + (-rand(0, 2.2)) + "s";
         sparkleLayer.appendChild(s);
       }
 
-      // Tiny No + moves around more, but still catchable
+      // NO button: jumps around more (more often + bigger moves), but still catchable
       const noWrap = document.getElementById("noWrap");
       const noBtn = document.getElementById("noBtn");
       const hint = document.getElementById("hint");
 
-      let dodges = 0;
+      let dodgeCount = 0;
+      let chaseTimer = null;
+      let clickWindowUntil = 0;
       const pad = 6;
+
+      function allowClickWindow(ms){
+        clickWindowUntil = Date.now() + ms;
+      }
+      function isClickWindow(){
+        return Date.now() < clickWindowUntil;
+      }
 
       function placeNoRandom(){
         if (prefersReduced) return;
@@ -699,53 +695,81 @@
         const x = rand(pad, maxX);
         const y = rand(pad, maxY);
 
-        noBtn.style.transition = "transform 170ms ease";
+        // Faster + "jumpier" feel
+        noBtn.style.transition = "transform 120ms ease";
         noBtn.style.transform = `translate(${x}px, ${y}px)`;
       }
 
-      function dodgeAggressively(){
-        dodges++;
+      function dodge(){
+        dodgeCount++;
 
-        // Every 5th interaction: no dodge (keeps it technically clickable)
-        if (dodges % 5 === 0) return;
+        // Every 7th dodge: give a short click window (so it's always possible)
+        if (dodgeCount % 7 === 0){
+          allowClickWindow(800);
+          hint.textContent = "Okay okay... now’s your chance.";
+          return;
+        }
 
+        // Otherwise: jump
         placeNoRandom();
       }
 
-      // Desktop hover
+      // Desktop hover: immediate dodge
       noBtn.addEventListener("pointerenter", () => {
-        dodgeAggressively();
+        dodge();
       });
 
-      // Desktop chase
+      // Desktop chase: move more frequently while cursor is inside wrapper
+      noWrap.addEventListener("pointerenter", () => {
+        if (prefersReduced) return;
+        if (chaseTimer) clearInterval(chaseTimer);
+        chaseTimer = setInterval(() => {
+          // Frequent movement while chased
+          if (!isClickWindow()) placeNoRandom();
+        }, 260);
+      });
+      noWrap.addEventListener("pointerleave", () => {
+        if (chaseTimer) clearInterval(chaseTimer);
+        chaseTimer = null;
+        hint.textContent = "The “No” is shy. You can still catch it.";
+      });
+
+      // Also dodge on pointer move sometimes (adds extra randomness)
       noWrap.addEventListener("pointermove", () => {
         if (prefersReduced) return;
-        if (Math.random() < 0.12) dodgeAggressively();
+        if (isClickWindow()) return;
+        if (Math.random() < 0.30) dodge();
       });
 
-      // Mobile tap tease
+      // Mobile: dodge on touchstart most of the time
       noBtn.addEventListener("touchstart", (e) => {
         if (prefersReduced) return;
 
-        // 75% chance to dodge on touchstart
-        if (Math.random() < 0.75){
-          dodgeAggressively();
+        if (isClickWindow()){
+          // Let them click during the window
+          return;
+        }
+
+        // 88% chance to dodge on touch
+        if (Math.random() < 0.88){
+          dodge();
           e.preventDefault();
         }
       }, { passive: false });
 
       // Still clickable if they catch it
       noBtn.addEventListener("click", () => {
-        hint.textContent = "Okay. I’ll be gentle.";
+        hint.textContent = "Noted. I’m still here with you.";
         noBtn.style.filter = "brightness(0.98)";
         setTimeout(()=>{ noBtn.style.filter=""; }, 250);
       });
 
-      // Celebration overlay + clustered mini hearts near big hearts
+      // Celebration overlay + MORE clustered mini hearts near big hearts
       const overlay = document.getElementById("overlay");
       const yesBtn = document.getElementById("yesBtn");
       const closeBtn = document.getElementById("closeBtn");
       const miniHearts = document.getElementById("miniHearts");
+      const sweetLine = document.getElementById("sweetLine");
 
       function miniHeartSVG(){
         return `
@@ -764,25 +788,27 @@
         clearMiniHearts();
         if (prefersReduced) return;
 
-        const count = 26; // more hearts
+        // More hearts for richer atmosphere
+        const count = 56;
+
         for(let i=0;i<count;i++){
           const h = document.createElement("div");
           h.className = "mini-heart";
           h.innerHTML = miniHeartSVG();
 
-          // Cluster around center of main hearts
-          const x = 50 + rand(-18, 18);
-          const y = 50 + rand(-22, 10);
+          // Tight cluster around the main hearts, biased upward
+          const x = 50 + rand(-22, 22);
+          const y = 50 + rand(-30, 14);
 
-          const size = rand(12, 18); // slightly smaller, more atmosphere
-          const dur = rand(4.6, 6.4);
-          const delay = rand(0, 3.2);
+          const size = rand(10, 18);
+          const dur = rand(4.2, 6.2);
+          const delay = rand(0, 3.4);
 
           h.style.left = x + "%";
           h.style.top = y + "%";
           h.style.width = size + "px";
           h.style.height = size + "px";
-          h.style.animationDuration = dur + "s, " + rand(2.2, 3.6) + "s";
+          h.style.animationDuration = dur + "s, " + rand(2.0, 3.2) + "s";
           h.style.animationDelay = (-delay) + "s, " + (-rand(0, 2.0)) + "s";
 
           miniHearts.appendChild(h);
@@ -792,7 +818,11 @@
       function openOverlay(){
         overlay.classList.add("show");
         spawnMiniHearts();
+
+        // Sweet line can be swapped easily later
+        sweetLine.textContent = "Chrissy, you’re my favorite place to be. Thank you for choosing me.";
       }
+
       function closeOverlay(){
         overlay.classList.remove("show");
         clearMiniHearts();
@@ -801,12 +831,10 @@
       yesBtn.addEventListener("click", openOverlay);
       closeBtn.addEventListener("click", closeOverlay);
 
-      // Tap outside to close
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) closeOverlay();
       });
 
-      // Escape to close
       window.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && overlay.classList.contains("show")) closeOverlay();
       });
