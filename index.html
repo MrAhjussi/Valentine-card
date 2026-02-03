@@ -9,9 +9,10 @@
 :root{
   --bg1:#fff0f6;
   --bg2:#ffe3ee;
-  --card:rgba(255,255,255,.85);
+  --card:rgba(255,255,255,.86);
   --text:#6b3a52;
   --pink:#ff7fb5;
+  --pinkSoft:#ffd1e6;
 }
 
 *{box-sizing:border-box}
@@ -29,6 +30,7 @@ body{
   position:fixed;
   inset:0;
   pointer-events:none;
+  z-index:0;
 }
 .sparkle{
   position:absolute;
@@ -44,7 +46,10 @@ body{
   100%{transform:translateY(-120vh);opacity:0}
 }
 
+/* Layout */
 .wrap{
+  position:relative;
+  z-index:1;
   height:100%;
   display:flex;
   align-items:center;
@@ -65,7 +70,7 @@ body{
 /* Bear */
 .bear{
   width:260px;
-  margin:0 auto 8px;
+  margin:0 auto 6px;
 }
 
 /* Text */
@@ -161,7 +166,7 @@ button{
 @keyframes heartRise{
   0%{transform:translateY(40px) scale(.9);opacity:0}
   15%{opacity:.9}
-  100%{transform:translateY(-320px) scale(1.2);opacity:0}
+  100%{transform:translateY(-420px) scale(1.2);opacity:0}
 }
 @keyframes heartBlink{
   0%,100%{opacity:.7}
@@ -177,7 +182,7 @@ button{
 <div class="wrap">
   <div class="card">
 
-<!-- Bear SVG -->
+<!-- Bear SVG (simplified, corrected proportions) -->
 <svg class="bear" viewBox="0 0 360 420">
   <defs>
     <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
@@ -190,37 +195,38 @@ button{
     </linearGradient>
   </defs>
 
-  <!-- Body -->
-  <ellipse cx="180" cy="300" rx="120" ry="110" fill="url(#fur)"/>
-  <!-- Head (nested) -->
-  <ellipse cx="180" cy="170" rx="110" ry="100" fill="url(#fur)"/>
-  <ellipse cx="180" cy="190" rx="85" ry="75" fill="url(#face)"/>
+  <!-- Torso (dominant mass) -->
+  <ellipse cx="180" cy="300" rx="140" ry="120" fill="url(#fur)"/>
+
+  <!-- Head (slightly smaller, nested) -->
+  <ellipse cx="180" cy="180" rx="115" ry="100" fill="url(#fur)"/>
+  <ellipse cx="180" cy="200" rx="85" ry="75" fill="url(#face)"/>
 
   <!-- Ears -->
-  <ellipse cx="95" cy="95" rx="40" ry="38" fill="url(#fur)"/>
-  <ellipse cx="265" cy="95" rx="40" ry="38" fill="url(#fur)"/>
+  <ellipse cx="95" cy="105" rx="40" ry="38" fill="url(#fur)"/>
+  <ellipse cx="265" cy="105" rx="40" ry="38" fill="url(#fur)"/>
 
-  <!-- Arms -->
-  <ellipse cx="80" cy="300" rx="38" ry="52" fill="url(#fur)"/>
-  <ellipse cx="280" cy="300" rx="38" ry="52" fill="url(#fur)"/>
+  <!-- Arms (quieter) -->
+  <ellipse cx="70" cy="300" rx="32" ry="50" fill="url(#fur)"/>
+  <ellipse cx="290" cy="300" rx="32" ry="50" fill="url(#fur)"/>
 
-  <!-- Feet -->
-  <ellipse cx="120" cy="395" rx="50" ry="30" fill="url(#fur)"/>
-  <ellipse cx="240" cy="395" rx="50" ry="30" fill="url(#fur)"/>
+  <!-- Feet (wide + grounded) -->
+  <ellipse cx="120" cy="405" rx="60" ry="28" fill="url(#fur)"/>
+  <ellipse cx="240" cy="405" rx="60" ry="28" fill="url(#fur)"/>
 
   <!-- Face -->
-  <circle cx="150" cy="185" r="6" fill="#4b2b1f"/>
-  <circle cx="210" cy="185" r="6" fill="#4b2b1f"/>
-  <ellipse cx="180" cy="200" rx="8" ry="6" fill="#9b6a4a"/>
-  <path d="M170 215 C180 222 190 222 200 215" stroke="#7a4a3a" stroke-width="3" fill="none"/>
-  <ellipse cx="135" cy="205" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
-  <ellipse cx="225" cy="205" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
+  <circle cx="150" cy="195" r="6" fill="#4b2b1f"/>
+  <circle cx="210" cy="195" r="6" fill="#4b2b1f"/>
+  <ellipse cx="180" cy="210" rx="8" ry="6" fill="#9b6a4a"/>
+  <path d="M170 225 C180 232 190 232 200 225"
+        stroke="#7a4a3a" stroke-width="3" fill="none"/>
+  <ellipse cx="135" cy="215" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
+  <ellipse cx="225" cy="215" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
 
   <!-- Diaper -->
-  <ellipse cx="180" cy="320" rx="85" ry="55" fill="#fff"/>
-  <path d="M140 300 Q180 280 220 300" stroke="#ffd1e6" stroke-width="8" fill="none"/>
-  <path d="M180 325 C180 325 168 318 164 312 C160 306 165 300 172 300 C176 300 178 303 180 306 C182 303 184 300 188 300 C195 300 200 306 196 312 C192 318 180 325 180 325Z"
-        fill="#ff8fbf" opacity=".6"/>
+  <ellipse cx="180" cy="320" rx="90" ry="55" fill="#fff"/>
+  <path d="M140 300 Q180 280 220 300"
+        stroke="#ffd1e6" stroke-width="8" fill="none"/>
 </svg>
 
 <p class="question">
@@ -243,18 +249,34 @@ Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?
 
     <!-- Arrow + Hearts -->
     <svg viewBox="0 0 900 900" width="100%" height="100%">
-      <!-- Arrow (die-cut style, behind hearts) -->
-      <g opacity=".95">
-        <rect x="200" y="430" width="520" height="10" fill="#e38ab7" transform="rotate(-45 200 430)"/>
-        <polygon points="185,455 235,435 235,475" fill="#e38ab7"/>
-        <polygon points="735,225 775,185 765,175 725,215" fill="#e38ab7"/>
-        <polygon points="720,240 760,200 750,190 710,230" fill="#e38ab7"/>
+      <!-- Arrow (single silhouette, behind hearts) -->
+      <g fill="#e38ab7">
+        <!-- shaft -->
+        <rect x="200" y="445" width="520" height="14"
+              transform="rotate(-45 200 445)"/>
+        <!-- arrowhead -->
+        <polygon points="190,470 260,445 260,495"/>
+        <!-- fletching -->
+        <polygon points="740,190 780,150 770,140 730,180"/>
+        <polygon points="720,210 760,170 750,160 710,200"/>
       </g>
 
-      <!-- Hearts -->
-      <path d="M450 740 C450 740 160 560 160 360 C160 240 260 170 360 200 C420 220 450 265 450 265 C450 265 480 220 540 200 C640 170 740 240 740 360 C740 560 450 740 450 740Z"
+      <!-- Back heart -->
+      <path d="M450 740 C450 740 160 560 160 360
+               C160 240 260 170 360 200
+               C420 220 450 265 450 265
+               C450 265 480 220 540 200
+               C640 170 740 240 740 360
+               C740 560 450 740 450 740Z"
             fill="#ff7fb5" opacity=".85"/>
-      <path d="M490 705 C490 705 250 560 250 400 C250 300 340 250 415 270 C460 285 490 320 490 320 C490 320 520 285 565 270 C640 250 720 300 720 400 C720 560 490 705 490 705Z"
+
+      <!-- Front heart -->
+      <path d="M490 705 C490 705 250 560 250 400
+               C250 300 340 250 415 270
+               C460 285 490 320 490 320
+               C490 320 520 285 565 270
+               C640 250 720 300 720 400
+               C720 560 490 705 490 705Z"
             fill="#ffd1e6" opacity=".95"/>
     </svg>
 
@@ -265,7 +287,7 @@ Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?
 <script>
 // Sparkles
 const sp=document.getElementById("sparkles");
-for(let i=0;i<30;i++){
+for(let i=0;i<28;i++){
   const s=document.createElement("div");
   s.className="sparkle";
   s.style.left=Math.random()*100+"vw";
@@ -303,7 +325,7 @@ function spawnHearts(){
     const h=document.createElement("div");
     h.className="miniHeart";
     h.style.left=(10+Math.random()*80)+"%";
-    h.style.bottom=(120+Math.random()*160)+"px";
+    h.style.bottom=(160+Math.random()*220)+"px";
     h.style.animationDuration=(4+Math.random()*3)+"s,"+(1+Math.random()*1.5)+"s";
     h.innerHTML=`<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-8.5C1.5 9 3 6 6 5.5c2-.4 3.6.6 4.6 2 1-1.4 2.6-2.4 4.6-2 3 .5 4.5 3.5 3 7C19 16.5 12 21 12 21Z" fill="#ff9bc8"/></svg>`;
     f.appendChild(h);
