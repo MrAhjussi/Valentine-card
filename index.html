@@ -1,337 +1,735 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Valentine</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Valentine Card</title>
+  <style>
+    :root{
+      --bg1:#ffe6f1;
+      --bg2:#ffd6e8;
+      --ink:#5a3f4c;
+      --soft-ink:#7a5a68;
+      --card:#fff7fb;
+      --card2:#ffeef7;
+      --accent:#ff6fae;
+      --accent2:#ff9bc8;
+      --shadow: 0 18px 45px rgba(90,63,76,.18);
+      --shadow2: 0 10px 25px rgba(90,63,76,.12);
+      --radius: 28px;
+    }
 
-<style>
-:root{
-  --bg1:#fff0f6;
-  --bg2:#ffe3ee;
-  --card:rgba(255,255,255,.86);
-  --text:#6b3a52;
-  --pink:#ff7fb5;
-  --pinkSoft:#ffd1e6;
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, "SF Pro Rounded", "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.55), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,.45), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: system-ui,-apple-system,BlinkMacSystemFont;
-  background:radial-gradient(1200px 700px at 20% 10%,var(--bg1),var(--bg2));
-  overflow:hidden;
-  color:var(--text);
-}
+    /* Gentle floating sparkles */
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      filter: saturate(1.05);
+    }
+    .sparkle{
+      position:absolute;
+      width:10px; height:10px;
+      opacity:.55;
+      transform: translate3d(0,0,0) rotate(0deg);
+      animation: floatUp var(--dur) ease-in-out infinite;
+    }
+    .sparkle::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 40% 35%, rgba(255,255,255,.95), rgba(255,255,255,.25) 55%, rgba(255,255,255,0) 70%);
+      border-radius: 999px;
+    }
+    .sparkle::after{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 190, 220, .65), rgba(255, 190, 220, 0) 62%);
+      border-radius: 999px;
+      opacity:.55;
+    }
+    @keyframes floatUp{
+      0%   { transform: translate3d(0, 20px, 0) scale(.9); opacity:.25; }
+      40%  { opacity:.6; }
+      60%  { opacity:.5; }
+      100% { transform: translate3d(0, -120px, 0) scale(1.05); opacity:.15; }
+    }
 
-/* Sparkles */
-.sparkles{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-.sparkle{
-  position:absolute;
-  width:8px;height:8px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.9),transparent 70%);
-  animation:floatSparkle linear infinite;
-  opacity:0;
-}
-@keyframes floatSparkle{
-  0%{transform:translateY(40px);opacity:0}
-  20%{opacity:.7}
-  100%{transform:translateY(-120vh);opacity:0}
-}
+    /* Layout */
+    .wrap{
+      position:relative;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 22px 16px calc(22px + env(safe-area-inset-bottom));
+    }
 
-/* Layout */
-.wrap{
-  position:relative;
-  z-index:1;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+    .card{
+      width:min(420px, 92vw);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.75);
+      padding: 18px 18px 16px;
+      position:relative;
+    }
 
-.card{
-  width:min(430px,92vw);
-  background:var(--card);
-  backdrop-filter:blur(10px);
-  border-radius:28px;
-  box-shadow:0 20px 60px rgba(110,45,75,.2);
-  padding:22px 18px 18px;
-  text-align:center;
-}
+    .topBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.75);
+      box-shadow: var(--shadow2);
+      border: 1px solid rgba(255, 170, 210, .35);
+      font-size: 12.5px;
+      color: var(--soft-ink);
+      user-select:none;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: radial-gradient(circle at 35% 30%, #fff, var(--accent));
+      box-shadow: 0 6px 18px rgba(255,111,174,.35);
+    }
 
-/* Bear */
-.bear{
-  width:260px;
-  margin:0 auto 6px;
-}
+    .bearStage{
+      margin-top: 14px;
+      background: rgba(255,255,255,.6);
+      border: 1px solid rgba(255, 170, 210, .28);
+      border-radius: 22px;
+      padding: 14px;
+      display:flex;
+      justify-content:center;
+      box-shadow: 0 12px 35px rgba(90,63,76,.10);
+      position:relative;
+      overflow:hidden;
+    }
 
-/* Text */
-.question{
-  font-size:18px;
-  line-height:1.35;
-  margin:6px 10px 14px;
-}
+    .bearStage::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(160px 120px at 30% 30%, rgba(255, 214, 232, .55), transparent 62%),
+        radial-gradient(180px 140px at 70% 35%, rgba(255, 230, 241, .55), transparent 60%),
+        radial-gradient(220px 160px at 45% 75%, rgba(255, 255, 255, .55), transparent 65%);
+      filter: blur(0px);
+      opacity:.9;
+    }
 
-/* Buttons */
-.stage{
-  position:relative;
-  height:96px;
-}
+    .bear{
+      width:min(300px, 78vw);
+      aspect-ratio: 1 / 1;
+      position:relative;
+      z-index:1;
+      animation: bob 3.8s ease-in-out infinite;
+      transform-origin: 50% 70%;
+    }
+    @keyframes bob{
+      0% { transform: translateY(0px); }
+      50%{ transform: translateY(-6px); }
+      100%{ transform: translateY(0px); }
+    }
 
-button{
-  border:0;
-  border-radius:18px;
-  padding:14px 24px;
-  font:inherit;
-  font-weight:800;
-  box-shadow:0 12px 30px rgba(110,45,75,.18);
-}
+    .question{
+      margin: 14px 6px 10px;
+      text-align:center;
+      font-size: 15.5px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .question strong{ color: #4b3440; }
 
-#yes{
-  position:absolute;
-  left:14px;
-  bottom:10px;
-  background:linear-gradient(#ffb3d3,#ff7fb5);
-  color:white;
-}
+    .btnRow{
+      margin-top: 10px;
+      display:flex;
+      gap: 10px;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      padding-bottom: 6px;
+      min-height: 56px;
+    }
 
-#no{
-  position:absolute;
-  right:14px;
-  top:10px;
-  background:linear-gradient(#fff,#ffe0ee);
-  color:#7a3a59;
-}
+    button{
+      appearance:none;
+      border:0;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-weight: 650;
+      letter-spacing: .2px;
+      font-size: 15px;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      user-select:none;
+      touch-action: manipulation;
+    }
+    button:active{ transform: translateY(1px) scale(.99); filter: brightness(.98); }
+    button:focus{ outline: none; }
+    button:focus-visible{
+      outline: 3px solid rgba(255,111,174,.35);
+      outline-offset: 3px;
+    }
 
-.hint{
-  font-size:12px;
-  opacity:.6;
-}
+    .yes{
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255, 230, 241, .92));
+      border: 1px solid rgba(255,111,174,.35);
+      color: #513641;
+      min-width: 122px;
+    }
+    .yes:hover{ transform: translateY(-1px); }
 
-/* Overlay */
-.overlay{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:radial-gradient(1200px 900px at 50% 30%,rgba(255,255,255,.65),rgba(255,214,230,.9));
-  backdrop-filter:blur(6px);
-  z-index:10;
-}
+    .no{
+      position:relative;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255, 240, 248, .92));
+      border: 1px solid rgba(255,155,200,.28);
+      color: #7a5a68;
+      min-width: 122px;
+    }
+    .noHint{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: -28px;
+      font-size: 12px;
+      color: rgba(90,63,76,.62);
+      white-space:nowrap;
+      user-select:none;
+      opacity:0;
+      transition: opacity .18s ease;
+    }
+    .noWrap{
+      position:relative;
+      display:inline-block;
+    }
+    .noWrap.showHint .noHint{ opacity:1; }
 
-.overlay.show{display:flex}
+    /* Celebration overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 20px;
+      background: rgba(255, 214, 232, .35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 50;
+      overflow:hidden;
+    }
+    .overlay.on{ display:flex; }
 
-.celebrate{
-  width:min(560px,94vw);
-  aspect-ratio:1/1;
-  background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.5));
-  border-radius:34px;
-  box-shadow:0 24px 80px rgba(110,45,75,.25);
-  position:relative;
-  overflow:hidden;
-}
+    .pop{
+      width:min(520px, 92vw);
+      aspect-ratio: 1 / 1;
+      position:relative;
+      animation: popIn .22s ease-out both;
+    }
+    @keyframes popIn{
+      from{ transform: scale(.92); opacity:0; }
+      to{ transform: scale(1); opacity:1; }
+    }
 
-.close{
-  position:absolute;
-  top:14px;
-  right:14px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:white;
-  font-weight:700;
-}
+    .close{
+      position:fixed;
+      top: calc(16px + env(safe-area-inset-top));
+      right: 16px;
+      z-index: 60;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,111,174,.25);
+      color: #5a3f4c;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+    }
 
-/* Mini hearts */
-.heartField{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:5;
-}
-.miniHeart{
-  position:absolute;
-  width:14px;
-  height:14px;
-  animation:heartRise linear infinite,heartBlink ease-in-out infinite;
-}
-@keyframes heartRise{
-  0%{transform:translateY(40px) scale(.9);opacity:0}
-  15%{opacity:.9}
-  100%{transform:translateY(-420px) scale(1.2);opacity:0}
-}
-@keyframes heartBlink{
-  0%,100%{opacity:.7}
-  50%{opacity:1}
-}
-</style>
+    .floatHearts{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .miniHeart{
+      position:absolute;
+      width: 16px;
+      height: 16px;
+      opacity: .0;
+      animation: riseBlink var(--hdur) ease-in-out infinite;
+      transform: translate3d(0,0,0);
+      filter: drop-shadow(0 8px 16px rgba(255,111,174,.22));
+    }
+    @keyframes riseBlink{
+      0%   { transform: translate3d(0, 120%, 0) scale(.9); opacity:0; }
+      20%  { opacity:.85; }
+      45%  { opacity:.65; }
+      60%  { opacity:.9; }
+      80%  { opacity:.55; }
+      100% { transform: translate3d(0, -10%, 0) scale(1.05); opacity:0; }
+    }
+
+    .tinyNote{
+      margin-top: 10px;
+      text-align:center;
+      font-size: 12.5px;
+      color: rgba(90,63,76,.62);
+      user-select:none;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .bear, .sparkle, .miniHeart, .pop{ animation: none !important; }
+      button{ transition:none !important; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="sparkles" aria-hidden="true" id="sparkles"></div>
 
-<div class="sparkles" id="sparkles"></div>
+  <main class="wrap">
+    <section class="card" role="group" aria-label="Valentine card">
+      <div class="topBadge" aria-hidden="true">
+        <span class="dot"></span>
+        <span>soft, cute, and brave</span>
+      </div>
 
-<div class="wrap">
-  <div class="card">
+      <div class="bearStage">
+        <!-- Plush bear SVG -->
+        <svg class="bear" viewBox="0 0 420 420" role="img" aria-label="A cute plush bear wearing a diaper">
+          <defs>
+            <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6eadc"/>
+              <stop offset="1" stop-color="#eedac6"/>
+            </linearGradient>
+            <linearGradient id="fur2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff2e7"/>
+              <stop offset="1" stop-color="#e9d2be"/>
+            </linearGradient>
+            <linearGradient id="diaper" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#ffe3f1"/>
+            </linearGradient>
+            <radialGradient id="cheek" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ff9bc8" stop-opacity=".85"/>
+              <stop offset="1" stop-color="#ff9bc8" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="0.25"/>
+            </filter>
+            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="rgba(90,63,76,.22)"/>
+            </filter>
+          </defs>
 
-<!-- Bear SVG (simplified, corrected proportions) -->
-<svg class="bear" viewBox="0 0 360 420">
-  <defs>
-    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f6e7d8"/>
-      <stop offset="1" stop-color="#e7cfb7"/>
-    </linearGradient>
-    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff2e6"/>
-      <stop offset="1" stop-color="#f5dfcc"/>
-    </linearGradient>
-  </defs>
+          <!-- Ground shadow -->
+          <ellipse cx="210" cy="350" rx="140" ry="26" fill="rgba(90,63,76,.10)" filter="url(#soft)"/>
 
-  <!-- Torso (dominant mass) -->
-  <ellipse cx="180" cy="300" rx="140" ry="120" fill="url(#fur)"/>
+          <!-- Body (dominant mass) -->
+          <g filter="url(#shadow)">
+            <path d="M120,215
+                     C95,250 98,312 132,342
+                     C165,372 255,372 288,342
+                     C322,312 325,250 300,215
+                     C280,185 245,168 210,168
+                     C175,168 140,185 120,215Z"
+                  fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
 
-  <!-- Head (slightly smaller, nested) -->
-  <ellipse cx="180" cy="180" rx="115" ry="100" fill="url(#fur)"/>
-  <ellipse cx="180" cy="200" rx="85" ry="75" fill="url(#face)"/>
+            <!-- Head (slightly larger than body, but body wider than head) -->
+            <path d="M135,120
+                     C132,75 170,52 210,52
+                     C250,52 288,75 285,120
+                     C282,168 250,196 210,196
+                     C170,196 138,168 135,120Z"
+                  fill="url(#fur2)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
 
-  <!-- Ears -->
-  <ellipse cx="95" cy="105" rx="40" ry="38" fill="url(#fur)"/>
-  <ellipse cx="265" cy="105" rx="40" ry="38" fill="url(#fur)"/>
+            <!-- Ears -->
+            <g>
+              <path d="M146,94 C130,66 150,44 176,56 C166,74 163,88 146,94Z"
+                    fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
+              <path d="M274,94 C290,66 270,44 244,56 C254,74 257,88 274,94Z"
+                    fill="url(#fur)" stroke="rgba(150,110,120,.10)" stroke-width="2"/>
+              <ellipse cx="165" cy="72" rx="18" ry="14" fill="rgba(255,155,200,.22)"/>
+              <ellipse cx="255" cy="72" rx="18" ry="14" fill="rgba(255,155,200,.22)"/>
+            </g>
 
-  <!-- Arms (quieter) -->
-  <ellipse cx="70" cy="300" rx="32" ry="50" fill="url(#fur)"/>
-  <ellipse cx="290" cy="300" rx="32" ry="50" fill="url(#fur)"/>
+            <!-- Arms (quieter) -->
+            <path d="M118,230 C92,252 95,280 118,292 C135,301 150,286 146,268 C143,250 135,235 118,230Z"
+                  fill="url(#fur)" opacity=".96"/>
+            <path d="M302,230 C328,252 325,280 302,292 C285,301 270,286 274,268 C277,250 285,235 302,230Z"
+                  fill="url(#fur)" opacity=".96"/>
 
-  <!-- Feet (wide + grounded) -->
-  <ellipse cx="120" cy="405" rx="60" ry="28" fill="url(#fur)"/>
-  <ellipse cx="240" cy="405" rx="60" ry="28" fill="url(#fur)"/>
+            <!-- Legs and feet (wide and grounded) -->
+            <path d="M160,314 C140,320 130,342 142,360 C158,384 196,387 206,366 C214,350 196,320 160,314Z"
+                  fill="url(#fur)"/>
+            <path d="M260,314 C280,320 290,342 278,360 C262,384 224,387 214,366 C206,350 224,320 260,314Z"
+                  fill="url(#fur)"/>
+            <ellipse cx="176" cy="372" rx="48" ry="20" fill="rgba(255,255,255,.35)"/>
+            <ellipse cx="244" cy="372" rx="48" ry="20" fill="rgba(255,255,255,.35)"/>
 
-  <!-- Face -->
-  <circle cx="150" cy="195" r="6" fill="#4b2b1f"/>
-  <circle cx="210" cy="195" r="6" fill="#4b2b1f"/>
-  <ellipse cx="180" cy="210" rx="8" ry="6" fill="#9b6a4a"/>
-  <path d="M170 225 C180 232 190 232 200 225"
-        stroke="#7a4a3a" stroke-width="3" fill="none"/>
-  <ellipse cx="135" cy="215" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
-  <ellipse cx="225" cy="215" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
+            <!-- Diaper -->
+            <path d="M145,270
+                     C150,242 182,222 210,222
+                     C238,222 270,242 275,270
+                     C279,294 262,318 240,330
+                     C226,338 194,338 180,330
+                     C158,318 141,294 145,270Z"
+                  fill="url(#diaper)" stroke="rgba(255,111,174,.35)" stroke-width="2"/>
+            <path d="M172,246 C190,258 230,258 248,246" fill="none" stroke="rgba(255,111,174,.28)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="160" cy="286" r="6" fill="rgba(255,111,174,.55)"/>
+            <circle cx="260" cy="286" r="6" fill="rgba(255,111,174,.55)"/>
 
-  <!-- Diaper -->
-  <ellipse cx="180" cy="320" rx="90" ry="55" fill="#fff"/>
-  <path d="M140 300 Q180 280 220 300"
-        stroke="#ffd1e6" stroke-width="8" fill="none"/>
-</svg>
+            <!-- Face: simple, cute -->
+            <g>
+              <circle cx="182" cy="126" r="10" fill="#3b2a31"/>
+              <circle cx="238" cy="126" r="10" fill="#3b2a31"/>
+              <circle cx="178" cy="122" r="3.2" fill="#ffffff" opacity=".9"/>
+              <circle cx="234" cy="122" r="3.2" fill="#ffffff" opacity=".9"/>
 
-<p class="question">
-Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?
-</p>
+              <path d="M210,138
+                       C203,138 198,144 198,150
+                       C198,158 205,162 210,162
+                       C215,162 222,158 222,150
+                       C222,144 217,138 210,138Z"
+                    fill="rgba(90,63,76,.88)"/>
+              <path d="M196,168 C205,176 215,176 224,168" fill="none"
+                    stroke="rgba(90,63,76,.70)" stroke-width="5" stroke-linecap="round"/>
 
-<div class="stage" id="stage">
-  <button id="yes">Yes</button>
-  <button id="no">No</button>
-</div>
-<div class="hint" id="hint">The “No” button is shy.</div>
+              <!-- Blush -->
+              <ellipse cx="156" cy="150" rx="24" ry="18" fill="url(#cheek)" opacity=".95"/>
+              <ellipse cx="264" cy="150" rx="24" ry="18" fill="url(#cheek)" opacity=".95"/>
+            </g>
 
-</div>
-</div>
+            <!-- Tiny stitched detail -->
+            <path d="M210,196 C212,206 212,216 210,226" stroke="rgba(150,110,120,.22)" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
 
-<!-- Celebration -->
-<div class="overlay" id="overlay">
-  <div class="celebrate">
-    <button class="close" onclick="overlay.classList.remove('show')">Close</button>
+      <p class="question">
+        <strong>Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?</strong>
+      </p>
 
-    <!-- Arrow + Hearts -->
-    <svg viewBox="0 0 900 900" width="100%" height="100%">
-      <!-- Arrow (single silhouette, behind hearts) -->
-      <g fill="#e38ab7">
-        <!-- shaft -->
-        <rect x="200" y="445" width="520" height="14"
-              transform="rotate(-45 200 445)"/>
-        <!-- arrowhead -->
-        <polygon points="190,470 260,445 260,495"/>
-        <!-- fletching -->
-        <polygon points="740,190 780,150 770,140 730,180"/>
-        <polygon points="720,210 760,170 750,160 710,200"/>
-      </g>
+      <div class="btnRow" id="btnRow">
+        <button class="yes" id="yesBtn" type="button" aria-label="Yes">
+          Yes
+        </button>
 
-      <!-- Back heart -->
-      <path d="M450 740 C450 740 160 560 160 360
-               C160 240 260 170 360 200
-               C420 220 450 265 450 265
-               C450 265 480 220 540 200
-               C640 170 740 240 740 360
-               C740 560 450 740 450 740Z"
-            fill="#ff7fb5" opacity=".85"/>
+        <span class="noWrap" id="noWrap">
+          <button class="no" id="noBtn" type="button" aria-label="No">
+            No
+          </button>
+          <span class="noHint" id="noHint" aria-hidden="true">teehee</span>
+        </span>
+      </div>
 
-      <!-- Front heart -->
-      <path d="M490 705 C490 705 250 560 250 400
-               C250 300 340 250 415 270
-               C460 285 490 320 490 320
-               C490 320 520 285 565 270
-               C640 250 720 300 720 400
-               C720 560 490 705 490 705Z"
-            fill="#ffd1e6" opacity=".95"/>
-    </svg>
+      <div class="tinyNote" aria-hidden="true">
+        made to feel like a tiny blind box surprise
+      </div>
+    </section>
+  </main>
 
-    <div class="heartField" id="heartField"></div>
+  <!-- Celebration overlay -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
+    <button class="close" id="closeOverlay" type="button" aria-label="Close celebration">Close</button>
+
+    <div class="pop" aria-hidden="true">
+      <!-- Big hearts and arrow as filled silhouettes -->
+      <svg viewBox="0 0 520 520" width="100%" height="100%">
+        <defs>
+          <filter id="hshadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="rgba(90,63,76,.22)"/>
+          </filter>
+          <linearGradient id="heartBack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff84bb"/>
+            <stop offset="1" stop-color="#ff5aa4"/>
+          </linearGradient>
+          <linearGradient id="heartFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd2e6"/>
+            <stop offset="1" stop-color="#ff9bc8"/>
+          </linearGradient>
+
+          <!-- Heart shapes -->
+          <path id="heartShape" d="
+            M260 428
+            C210 392 136 332 136 248
+            C136 194 174 158 224 158
+            C244 158 258 166 260 168
+            C262 166 276 158 296 158
+            C346 158 384 194 384 248
+            C384 332 310 392 260 428Z
+          "/>
+
+          <!-- Arrow cutout silhouette: unified, filled shape -->
+          <path id="arrowSil" d="
+            M418 126
+            L392 152
+            L404 164
+            L216 352
+            L234 370
+            L422 182
+            L434 194
+            L460 168
+            L460 168
+            L498 130
+            L464 96
+            Z
+
+            M194 374
+            L154 414
+            L158 418
+            L98 478
+            L72 452
+            L132 392
+            L136 396
+            L176 356
+            Z
+          "/>
+        </defs>
+
+        <!-- Back heart -->
+        <g filter="url(#hshadow)" opacity=".95">
+          <use href="#heartShape" fill="url(#heartBack)" transform="translate(-16,-8) scale(1.04)"/>
+        </g>
+
+        <!-- Front heart -->
+        <g filter="url(#hshadow)">
+          <use href="#heartShape" fill="url(#heartFront)" transform="translate(8,10) scale(.98)"/>
+        </g>
+
+        <!-- Arrow passes behind then re-emerges -->
+        <!-- Behind segment -->
+        <g opacity=".92">
+          <path d="M420 126 L404 142 L250 296 L266 312 L420 158 Z" fill="#ff6fae"/>
+          <path d="M498 130 L464 96 L418 142 L452 176 Z" fill="#ff6fae"/>
+        </g>
+
+        <!-- Mask a middle "hidden" portion to simulate passing behind hearts -->
+        <mask id="hideMiddle">
+          <rect width="520" height="520" fill="white"/>
+          <!-- Black area removes arrow in the middle -->
+          <path d="M360 180 L180 360" stroke="black" stroke-width="86" stroke-linecap="round"/>
+        </mask>
+
+        <!-- Full arrow silhouette -->
+        <g mask="url(#hideMiddle)">
+          <use href="#arrowSil" fill="#ff4f9a" opacity=".95" />
+        </g>
+
+        <!-- Front re-emerge segment (small highlight) -->
+        <path d="M236 330 L150 416 L176 442 L262 356 Z" fill="#ff4f9a" opacity=".98"/>
+
+      </svg>
+
+      <div class="floatHearts" id="floatHearts" aria-hidden="true"></div>
+    </div>
   </div>
-</div>
 
-<script>
-// Sparkles
-const sp=document.getElementById("sparkles");
-for(let i=0;i<28;i++){
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=(80+Math.random()*40)+"vh";
-  s.style.animationDuration=(6+Math.random()*8)+"s";
-  s.style.animationDelay=(-Math.random()*6)+"s";
-  sp.appendChild(s);
-}
+  <script>
+    (function () {
+      const sparkles = document.getElementById("sparkles");
+      const btnRow = document.getElementById("btnRow");
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const noWrap = document.getElementById("noWrap");
+      const noHint = document.getElementById("noHint");
+      const overlay = document.getElementById("overlay");
+      const closeOverlay = document.getElementById("closeOverlay");
+      const floatHearts = document.getElementById("floatHearts");
 
-// No button dodge
-const no=document.getElementById("no");
-const stage=document.getElementById("stage");
-const hint=document.getElementById("hint");
-let count=0;
-function dodge(){
-  const r=stage.getBoundingClientRect();
-  no.style.transform=`translate(${Math.random()*(r.width-120)}px,${Math.random()*50}px)`;
-  count++;
-  if(count>5) hint.textContent="Okay… it might let you click it now.";
-}
-no.addEventListener("pointerenter",dodge);
-no.addEventListener("pointerdown",e=>{e.preventDefault();dodge();});
+      // Sparkles: light and simple
+      const sparkleCount = 18;
+      for (let i = 0; i < sparkleCount; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 7 + Math.random() * 10;
+        const dur = 3.8 + Math.random() * 4.6;
+        const delay = -Math.random() * dur;
+        s.style.left = left + "vw";
+        s.style.top = top + "vh";
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.setProperty("--dur", dur + "s");
+        s.style.animationDelay = delay + "s";
+        sparkles.appendChild(s);
+      }
 
-// Overlay + hearts
-const overlay=document.getElementById("overlay");
-document.getElementById("yes").onclick=()=>{
-  overlay.classList.add("show");
-  spawnHearts();
-};
+      // No button: playful dodge, but still possible to click
+      let dodges = 0;
+      let allowNoClick = false;
 
-function spawnHearts(){
-  const f=document.getElementById("heartField");
-  f.innerHTML="";
-  for(let i=0;i<24;i++){
-    const h=document.createElement("div");
-    h.className="miniHeart";
-    h.style.left=(10+Math.random()*80)+"%";
-    h.style.bottom=(160+Math.random()*220)+"px";
-    h.style.animationDuration=(4+Math.random()*3)+"s,"+(1+Math.random()*1.5)+"s";
-    h.innerHTML=`<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-8.5C1.5 9 3 6 6 5.5c2-.4 3.6.6 4.6 2 1-1.4 2.6-2.4 4.6-2 3 .5 4.5 3.5 3 7C19 16.5 12 21 12 21Z" fill="#ff9bc8"/></svg>`;
-    f.appendChild(h);
-  }
-}
-</script>
+      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
+      function placeNoButton(x, y) {
+        // Keep inside the button row area
+        const rowRect = btnRow.getBoundingClientRect();
+        const btnRect = noWrap.getBoundingClientRect();
+
+        const padding = 8;
+        const minX = padding;
+        const minY = -8;
+        const maxX = rowRect.width - btnRect.width - padding;
+        const maxY = 8;
+
+        const nx = clamp(x, minX, maxX);
+        const ny = clamp(y, minY, maxY);
+
+        noWrap.style.position = "relative";
+        noWrap.style.left = nx + "px";
+        noWrap.style.top = ny + "px";
+      }
+
+      function dodge() {
+        if (allowNoClick) return;
+
+        dodges += 1;
+        if (dodges >= 8) {
+          allowNoClick = true;
+          noWrap.classList.add("showHint");
+          noHint.textContent = "ok ok, you can click now";
+          setTimeout(() => noWrap.classList.remove("showHint"), 1400);
+          return;
+        } else {
+          noWrap.classList.add("showHint");
+          noHint.textContent = "teehee";
+          setTimeout(() => noWrap.classList.remove("showHint"), 650);
+        }
+
+        const rowRect = btnRow.getBoundingClientRect();
+        const btnRect = noWrap.getBoundingClientRect();
+
+        // Try a few random positions, prefer moving away from center
+        const centerX = rowRect.width / 2;
+        const centerY = 0;
+
+        let best = null;
+        for (let i = 0; i < 6; i++) {
+          const rx = Math.random() * (rowRect.width - btnRect.width);
+          const ry = (Math.random() * 16) - 8;
+          const score = Math.abs((rx + btnRect.width / 2) - centerX) + Math.abs(ry - centerY) * 4;
+          if (!best || score > best.score) best = { x: rx, y: ry, score };
+        }
+        placeNoButton(best.x, best.y);
+      }
+
+      // Desktop hover
+      noBtn.addEventListener("pointerenter", (e) => {
+        if (e.pointerType === "mouse") dodge();
+      });
+
+      // Mobile tap or touch: dodge on press
+      noBtn.addEventListener("pointerdown", (e) => {
+        if (e.pointerType !== "mouse") {
+          // Do not block click forever, just tease
+          if (!allowNoClick) {
+            e.preventDefault();
+            dodge();
+          }
+        }
+      }, { passive: false });
+
+      // Clicking No (when allowed) gives a gentle reaction
+      noBtn.addEventListener("click", () => {
+        if (!allowNoClick) {
+          dodge();
+          return;
+        }
+        noWrap.classList.add("showHint");
+        noHint.textContent = "you chose no. still cute though.";
+        setTimeout(() => noWrap.classList.remove("showHint"), 1400);
+      });
+
+      // Celebration overlay
+      function makeMiniHeart() {
+        const h = document.createElement("div");
+        h.className = "miniHeart";
+
+        // random position across the middle and upper portions
+        const x = 8 + Math.random() * 84;  // percentage
+        const size = 12 + Math.random() * 16;
+        const dur = 2.8 + Math.random() * 2.8;
+        const delay = Math.random() * 1.2;
+
+        h.style.left = x + "%";
+        h.style.bottom = "-10%";
+        h.style.width = size + "px";
+        h.style.height = size + "px";
+        h.style.setProperty("--hdur", dur + "s");
+        h.style.animationDelay = delay + "s";
+
+        // Heart SVG as background via inline data URI
+        const fill = (Math.random() < 0.5) ? "#ff6fae" : "#ffd2e6";
+        const svg = encodeURIComponent(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="${fill}" d="M12 21s-6.7-4.4-9.3-8C.7 9.7 2.4 6.6 5.6 6.1c1.7-.3 3.2.4 4.1 1.5.9-1.1 2.4-1.8 4.1-1.5 3.2.5 4.9 3.6 2.9 6.9-2.6 3.6-9.3 8-9.3 8z"/>
+          </svg>`
+        );
+        h.style.backgroundImage = `url("data:image/svg+xml,${svg}")`;
+        h.style.backgroundRepeat = "no-repeat";
+        h.style.backgroundSize = "contain";
+        return h;
+      }
+
+      function startHearts() {
+        floatHearts.innerHTML = "";
+        const count = 14;
+        for (let i = 0; i < count; i++) {
+          const heart = makeMiniHeart();
+          floatHearts.appendChild(heart);
+        }
+      }
+
+      function openOverlay() {
+        overlay.classList.add("on");
+        startHearts();
+        // Lock background scroll
+        document.body.style.overflow = "hidden";
+        closeOverlay.focus({ preventScroll: true });
+      }
+
+      function closeIt() {
+        overlay.classList.remove("on");
+        floatHearts.innerHTML = "";
+        document.body.style.overflow = "hidden"; // keep hidden for this single-page, avoids scroll bounce
+        yesBtn.focus({ preventScroll: true });
+      }
+
+      yesBtn.addEventListener("click", openOverlay);
+      closeOverlay.addEventListener("click", closeIt);
+
+      // Close overlay by tapping outside pop
+      overlay.addEventListener("click", (e) => {
+        const pop = overlay.querySelector(".pop");
+        if (!pop.contains(e.target) && e.target !== closeOverlay) closeIt();
+      });
+
+      // Escape key closes overlay
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("on")) closeIt();
+      });
+
+      // Place No button initially with slight offset for personality
+      placeNoButton(0, 0);
+    })();
+  </script>
 </body>
 </html>
