@@ -1,554 +1,586 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Chrissy 💗 Valentine</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Valentine Card</title>
+  <style>
+    :root{
+      --bg:#ffd6e6;
+      --bg2:#ffe7f0;
+      --card:#ffffffcc;
+      --stroke:#e88fb4;
+      --pink:#ff8fbe;
+      --pink2:#ffb3d3;
+      --text:#6b3a52;
+      --btnYes:#ff7fb5;
+      --btnYes2:#ff98c5;
+      --btnNo:#ffd3e6;
+      --shadow: 0 18px 50px rgba(110, 45, 75, .18);
+      --radius: 26px;
+    }
 
-<style>
-  :root{
-    --bg1:#ffe2ee;
-    --bg2:#fff7fb;
-    --ink:#2b2b35;
-    --muted:#6b6b7a;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, var(--bg2), var(--bg)) fixed;
+      overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    --panel: rgba(255,255,255,.88);
-    --panel2: rgba(255,255,255,.74);
-    --border: rgba(0,0,0,.08);
-    --shadow: 0 22px 60px rgba(30,10,20,.18);
+    /* Soft sparkles floating */
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      opacity:.75;
+    }
+    .sparkle{
+      position:absolute;
+      width:10px;
+      height:10px;
+      filter: blur(.2px);
+      opacity:.0;
+      animation: floatUp linear infinite;
+    }
+    .sparkle::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(255,255,255,0) 65%);
+      transform: rotate(25deg);
+      border-radius: 50%;
+    }
+    .sparkle::after{
+      content:"";
+      position:absolute; inset:-3px;
+      background: conic-gradient(from 0deg, rgba(255,255,255,0) 0 40%, rgba(255,255,255,.8) 50%, rgba(255,255,255,0) 60% 100%);
+      opacity:.55;
+      mask: radial-gradient(circle, #000 45%, transparent 70%);
+      border-radius: 50%;
+    }
+    @keyframes floatUp{
+      0%{ transform: translate3d(0, 30px, 0) scale(.7); opacity:0; }
+      15%{ opacity:.65; }
+      70%{ opacity:.55; }
+      100%{ transform: translate3d(0, -110vh, 0) scale(1.15); opacity:0; }
+    }
 
-    --yes1:#ff4d87;
-    --yes2:#ff9bbd;
-    --no:#232335;
+    /* Center layout */
+    .wrap{
+      position:relative;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 22px 16px calc(18px + env(safe-area-inset-bottom));
+    }
 
-    --heart1:#ff2f78;
-    --heart2:#ff9cc4;
-    --heart3:#ff6aa1;
-    --arrow:#ffcc4d;
-  }
+    .card{
+      width:min(420px, 92vw);
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .65);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px 18px;
+      text-align:center;
+      position:relative;
+    }
 
-  *{ box-sizing:border-box; }
-  body{
-    margin:0;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-    font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--ink);
-    background:
-      radial-gradient(900px 700px at 20% 15%, rgba(255,77,135,.22), transparent 60%),
-      radial-gradient(900px 600px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
-      linear-gradient(180deg,var(--bg1),var(--bg2));
-    overflow:hidden;
-  }
+    .bear{
+      width: 210px;
+      max-width: 56vw;
+      margin: 2px auto 8px;
+      display:block;
+    }
 
-  .card{
-    width:min(980px,100%);
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-    padding: 18px;
-  }
+    .question{
+      font-size: 18px;
+      line-height: 1.35;
+      margin: 6px 10px 16px;
+      letter-spacing: .2px;
+    }
 
-  .grid{
-    display:grid;
-    gap:16px;
-    grid-template-columns: 1fr;
-    align-items:center;
-  }
-  @media (min-width: 900px){
-    .grid{ grid-template-columns: 1fr 1fr; }
-  }
+    .btnRow{
+      position:relative;
+      height: 62px;
+      margin-top: 4px;
+    }
 
-  .art{
-    position:relative;
-    background: var(--panel2);
-    border: 1px solid rgba(0,0,0,.06);
-    border-radius: 24px;
-    padding: 16px;
-    min-height: 440px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-  }
+    button{
+      appearance:none;
+      border:0;
+      font: inherit;
+      font-weight: 700;
+      padding: 14px 22px;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(110,45,75,.16);
+      transform: translateZ(0);
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+      touch-action: manipulation;
+    }
+    button:active{ transform: scale(.98); }
 
-  /* Sparkles (kept) */
-  .sparkleSVG{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    opacity: .95;
-    filter: drop-shadow(0 10px 14px rgba(255,77,135,.14));
-  }
+    #yesBtn{
+      background: linear-gradient(180deg, var(--btnYes2), var(--btnYes));
+      color: white;
+      border: 1px solid rgba(255,255,255,.55);
+      position:absolute;
+      left: 50%;
+      transform: translateX(-110%) translateZ(0);
+      min-width: 120px;
+    }
+    #yesBtn:hover{ filter: brightness(1.03); }
 
-  .copy{
-    text-align:center;
-    padding: 10px 6px;
-  }
+    #noBtn{
+      background: linear-gradient(180deg, #fff, var(--btnNo));
+      color: #7a3a59;
+      border: 1px solid rgba(232,143,180,.55);
+      position:absolute;
+      left: 50%;
+      transform: translateX(10%) translateZ(0);
+      min-width: 120px;
+    }
 
-  h1{
-    margin:0;
-    font-size: 20px;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-  }
+    .hint{
+      margin: 10px 0 0;
+      font-size: 12px;
+      opacity: .65;
+    }
 
-  .sub{
-    margin: 8px 0 0;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.4;
-  }
+    /* Celebration overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(1200px 800px at 50% 30%, rgba(255,255,255,.65), rgba(255,214,230,.80));
+      backdrop-filter: blur(6px);
+      z-index: 50;
+      padding: 16px;
+    }
+    .overlay.show{ display:flex; }
 
-  .zone{
-    margin: 12px auto 0;
-    width:min(520px,100%);
-    height: 170px;
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(0,0,0,.06);
-    border-radius: 22px;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-  }
+    .celebrate{
+      width: min(560px, 94vw);
+      aspect-ratio: 1 / 1;
+      position:relative;
+      border-radius: 34px;
+      overflow:hidden;
+      box-shadow: 0 24px 70px rgba(110,45,75,.22);
+      border: 1px solid rgba(255,255,255,.7);
+      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.45));
+    }
 
-  button{
-    border:none;
-    border-radius: 18px;
-    padding: 14px 20px;
-    font-weight: 900;
-    font-size: 15px;
-    cursor:pointer;
-    user-select:none;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    transition: transform .08s ease, filter .2s ease;
-  }
-  button:active{ transform: scale(.98); }
+    .closeTap{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(232,143,180,.35);
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(110,45,75,.14);
+      font-weight: 800;
+      font-size: 14px;
+    }
 
-  .yes{
-    background: linear-gradient(135deg,var(--yes1),var(--yes2));
-    color: #12050b;
-    box-shadow: 0 14px 28px rgba(255,77,135,.25);
-    min-width: 190px;
-    position:absolute;
-    left: 50%;
-    top: 46%;
-    transform: translate(-50%,-50%);
-    z-index: 2;
-  }
+    .overlayNote{
+      position:absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      opacity: .75;
+      z-index: 3;
+      background: rgba(255,255,255,.55);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(232,143,180,.25);
+    }
 
-  .no{
-    background: rgba(35,35,53,.94);
-    color:white;
-    min-width: 190px;
-    position:absolute;
-    left: 50%;
-    top: 74%;
-    transform: translate(-50%,-50%);
-    z-index: 3;
-  }
+    /* Floating hearts in overlay */
+    .floatHearts{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index: 2;
+    }
+    .fh{
+      position:absolute;
+      width: 16px;
+      height: 16px;
+      opacity: 0;
+      animation: drift 4.8s linear infinite;
+      filter: drop-shadow(0 6px 10px rgba(110,45,75,.16));
+    }
+    @keyframes drift{
+      0%{ transform: translate3d(0, 18px, 0) scale(.85) rotate(-8deg); opacity:0; }
+      15%{ opacity:.8; }
+      65%{ opacity:.75; }
+      100%{ transform: translate3d(0, -115%, 0) scale(1.25) rotate(12deg); opacity:0; }
+    }
 
-  .hint{
-    position:absolute;
-    left:0;
-    bottom: 10px;
-    width:100%;
-    text-align:center;
-    font-size: 12px;
-    color: var(--muted);
-    opacity:.95;
-    padding: 0 10px;
-  }
+    /* Small bounce when overlay appears */
+    .pop{
+      animation: pop .22s ease-out;
+    }
+    @keyframes pop{
+      0%{ transform: scale(.96); }
+      100%{ transform: scale(1); }
+    }
 
-  .result{
-    margin-top: 10px;
-    font-weight: 900;
-    min-height: 22px;
-  }
-
-  /* Celebration overlay */
-  .moment{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    opacity: 0;
-    transform: translateY(10px) scale(.82);
-    filter: drop-shadow(0 18px 24px rgba(255,77,135,.18));
-  }
-  .showMoment .moment{
-    animation: momentIn .55s ease forwards;
-  }
-  @keyframes momentIn{
-    0% { opacity:0; transform: translateY(22px) scale(0.58); }
-    70%{ opacity:1; transform: translateY(10px) scale(0.95); }
-    100% { opacity:1; transform: translateY(10px) scale(0.92); }
-  }
-
-  /* Floating hearts */
-  .floatArea{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-  }
-  .fHeart{
-    position:absolute;
-    bottom: -30px;
-    opacity: 0;
-    transform: rotate(45deg);
-    background: linear-gradient(135deg, var(--heart1), var(--heart2));
-    border-radius: 8px;
-    filter: drop-shadow(0 12px 14px rgba(255,77,135,.14));
-  }
-  .fHeart:before,
-  .fHeart:after{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:100%;
-    border-radius: 50%;
-    background: inherit;
-  }
-  .fHeart:before{ left:-50%; top:0; }
-  .fHeart:after{ left:0; top:-50%; }
-
-  @keyframes floatUp{
-    0% { opacity:0; transform: translateY(0) rotate(45deg) scale(.92); }
-    15%{ opacity:1; }
-    100% { opacity:0; transform: translateY(-330px) rotate(45deg) scale(1.14); }
-  }
-
-  /* Bear head bounce */
-  .bounce{
-    animation: bounce .55s ease;
-    transform-origin: 50% 75%;
-  }
-  @keyframes bounce{
-    0%{ transform: translateY(0) scale(1); }
-    45%{ transform: translateY(-8px) scale(1.03); }
-    100%{ transform: translateY(0) scale(1); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-  }
-</style>
+    /* Accessibility */
+    .sr{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
+    }
+  </style>
 </head>
-
 <body>
-  <div class="card">
-    <div class="grid">
+  <div class="sparkles" aria-hidden="true" id="sparkles"></div>
 
-      <div class="art" id="art">
+  <main class="wrap">
+    <section class="card" role="group" aria-label="Valentine card">
+      <!-- Cute plush bear: head only, minimal, soft outlines -->
+      <svg class="bear" viewBox="0 0 300 240" role="img" aria-label="Cute pink plush bear head">
+        <!-- Ears -->
+        <defs>
+          <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffb8d7"/>
+            <stop offset="1" stop-color="#ff93c6"/>
+          </linearGradient>
+          <linearGradient id="innerEar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd4e7"/>
+            <stop offset="1" stop-color="#ffb6d5"/>
+          </linearGradient>
+          <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="0.6" result="b"/>
+            <feMerge>
+              <feMergeNode in="b"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
 
-        <!-- Sparkles -->
-        <svg class="sparkleSVG" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <g>
-            <circle cx="12" cy="18" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/></circle>
-            <circle cx="88" cy="18" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.4s" repeatCount="indefinite"/></circle>
-            <circle cx="18" cy="80" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/></circle>
-            <circle cx="82" cy="80" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.1s" repeatCount="indefinite"/></circle>
-            <circle cx="52" cy="14" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.8s" repeatCount="indefinite"/></circle>
-            <circle cx="46" cy="86" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.7s" repeatCount="indefinite"/></circle>
+        <g filter="url(#soft)">
+          <ellipse cx="78" cy="72" rx="45" ry="44" fill="url(#fur)" stroke="#e88fb4" stroke-width="5"/>
+          <ellipse cx="222" cy="72" rx="45" ry="44" fill="url(#fur)" stroke="#e88fb4" stroke-width="5"/>
+          <ellipse cx="78" cy="78" rx="26" ry="24" fill="url(#innerEar)" opacity=".9"/>
+          <ellipse cx="222" cy="78" rx="26" ry="24" fill="url(#innerEar)" opacity=".9"/>
 
-            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
-                  fill="white" transform="translate(24 26)">
-              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/>
-              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.25;0.85" dur="2.0s" repeatCount="indefinite"/>
-            </path>
+          <!-- Head -->
+          <path d="M150 36
+                   C210 36, 262 82, 266 146
+                   C270 208, 222 232, 150 232
+                   C78 232, 30 208, 34 146
+                   C38 82, 90 36, 150 36Z"
+                fill="url(#fur)" stroke="#e88fb4" stroke-width="6" stroke-linejoin="round"/>
 
-            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
-                  fill="white" transform="translate(78 30)">
-              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.3s" repeatCount="indefinite"/>
-              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.8;1.22;0.8" dur="2.3s" repeatCount="indefinite"/>
-            </path>
+          <!-- Face patch -->
+          <ellipse cx="150" cy="150" rx="78" ry="66" fill="#ffd7e9" opacity=".9" stroke="rgba(232,143,180,.35)" stroke-width="3"/>
 
-            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
-                  fill="white" transform="translate(70 76)">
-              <animate attributeName="opacity" values="0.2;0.95;0.2" dur="2.6s" repeatCount="indefinite"/>
-              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.75;1.18;0.75" dur="2.6s" repeatCount="indefinite"/>
-            </path>
+          <!-- Eyes -->
+          <g fill="#5a2c42">
+            <circle cx="120" cy="134" r="7.6"/>
+            <circle cx="180" cy="134" r="7.6"/>
           </g>
-        </svg>
-
-        <!-- Cute bear HEAD ONLY -->
-        <svg id="bear" width="320" height="320" viewBox="0 0 240 240" role="img" aria-label="cute pink bear head">
-          <defs>
-            <radialGradient id="bearPink" cx="45%" cy="30%" r="70%">
-              <stop offset="0%" stop-color="#fff3f8"/>
-              <stop offset="65%" stop-color="#ffd6e6"/>
-              <stop offset="100%" stop-color="#ffbcd6"/>
-            </radialGradient>
-            <filter id="headShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="16" stdDeviation="10" flood-color="rgba(43,43,53,.16)"/>
-            </filter>
-          </defs>
-
-          <g filter="url(#headShadow)">
-            <!-- ears -->
-            <circle cx="58" cy="70" r="28" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="6"/>
-            <circle cx="182" cy="70" r="28" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="6"/>
-            <circle cx="58" cy="76" r="14" fill="#ff9fc0" opacity="0.95"/>
-            <circle cx="182" cy="76" r="14" fill="#ff9fc0" opacity="0.95"/>
-
-            <!-- head -->
-            <circle cx="120" cy="128" r="76" fill="url(#bearPink)" stroke="#2b2b35" stroke-width="7"/>
-
-            <!-- eyes -->
-            <ellipse cx="94" cy="120" rx="10" ry="12" fill="#2b2b35"/>
-            <ellipse cx="146" cy="120" rx="10" ry="12" fill="#2b2b35"/>
-            <circle cx="90" cy="116" r="3.5" fill="#ffffff"/>
-            <circle cx="142" cy="116" r="3.5" fill="#ffffff"/>
-
-            <!-- blush -->
-            <ellipse cx="78" cy="146" rx="14" ry="9" fill="#ff9fc0" opacity="0.80"/>
-            <ellipse cx="162" cy="146" rx="14" ry="9" fill="#ff9fc0" opacity="0.80"/>
-
-            <!-- muzzle -->
-            <ellipse cx="120" cy="152" rx="26" ry="20"
-                     fill="#ffe7c9" stroke="#2b2b35" stroke-width="5"/>
-
-            <!-- nose -->
-            <ellipse cx="120" cy="144" rx="6" ry="4.5" fill="#2b2b35"/>
-
-            <!-- smile -->
-            <path d="M112 158 C118 164,122 164,128 158"
-                  stroke="#2b2b35" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <!-- Eye highlights -->
+          <g fill="rgba(255,255,255,.9)">
+            <circle cx="117.4" cy="131.2" r="2.3"/>
+            <circle cx="177.4" cy="131.2" r="2.3"/>
           </g>
-        </svg>
 
-        <!-- YES moment: big hearts + arrow behind -->
-        <div class="moment" aria-hidden="true">
-          <svg viewBox="0 0 360 260" width="440" height="360">
-            <defs>
-              <linearGradient id="heartBack" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="var(--heart1)"/>
-                <stop offset="100%" stop-color="var(--heart2)"/>
-              </linearGradient>
-              <linearGradient id="heartFront" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="var(--heart3)"/>
-                <stop offset="100%" stop-color="#ffd0e3"/>
-              </linearGradient>
-            </defs>
+          <!-- Nose -->
+          <path d="M150 148
+                   C144 148, 140 152, 140 157
+                   C140 163, 145 167, 150 167
+                   C155 167, 160 163, 160 157
+                   C160 152, 156 148, 150 148Z"
+                fill="#ff6ea8" stroke="#e88fb4" stroke-width="3" />
 
-            <!-- ARROW FIRST (behind hearts): top-right -> bottom-left -->
-            <g opacity="0.98">
-              <line x1="300" y1="40" x2="120" y2="210"
-                    stroke="var(--arrow)" stroke-width="6" stroke-linecap="round"/>
+          <!-- Smile -->
+          <path d="M138 176
+                   C144 185, 156 185, 162 176"
+                fill="none" stroke="#e0619b" stroke-width="4" stroke-linecap="round" />
 
-              <!-- fletching (top-right) -->
-              <path d="M300 40 L318 28 L314 48 Z" fill="var(--arrow)"/>
-              <path d="M300 40 L320 40 L310 58 Z" fill="var(--arrow)"/>
+          <!-- Blush -->
+          <g opacity=".7">
+            <ellipse cx="98" cy="160" rx="16" ry="10" fill="#ff77b0"/>
+            <ellipse cx="202" cy="160" rx="16" ry="10" fill="#ff77b0"/>
+          </g>
 
-              <!-- small arrow head (bottom-left) -->
-              <g transform="translate(120 210) rotate(140)">
-                <path d="M0 0 L16 -7 L13 0 L16 7 Z" fill="var(--arrow)"/>
-              </g>
+          <!-- Tiny plush stitches (subtle) -->
+          <path d="M92 108 C86 114, 86 122, 92 128" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M208 108 C214 114, 214 122, 208 128" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+        </g>
+      </svg>
 
-              <circle cx="300" cy="40" r="3.5" fill="white" opacity="0.85"/>
-            </g>
+      <p class="question">
+        Chrissy, on 2/2 of 2026, 11:11 PM, will you be my Valentine?
+      </p>
 
-            <!-- back heart (slightly bigger) -->
-            <g transform="translate(158 76) rotate(-10) scale(2.05)">
-              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
-                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
-                    fill="url(#heartBack)" stroke="rgba(43,43,53,.16)" stroke-width="2.5"/>
-            </g>
-
-            <!-- front heart (smaller overlap) -->
-            <g transform="translate(98 102) rotate(-10) scale(1.72)">
-              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
-                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
-                    fill="url(#heartFront)" stroke="rgba(43,43,53,.14)" stroke-width="2.5"/>
-            </g>
-
-            <!-- tiny hearts -->
-            <g opacity=".92">
-              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".75" transform="translate(70 86) scale(0.62)"/>
-              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".70" transform="translate(314 96) scale(0.58)"/>
-              <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".62" transform="translate(298 216) scale(0.50)"/>
-            </g>
-          </svg>
-        </div>
-
-        <div class="floatArea" id="floatArea"></div>
+      <div class="btnRow" id="btnRow">
+        <button id="yesBtn" type="button" aria-label="Yes">
+          Yes
+        </button>
+        <button id="noBtn" type="button" aria-label="No (playfully tricky)">
+          No
+        </button>
       </div>
 
-      <div class="copy">
-        <h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
-        <p class="sub" id="sub">No is an option. It is just a very difficult option.</p>
+      <p class="hint" id="hint">Tip: the “No” button is shy.</p>
+    </section>
+  </main>
 
-        <div class="zone" id="zone">
-          <button class="yes" id="yesBtn" type="button">Yes 💗</button>
-          <button class="no" id="noBtn" type="button" aria-label="No">No</button>
-          <div class="hint" id="hint">Go ahead. Try “No”.</div>
-        </div>
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
+    <div class="celebrate pop" id="celebrateBox">
+      <button class="closeTap" id="closeBtn" type="button" aria-label="Close overlay">Close</button>
 
-        <div class="result" id="result"></div>
-      </div>
+      <!-- Main hearts + arrow (arrow behind hearts) -->
+      <svg viewBox="0 0 900 900" width="100%" height="100%" aria-hidden="true">
+        <defs>
+          <linearGradient id="heartBack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9bc8"/>
+            <stop offset="1" stop-color="#ff6fae"/>
+          </linearGradient>
+          <linearGradient id="heartFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd1e6"/>
+            <stop offset="1" stop-color="#ff9dc9"/>
+          </linearGradient>
+          <linearGradient id="arrowShaft" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f2c2d6"/>
+            <stop offset="1" stop-color="#e78fb6"/>
+          </linearGradient>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="rgba(110,45,75,.22)"/>
+          </filter>
+        </defs>
 
+        <!-- Arrow behind hearts -->
+        <g opacity=".95">
+          <!-- shaft -->
+          <line x1="675" y1="210" x2="240" y2="650"
+                stroke="url(#arrowShaft)" stroke-width="10" stroke-linecap="round"/>
+          <!-- arrowhead (bottom-left) -->
+          <path d="M240 650 L265 640 L255 665 Z" fill="#e78fb6" opacity=".95"/>
+          <!-- subtle fletching at tail (top-right) -->
+          <path d="M675 210
+                   C700 200, 712 188, 728 168"
+                fill="none" stroke="#f2c2d6" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+          <path d="M675 210
+                   C695 230, 712 244, 734 258"
+                fill="none" stroke="#f2c2d6" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+        </g>
+
+        <!-- Back heart (bigger) -->
+        <g filter="url(#softShadow)">
+          <path d="M450 735
+                   C450 735, 165 560, 165 365
+                   C165 245, 260 170, 360 200
+                   C415 217, 450 265, 450 265
+                   C450 265, 485 217, 540 200
+                   C640 170, 735 245, 735 365
+                   C735 560, 450 735, 450 735Z"
+                fill="url(#heartBack)" opacity=".85"/>
+          <!-- Front heart (smaller, slightly offset) -->
+          <path d="M490 705
+                   C490 705, 250 560, 250 400
+                   C250 305, 330 245, 415 270
+                   C455 282, 490 320, 490 320
+                   C490 320, 525 282, 565 270
+                   C650 245, 730 305, 730 400
+                   C730 560, 490 705, 490 705Z"
+                fill="url(#heartFront)" opacity=".92"/>
+        </g>
+      </svg>
+
+      <div class="floatHearts" id="floatHearts" aria-hidden="true"></div>
+      <div class="overlayNote">Happy Valentine’s 💖</div>
     </div>
   </div>
 
-<script>
-  const zone = document.getElementById("zone");
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const hint = document.getElementById("hint");
-  const result = document.getElementById("result");
-  const sub = document.getElementById("sub");
-  const bear = document.getElementById("bear");
-  const art = document.getElementById("art");
-  const floatArea = document.getElementById("floatArea");
+  <script>
+    // Sparkle background
+    (function makeSparkles(){
+      const host = document.getElementById('sparkles');
+      const count = 28;
+      for(let i=0;i<count;i++){
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        const left = Math.random()*100;
+        const delay = Math.random()*6;
+        const dur = 6 + Math.random()*8;
+        const size = 6 + Math.random()*10;
+        s.style.left = left + 'vw';
+        s.style.top = (80 + Math.random()*40) + 'vh';
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.animationDuration = dur + 's';
+        s.style.animationDelay = (-delay) + 's';
+        host.appendChild(s);
+      }
+    })();
 
-  let yesLocked = false;
-  let noMoves = 0;
+    // No button dodge behavior (mischievous, not aggressive)
+    const btnRow = document.getElementById('btnRow');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const hint = document.getElementById('hint');
 
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+    let dodgeCount = 0;
+    let allowCatch = false;
 
-  function placeNoStart(){
-    const rect = zone.getBoundingClientRect();
-    noBtn.style.position = "absolute";
-    noBtn.style.transform = "translate(-50%, -50%)";
-    noBtn.style.left = Math.round(rect.width * 0.50) + "px";
-    noBtn.style.top  = Math.round(rect.height * 0.74) + "px";
-  }
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-  // Trickier No: dodges cursor proximity + hover + touch
-  function moveNoButton(){
-    if (yesLocked) return;
+    function moveNoButton(nearX, nearY){
+      const rowRect = btnRow.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
 
-    const rect = zone.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
-    const yesRect = yesBtn.getBoundingClientRect();
+      const padding = 8;
+      const maxX = rowRect.width - btnRect.width - padding;
+      const maxY = rowRect.height - btnRect.height - padding;
 
-    const padding = 10;
-    const maxX = rect.width - btnRect.width - padding;
-    const maxY = rect.height - btnRect.height - padding;
+      // Choose a target away from the pointer
+      const baseX = (nearX != null) ? (nearX - rowRect.left) : Math.random()*rowRect.width;
+      const baseY = (nearY != null) ? (nearY - rowRect.top) : Math.random()*rowRect.height;
 
-    // Try several candidates; also keep away from Yes
-    for (let i=0; i<18; i++){
-      const x = clamp(Math.random() * maxX + padding, padding, maxX);
-      const y = clamp(Math.random() * maxY + padding, padding, maxY);
+      // push away vector
+      const dirX = (Math.random() < 0.5 ? -1 : 1) * (60 + Math.random()*80);
+      const dirY = (Math.random() < 0.5 ? -1 : 1) * (10 + Math.random()*26);
 
-      const zoneRect = zone.getBoundingClientRect();
-      const candidate = {
-        left: zoneRect.left + x,
-        top:  zoneRect.top  + y,
-        right: zoneRect.left + x + btnRect.width,
-        bottom: zoneRect.top  + y + btnRect.height
-      };
+      let x = clamp(baseX + dirX - btnRect.width/2, padding, maxX);
+      let y = clamp(baseY + dirY - btnRect.height/2, padding, maxY);
 
-      const overlapsYes = !(candidate.right < yesRect.left ||
-                            candidate.left > yesRect.right ||
-                            candidate.bottom < yesRect.top ||
-                            candidate.top > yesRect.bottom);
+      noBtn.style.left = '0px';
+      noBtn.style.top = '0px';
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-      if (!overlapsYes){
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-        noBtn.style.transform = "translate(0,0)";
-        break;
+      dodgeCount++;
+      if(dodgeCount === 2) hint.textContent = "Hehe. It moves.";
+      if(dodgeCount === 5) hint.textContent = "It is technically possible. Good luck.";
+      if(dodgeCount > 9) {
+        allowCatch = true; // after enough teasing, allow a chance to catch
+        hint.textContent = "Okay, it might let you click it now... maybe.";
       }
     }
 
-    noMoves++;
-    if (noMoves === 1) hint.textContent = "Nope.";
-    else if (noMoves === 2) hint.textContent = "Still nope.";
-    else if (noMoves === 3) hint.textContent = "The bear said no.";
-    else if (noMoves === 4) hint.textContent = "Try again.";
-    else if (noMoves === 6) hint.textContent = "Okay… maybe press Yes.";
-    else if (noMoves >= 8) hint.textContent = "You already know.";
-
-    if (noMoves >= 5) sub.textContent = "No is an option. It is just not an achievable option.";
-  }
-
-  // Hover-based dodge (desktop)
-  noBtn.addEventListener("mouseenter", moveNoButton);
-  noBtn.addEventListener("mouseover", moveNoButton);
-
-  // Touch-based dodge (mobile)
-  noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveNoButton();
-  }, { passive: false });
-
-  // Proximity dodge so you can’t “chase” it easily
-  zone.addEventListener("mousemove", (e) => {
-    if (yesLocked) return;
-    const r = noBtn.getBoundingClientRect();
-    const dx = e.clientX - (r.left + r.width / 2);
-    const dy = e.clientY - (r.top + r.height / 2);
-    const dist = Math.hypot(dx, dy);
-    if (dist < 110) moveNoButton();
-  });
-
-  function spawnFloatingHearts(count=28){
-    for (let i = 0; i < count; i++){
-      const h = document.createElement("div");
-      h.className = "fHeart";
-
-      const left = 6 + Math.random() * 88;
-      const size = 16 + Math.random() * 24;
-
-      h.style.left = left + "%";
-      h.style.width = size + "px";
-      h.style.height = size + "px";
-
-      const dur = 1400 + Math.random() * 1500;
-      const delay = Math.random() * 280;
-      h.style.animation = `floatUp ${dur}ms ease forwards`;
-      h.style.animationDelay = delay + "ms";
-
-      floatArea.appendChild(h);
-      requestAnimationFrame(() => { h.style.opacity = "1"; });
-
-      setTimeout(() => h.remove(), dur + delay + 160);
+    function shouldDodge(){
+      // Always dodge early. Later, sometimes stay still so it is catchable.
+      if(!allowCatch) return true;
+      return Math.random() < 0.55; // still frustrating, but possible
     }
-  }
 
-  function doYes(){
-    if (yesLocked) return;
-    yesLocked = true;
+    // Desktop hover
+    noBtn.addEventListener('pointerenter', (e)=>{
+      if(e.pointerType === 'mouse' && shouldDodge()){
+        moveNoButton(e.clientX, e.clientY);
+      }
+    });
 
-    result.textContent = "Yay. You’re my Valentine now. 🧸💘";
-    hint.textContent = "";
-    sub.textContent = "Correct choice.";
+    // Mobile: dodge when finger approaches
+    btnRow.addEventListener('pointermove', (e)=>{
+      if(e.pointerType !== 'mouse'){
+        const rect = noBtn.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width/2);
+        const dy = e.clientY - (rect.top + rect.height/2);
+        const dist = Math.hypot(dx, dy);
+        if(dist < 90 && shouldDodge()){
+          moveNoButton(e.clientX, e.clientY);
+        }
+      }
+    });
 
-    bear.classList.add("bounce");
-    setTimeout(() => bear.classList.remove("bounce"), 650);
+    // Also dodge on touch start directly on it
+    noBtn.addEventListener('pointerdown', (e)=>{
+      if(shouldDodge()){
+        e.preventDefault();
+        moveNoButton(e.clientX, e.clientY);
+      }
+    });
 
-    art.classList.add("showMoment");
-    spawnFloatingHearts(34);
+    // If they do click No, keep it cute
+    noBtn.addEventListener('click', ()=>{
+      hint.textContent = "You actually clicked it. Respect.";
+    });
 
-    // keep No visible but effectively done
-    noBtn.disabled = true;
-    noBtn.style.opacity = ".55";
-    noBtn.style.cursor = "default";
-  }
+    // Celebration overlay
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const floatHearts = document.getElementById('floatHearts');
 
-  yesBtn.addEventListener("click", doYes);
+    function heartSVG(){
+      return `
+        <svg class="fh" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 21s-7.2-4.6-9.6-8.6C.7 9.2 2.3 5.7 5.7 5.1c2-.4 3.7.6 4.7 2
+                   1-1.4 2.7-2.4 4.7-2 3.4.6 5 4.1 3.3 7.3C19.2 16.4 12 21 12 21Z"
+                fill="rgba(255,120,180,.92)"/>
+          <path d="M12 21s-7.2-4.6-9.6-8.6C.7 9.2 2.3 5.7 5.7 5.1c2-.4 3.7.6 4.7 2
+                   1-1.4 2.7-2.4 4.7-2 3.4.6 5 4.1 3.3 7.3C19.2 16.4 12 21 12 21Z"
+                stroke="rgba(232,143,180,.65)" stroke-width="1.2"/>
+          <circle cx="8.5" cy="8.6" r="1.2" fill="rgba(255,255,255,.85)"/>
+        </svg>
+      `;
+    }
 
-  placeNoStart();
-  window.addEventListener("resize", () => {
-    if (!yesLocked) placeNoStart();
-  });
-</script>
+    function spawnFloatingHearts(){
+      floatHearts.innerHTML = '';
+      const num = 18;
+      for(let i=0;i<num;i++){
+        const wrap = document.createElement('div');
+        wrap.innerHTML = heartSVG();
+        const el = wrap.firstElementChild;
 
+        const left = Math.random()*100;
+        const delay = Math.random()*2.8;
+        const dur = 3.6 + Math.random()*2.6;
+        const size = 12 + Math.random()*14;
+
+        el.style.left = left + '%';
+        el.style.bottom = (-10 - Math.random()*25) + 'px';
+        el.style.animationDelay = delay + 's';
+        el.style.animationDuration = dur + 's';
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.opacity = '0';
+
+        floatHearts.appendChild(el);
+      }
+    }
+
+    function openOverlay(){
+      overlay.classList.add('show');
+      spawnFloatingHearts();
+    }
+    function closeOverlay(){
+      overlay.classList.remove('show');
+    }
+
+    yesBtn.addEventListener('click', openOverlay);
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', (e)=>{
+      if(e.target === overlay) closeOverlay();
+    });
+
+    // Make initial dodge feel subtle and cute (start from default position)
+    // but allow repositioning within the row if needed.
+    (function initNoPos(){
+      // Keep it aligned in the row on load (no transform override).
+      // After first dodge, we switch to translated positioning.
+      dodgeCount = 0;
+      allowCatch = false;
+    })();
+  </script>
 </body>
-                </html>
+            </html>
