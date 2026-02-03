@@ -1,586 +1,236 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Valentine Card</title>
-  <style>
-    :root{
-      --bg:#ffd6e6;
-      --bg2:#ffe7f0;
-      --card:#ffffffcc;
-      --stroke:#e88fb4;
-      --pink:#ff8fbe;
-      --pink2:#ffb3d3;
-      --text:#6b3a52;
-      --btnYes:#ff7fb5;
-      --btnYes2:#ff98c5;
-      --btnNo:#ffd3e6;
-      --shadow: 0 18px 50px rgba(110, 45, 75, .18);
-      --radius: 26px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Valentine</title>
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background: radial-gradient(1200px 700px at 20% 10%, var(--bg2), var(--bg)) fixed;
-      overflow:hidden;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+:root{
+  --bg:#ffe3ee;
+  --card:#ffffffcc;
+  --text:#6b3a52;
+  --pink:#ff8fbf;
+  --pinkSoft:#ffd2e6;
+}
 
-    /* Soft sparkles floating */
-    .sparkles{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      opacity:.75;
-    }
-    .sparkle{
-      position:absolute;
-      width:10px;
-      height:10px;
-      filter: blur(.2px);
-      opacity:.0;
-      animation: floatUp linear infinite;
-    }
-    .sparkle::before{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(255,255,255,0) 65%);
-      transform: rotate(25deg);
-      border-radius: 50%;
-    }
-    .sparkle::after{
-      content:"";
-      position:absolute; inset:-3px;
-      background: conic-gradient(from 0deg, rgba(255,255,255,0) 0 40%, rgba(255,255,255,.8) 50%, rgba(255,255,255,0) 60% 100%);
-      opacity:.55;
-      mask: radial-gradient(circle, #000 45%, transparent 70%);
-      border-radius: 50%;
-    }
-    @keyframes floatUp{
-      0%{ transform: translate3d(0, 30px, 0) scale(.7); opacity:0; }
-      15%{ opacity:.65; }
-      70%{ opacity:.55; }
-      100%{ transform: translate3d(0, -110vh, 0) scale(1.15); opacity:0; }
-    }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont;
+  background: radial-gradient(1200px 700px at 20% 10%, #fff0f6, var(--bg));
+  color:var(--text);
+  overflow:hidden;
+}
 
-    /* Center layout */
-    .wrap{
-      position:relative;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 22px 16px calc(18px + env(safe-area-inset-bottom));
-    }
+.wrap{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
 
-    .card{
-      width:min(420px, 92vw);
-      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72));
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, .65);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px 18px 18px;
-      text-align:center;
-      position:relative;
-    }
+.card{
+  width:min(420px,92vw);
+  background:var(--card);
+  backdrop-filter: blur(10px);
+  border-radius:26px;
+  padding:22px 18px 20px;
+  text-align:center;
+  box-shadow:0 18px 50px rgba(110,45,75,.18);
+}
 
-    .bear{
-      width: 210px;
-      max-width: 56vw;
-      margin: 2px auto 8px;
-      display:block;
-    }
+.question{
+  font-size:18px;
+  margin:12px 10px 16px;
+  line-height:1.35;
+}
 
-    .question{
-      font-size: 18px;
-      line-height: 1.35;
-      margin: 6px 10px 16px;
-      letter-spacing: .2px;
-    }
+.btnRow{
+  position:relative;
+  height:62px;
+}
 
-    .btnRow{
-      position:relative;
-      height: 62px;
-      margin-top: 4px;
-    }
+button{
+  font:inherit;
+  font-weight:700;
+  border:0;
+  border-radius:18px;
+  padding:14px 22px;
+  min-width:120px;
+  box-shadow:0 10px 26px rgba(110,45,75,.16);
+}
 
-    button{
-      appearance:none;
-      border:0;
-      font: inherit;
-      font-weight: 700;
-      padding: 14px 22px;
-      border-radius: 18px;
-      box-shadow: 0 10px 26px rgba(110,45,75,.16);
-      transform: translateZ(0);
-      transition: transform .12s ease, filter .12s ease;
-      user-select:none;
-      touch-action: manipulation;
-    }
-    button:active{ transform: scale(.98); }
+#yes{
+  background:linear-gradient(180deg,#ffb3d3,#ff7fb5);
+  color:white;
+  position:absolute;
+  left:50%;
+  transform:translateX(-110%);
+}
 
-    #yesBtn{
-      background: linear-gradient(180deg, var(--btnYes2), var(--btnYes));
-      color: white;
-      border: 1px solid rgba(255,255,255,.55);
-      position:absolute;
-      left: 50%;
-      transform: translateX(-110%) translateZ(0);
-      min-width: 120px;
-    }
-    #yesBtn:hover{ filter: brightness(1.03); }
+#no{
+  background:linear-gradient(180deg,#fff,#ffe0ee);
+  color:#7a3a59;
+  position:absolute;
+  left:50%;
+  transform:translateX(10%);
+}
 
-    #noBtn{
-      background: linear-gradient(180deg, #fff, var(--btnNo));
-      color: #7a3a59;
-      border: 1px solid rgba(232,143,180,.55);
-      position:absolute;
-      left: 50%;
-      transform: translateX(10%) translateZ(0);
-      min-width: 120px;
-    }
+.overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(1200px 800px at 50% 30%, rgba(255,255,255,.65), rgba(255,214,230,.85));
+  backdrop-filter:blur(6px);
+  z-index:10;
+}
 
-    .hint{
-      margin: 10px 0 0;
-      font-size: 12px;
-      opacity: .65;
-    }
+.overlay.show{display:flex}
 
-    /* Celebration overlay */
-    .overlay{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(1200px 800px at 50% 30%, rgba(255,255,255,.65), rgba(255,214,230,.80));
-      backdrop-filter: blur(6px);
-      z-index: 50;
-      padding: 16px;
-    }
-    .overlay.show{ display:flex; }
+.celebrate{
+  width:min(560px,94vw);
+  aspect-ratio:1/1;
+  background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.5));
+  border-radius:34px;
+  box-shadow:0 24px 70px rgba(110,45,75,.22);
+  position:relative;
+  overflow:hidden;
+}
 
-    .celebrate{
-      width: min(560px, 94vw);
-      aspect-ratio: 1 / 1;
-      position:relative;
-      border-radius: 34px;
-      overflow:hidden;
-      box-shadow: 0 24px 70px rgba(110,45,75,.22);
-      border: 1px solid rgba(255,255,255,.7);
-      background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.45));
-    }
-
-    .closeTap{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 3;
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(232,143,180,.35);
-      padding: 10px 12px;
-      border-radius: 999px;
-      box-shadow: 0 12px 30px rgba(110,45,75,.14);
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .overlayNote{
-      position:absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 13px;
-      opacity: .75;
-      z-index: 3;
-      background: rgba(255,255,255,.55);
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(232,143,180,.25);
-    }
-
-    /* Floating hearts in overlay */
-    .floatHearts{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      z-index: 2;
-    }
-    .fh{
-      position:absolute;
-      width: 16px;
-      height: 16px;
-      opacity: 0;
-      animation: drift 4.8s linear infinite;
-      filter: drop-shadow(0 6px 10px rgba(110,45,75,.16));
-    }
-    @keyframes drift{
-      0%{ transform: translate3d(0, 18px, 0) scale(.85) rotate(-8deg); opacity:0; }
-      15%{ opacity:.8; }
-      65%{ opacity:.75; }
-      100%{ transform: translate3d(0, -115%, 0) scale(1.25) rotate(12deg); opacity:0; }
-    }
-
-    /* Small bounce when overlay appears */
-    .pop{
-      animation: pop .22s ease-out;
-    }
-    @keyframes pop{
-      0%{ transform: scale(.96); }
-      100%{ transform: scale(1); }
-    }
-
-    /* Accessibility */
-    .sr{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;
-      overflow:hidden;clip:rect(0,0,0,0);
-      white-space:nowrap;border:0;
-    }
-  </style>
+.close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:#fff;
+  font-weight:700;
+}
+</style>
 </head>
+
 <body>
-  <div class="sparkles" aria-hidden="true" id="sparkles"></div>
+<div class="wrap">
+  <div class="card">
 
-  <main class="wrap">
-    <section class="card" role="group" aria-label="Valentine card">
-      <!-- Cute plush bear: head only, minimal, soft outlines -->
-      <svg class="bear" viewBox="0 0 300 240" role="img" aria-label="Cute pink plush bear head">
-        <!-- Ears -->
-        <defs>
-          <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffb8d7"/>
-            <stop offset="1" stop-color="#ff93c6"/>
-          </linearGradient>
-          <linearGradient id="innerEar" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffd4e7"/>
-            <stop offset="1" stop-color="#ffb6d5"/>
-          </linearGradient>
-          <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="0.6" result="b"/>
-            <feMerge>
-              <feMergeNode in="b"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
+<!-- Plush Bear Head -->
+<svg width="200" viewBox="0 0 300 240" aria-label="plush bear">
+  <defs>
+    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e7d8"/>
+      <stop offset="1" stop-color="#e7cfb7"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff2e6"/>
+      <stop offset="1" stop-color="#f5dfcc"/>
+    </linearGradient>
+  </defs>
 
-        <g filter="url(#soft)">
-          <ellipse cx="78" cy="72" rx="45" ry="44" fill="url(#fur)" stroke="#e88fb4" stroke-width="5"/>
-          <ellipse cx="222" cy="72" rx="45" ry="44" fill="url(#fur)" stroke="#e88fb4" stroke-width="5"/>
-          <ellipse cx="78" cy="78" rx="26" ry="24" fill="url(#innerEar)" opacity=".9"/>
-          <ellipse cx="222" cy="78" rx="26" ry="24" fill="url(#innerEar)" opacity=".9"/>
+  <!-- ears -->
+  <ellipse cx="80" cy="70" rx="42" ry="40" fill="url(#fur)"/>
+  <ellipse cx="220" cy="70" rx="42" ry="40" fill="url(#fur)"/>
 
-          <!-- Head -->
-          <path d="M150 36
-                   C210 36, 262 82, 266 146
-                   C270 208, 222 232, 150 232
-                   C78 232, 30 208, 34 146
-                   C38 82, 90 36, 150 36Z"
-                fill="url(#fur)" stroke="#e88fb4" stroke-width="6" stroke-linejoin="round"/>
+  <!-- head -->
+  <path d="M150 36
+           C210 36 262 82 266 146
+           C270 208 222 232 150 232
+           C78 232 30 208 34 146
+           C38 82 90 36 150 36Z"
+        fill="url(#fur)"/>
 
-          <!-- Face patch -->
-          <ellipse cx="150" cy="150" rx="78" ry="66" fill="#ffd7e9" opacity=".9" stroke="rgba(232,143,180,.35)" stroke-width="3"/>
+  <!-- face -->
+  <ellipse cx="150" cy="150" rx="78" ry="66" fill="url(#face)"/>
 
-          <!-- Eyes -->
-          <g fill="#5a2c42">
-            <circle cx="120" cy="134" r="7.6"/>
-            <circle cx="180" cy="134" r="7.6"/>
-          </g>
-          <!-- Eye highlights -->
-          <g fill="rgba(255,255,255,.9)">
-            <circle cx="117.4" cy="131.2" r="2.3"/>
-            <circle cx="177.4" cy="131.2" r="2.3"/>
-          </g>
+  <!-- eyes -->
+  <circle cx="122" cy="140" r="6" fill="#4b2b1f"/>
+  <circle cx="178" cy="140" r="6" fill="#4b2b1f"/>
+  <circle cx="120" cy="138" r="2" fill="#fff"/>
+  <circle cx="176" cy="138" r="2" fill="#fff"/>
 
-          <!-- Nose -->
-          <path d="M150 148
-                   C144 148, 140 152, 140 157
-                   C140 163, 145 167, 150 167
-                   C155 167, 160 163, 160 157
-                   C160 152, 156 148, 150 148Z"
-                fill="#ff6ea8" stroke="#e88fb4" stroke-width="3" />
+  <!-- nose -->
+  <ellipse cx="150" cy="156" rx="8" ry="6" fill="#9b6a4a"/>
 
-          <!-- Smile -->
-          <path d="M138 176
-                   C144 185, 156 185, 162 176"
-                fill="none" stroke="#e0619b" stroke-width="4" stroke-linecap="round" />
+  <!-- mouth -->
+  <path d="M142 170 C150 176 158 176 166 170"
+        stroke="#7a4a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
 
-          <!-- Blush -->
-          <g opacity=".7">
-            <ellipse cx="98" cy="160" rx="16" ry="10" fill="#ff77b0"/>
-            <ellipse cx="202" cy="160" rx="16" ry="10" fill="#ff77b0"/>
-          </g>
+  <!-- blush -->
+  <ellipse cx="104" cy="162" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
+  <ellipse cx="196" cy="162" rx="14" ry="9" fill="#ffb3c8" opacity=".6"/>
+</svg>
 
-          <!-- Tiny plush stitches (subtle) -->
-          <path d="M92 108 C86 114, 86 122, 92 128" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M208 108 C214 114, 214 122, 208 128" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
-        </g>
-      </svg>
+<p class="question">
+Chrissy, on 2/2 of 2026, 22:22, will you be my Valentine?
+</p>
 
-      <p class="question">
-        Chrissy, on 2/2 of 2026, 11:11 PM, will you be my Valentine?
-      </p>
+<div class="btnRow">
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
 
-      <div class="btnRow" id="btnRow">
-        <button id="yesBtn" type="button" aria-label="Yes">
-          Yes
-        </button>
-        <button id="noBtn" type="button" aria-label="No (playfully tricky)">
-          No
-        </button>
-      </div>
+</div>
+</div>
 
-      <p class="hint" id="hint">Tip: the “No” button is shy.</p>
-    </section>
-  </main>
+<!-- Celebration -->
+<div class="overlay" id="overlay">
+  <div class="celebrate">
+    <button class="close" onclick="overlay.classList.remove('show')">Close</button>
 
-  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Celebration">
-    <div class="celebrate pop" id="celebrateBox">
-      <button class="closeTap" id="closeBtn" type="button" aria-label="Close overlay">Close</button>
+<svg viewBox="0 0 900 900" width="100%" height="100%">
+  <!-- arrow behind hearts -->
+  <line x1="680" y1="220" x2="240" y2="650"
+        stroke="#e7a7c7" stroke-width="10" stroke-linecap="round"/>
+  <path d="M240 650 L260 640 L250 665 Z" fill="#e7a7c7"/>
+  <path d="M680 220 C710 200 735 180 760 160"
+        stroke="#f0bfd8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M680 220 C710 240 735 260 760 280"
+        stroke="#f0bfd8" stroke-width="8" stroke-linecap="round"/>
 
-      <!-- Main hearts + arrow (arrow behind hearts) -->
-      <svg viewBox="0 0 900 900" width="100%" height="100%" aria-hidden="true">
-        <defs>
-          <linearGradient id="heartBack" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ff9bc8"/>
-            <stop offset="1" stop-color="#ff6fae"/>
-          </linearGradient>
-          <linearGradient id="heartFront" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffd1e6"/>
-            <stop offset="1" stop-color="#ff9dc9"/>
-          </linearGradient>
-          <linearGradient id="arrowShaft" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#f2c2d6"/>
-            <stop offset="1" stop-color="#e78fb6"/>
-          </linearGradient>
-          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="rgba(110,45,75,.22)"/>
-          </filter>
-        </defs>
+  <!-- back heart -->
+  <path d="M450 740
+           C450 740 160 560 160 360
+           C160 240 260 170 360 200
+           C420 220 450 265 450 265
+           C450 265 480 220 540 200
+           C640 170 740 240 740 360
+           C740 560 450 740 450 740Z"
+        fill="#ff7fb5" opacity=".85"/>
 
-        <!-- Arrow behind hearts -->
-        <g opacity=".95">
-          <!-- shaft -->
-          <line x1="675" y1="210" x2="240" y2="650"
-                stroke="url(#arrowShaft)" stroke-width="10" stroke-linecap="round"/>
-          <!-- arrowhead (bottom-left) -->
-          <path d="M240 650 L265 640 L255 665 Z" fill="#e78fb6" opacity=".95"/>
-          <!-- subtle fletching at tail (top-right) -->
-          <path d="M675 210
-                   C700 200, 712 188, 728 168"
-                fill="none" stroke="#f2c2d6" stroke-width="8" stroke-linecap="round" opacity=".8"/>
-          <path d="M675 210
-                   C695 230, 712 244, 734 258"
-                fill="none" stroke="#f2c2d6" stroke-width="8" stroke-linecap="round" opacity=".8"/>
-        </g>
+  <!-- front heart -->
+  <path d="M490 705
+           C490 705 260 560 260 400
+           C260 300 340 250 415 270
+           C460 285 490 320 490 320
+           C490 320 520 285 565 270
+           C640 250 720 300 720 400
+           C720 560 490 705 490 705Z"
+        fill="#ffd1e6" opacity=".95"/>
+</svg>
 
-        <!-- Back heart (bigger) -->
-        <g filter="url(#softShadow)">
-          <path d="M450 735
-                   C450 735, 165 560, 165 365
-                   C165 245, 260 170, 360 200
-                   C415 217, 450 265, 450 265
-                   C450 265, 485 217, 540 200
-                   C640 170, 735 245, 735 365
-                   C735 560, 450 735, 450 735Z"
-                fill="url(#heartBack)" opacity=".85"/>
-          <!-- Front heart (smaller, slightly offset) -->
-          <path d="M490 705
-                   C490 705, 250 560, 250 400
-                   C250 305, 330 245, 415 270
-                   C455 282, 490 320, 490 320
-                   C490 320, 525 282, 565 270
-                   C650 245, 730 305, 730 400
-                   C730 560, 490 705, 490 705Z"
-                fill="url(#heartFront)" opacity=".92"/>
-        </g>
-      </svg>
-
-      <div class="floatHearts" id="floatHearts" aria-hidden="true"></div>
-      <div class="overlayNote">Happy Valentine’s 💖</div>
-    </div>
   </div>
+</div>
 
-  <script>
-    // Sparkle background
-    (function makeSparkles(){
-      const host = document.getElementById('sparkles');
-      const count = 28;
-      for(let i=0;i<count;i++){
-        const s = document.createElement('div');
-        s.className = 'sparkle';
-        const left = Math.random()*100;
-        const delay = Math.random()*6;
-        const dur = 6 + Math.random()*8;
-        const size = 6 + Math.random()*10;
-        s.style.left = left + 'vw';
-        s.style.top = (80 + Math.random()*40) + 'vh';
-        s.style.width = size + 'px';
-        s.style.height = size + 'px';
-        s.style.animationDuration = dur + 's';
-        s.style.animationDelay = (-delay) + 's';
-        host.appendChild(s);
-      }
-    })();
+<script>
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+const overlay=document.getElementById("overlay");
+const row=document.querySelector(".btnRow");
 
-    // No button dodge behavior (mischievous, not aggressive)
-    const btnRow = document.getElementById('btnRow');
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const hint = document.getElementById('hint');
+function dodge(){
+  const r=row.getBoundingClientRect();
+  const x=Math.random()*(r.width-120);
+  const y=Math.random()*(r.height-44);
+  no.style.transform=`translate(${x}px,${y}px)`;
+}
 
-    let dodgeCount = 0;
-    let allowCatch = false;
-
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-    function moveNoButton(nearX, nearY){
-      const rowRect = btnRow.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const padding = 8;
-      const maxX = rowRect.width - btnRect.width - padding;
-      const maxY = rowRect.height - btnRect.height - padding;
-
-      // Choose a target away from the pointer
-      const baseX = (nearX != null) ? (nearX - rowRect.left) : Math.random()*rowRect.width;
-      const baseY = (nearY != null) ? (nearY - rowRect.top) : Math.random()*rowRect.height;
-
-      // push away vector
-      const dirX = (Math.random() < 0.5 ? -1 : 1) * (60 + Math.random()*80);
-      const dirY = (Math.random() < 0.5 ? -1 : 1) * (10 + Math.random()*26);
-
-      let x = clamp(baseX + dirX - btnRect.width/2, padding, maxX);
-      let y = clamp(baseY + dirY - btnRect.height/2, padding, maxY);
-
-      noBtn.style.left = '0px';
-      noBtn.style.top = '0px';
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-      dodgeCount++;
-      if(dodgeCount === 2) hint.textContent = "Hehe. It moves.";
-      if(dodgeCount === 5) hint.textContent = "It is technically possible. Good luck.";
-      if(dodgeCount > 9) {
-        allowCatch = true; // after enough teasing, allow a chance to catch
-        hint.textContent = "Okay, it might let you click it now... maybe.";
-      }
-    }
-
-    function shouldDodge(){
-      // Always dodge early. Later, sometimes stay still so it is catchable.
-      if(!allowCatch) return true;
-      return Math.random() < 0.55; // still frustrating, but possible
-    }
-
-    // Desktop hover
-    noBtn.addEventListener('pointerenter', (e)=>{
-      if(e.pointerType === 'mouse' && shouldDodge()){
-        moveNoButton(e.clientX, e.clientY);
-      }
-    });
-
-    // Mobile: dodge when finger approaches
-    btnRow.addEventListener('pointermove', (e)=>{
-      if(e.pointerType !== 'mouse'){
-        const rect = noBtn.getBoundingClientRect();
-        const dx = e.clientX - (rect.left + rect.width/2);
-        const dy = e.clientY - (rect.top + rect.height/2);
-        const dist = Math.hypot(dx, dy);
-        if(dist < 90 && shouldDodge()){
-          moveNoButton(e.clientX, e.clientY);
-        }
-      }
-    });
-
-    // Also dodge on touch start directly on it
-    noBtn.addEventListener('pointerdown', (e)=>{
-      if(shouldDodge()){
-        e.preventDefault();
-        moveNoButton(e.clientX, e.clientY);
-      }
-    });
-
-    // If they do click No, keep it cute
-    noBtn.addEventListener('click', ()=>{
-      hint.textContent = "You actually clicked it. Respect.";
-    });
-
-    // Celebration overlay
-    const overlay = document.getElementById('overlay');
-    const closeBtn = document.getElementById('closeBtn');
-    const floatHearts = document.getElementById('floatHearts');
-
-    function heartSVG(){
-      return `
-        <svg class="fh" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 21s-7.2-4.6-9.6-8.6C.7 9.2 2.3 5.7 5.7 5.1c2-.4 3.7.6 4.7 2
-                   1-1.4 2.7-2.4 4.7-2 3.4.6 5 4.1 3.3 7.3C19.2 16.4 12 21 12 21Z"
-                fill="rgba(255,120,180,.92)"/>
-          <path d="M12 21s-7.2-4.6-9.6-8.6C.7 9.2 2.3 5.7 5.7 5.1c2-.4 3.7.6 4.7 2
-                   1-1.4 2.7-2.4 4.7-2 3.4.6 5 4.1 3.3 7.3C19.2 16.4 12 21 12 21Z"
-                stroke="rgba(232,143,180,.65)" stroke-width="1.2"/>
-          <circle cx="8.5" cy="8.6" r="1.2" fill="rgba(255,255,255,.85)"/>
-        </svg>
-      `;
-    }
-
-    function spawnFloatingHearts(){
-      floatHearts.innerHTML = '';
-      const num = 18;
-      for(let i=0;i<num;i++){
-        const wrap = document.createElement('div');
-        wrap.innerHTML = heartSVG();
-        const el = wrap.firstElementChild;
-
-        const left = Math.random()*100;
-        const delay = Math.random()*2.8;
-        const dur = 3.6 + Math.random()*2.6;
-        const size = 12 + Math.random()*14;
-
-        el.style.left = left + '%';
-        el.style.bottom = (-10 - Math.random()*25) + 'px';
-        el.style.animationDelay = delay + 's';
-        el.style.animationDuration = dur + 's';
-        el.style.width = size + 'px';
-        el.style.height = size + 'px';
-        el.style.opacity = '0';
-
-        floatHearts.appendChild(el);
-      }
-    }
-
-    function openOverlay(){
-      overlay.classList.add('show');
-      spawnFloatingHearts();
-    }
-    function closeOverlay(){
-      overlay.classList.remove('show');
-    }
-
-    yesBtn.addEventListener('click', openOverlay);
-    closeBtn.addEventListener('click', closeOverlay);
-    overlay.addEventListener('click', (e)=>{
-      if(e.target === overlay) closeOverlay();
-    });
-
-    // Make initial dodge feel subtle and cute (start from default position)
-    // but allow repositioning within the row if needed.
-    (function initNoPos(){
-      // Keep it aligned in the row on load (no transform override).
-      // After first dodge, we switch to translated positioning.
-      dodgeCount = 0;
-      allowCatch = false;
-    })();
-  </script>
+no.addEventListener("pointerenter",dodge);
+no.addEventListener("pointerdown",e=>{e.preventDefault();dodge();});
+yes.onclick=()=>overlay.classList.add("show");
+</script>
 </body>
-            </html>
+</html>
