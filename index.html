@@ -1,297 +1,575 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Chrissy 💗 Valentine</title>
 
 <style>
-:root{
-  --bg1:#ffe2ee;
-  --bg2:#fff7fb;
-  --ink:#2b2b35;
-  --muted:#6b6b7a;
-  --panel:rgba(255,255,255,.78);
-  --border:rgba(0,0,0,.08);
-  --shadow:0 22px 60px rgba(30,10,20,.18);
+  :root{
+    --bg1:#ffe2ee;
+    --bg2:#fff7fb;
+    --ink:#2b2b35;
+    --muted:#6b6b7a;
 
-  --yes1:#ff4d87;
-  --yes2:#ff9bbd;
-  --heart1:#ff2f78;
-  --heart2:#ff8fb9;
+    --panel: rgba(255,255,255,.84);
+    --panel2: rgba(255,255,255,.66);
+    --border: rgba(0,0,0,.08);
+    --shadow: 0 22px 60px rgba(30,10,20,.18);
 
-  --fur:#fff2f7;
-  --fur2:#ffe6f1;
-  --outline:#2b2b35;
-  --cheek:#ff9fc0;
-}
+    --yes1:#ff4d87;
+    --yes2:#ff9bbd;
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  background:
-    radial-gradient(1000px 700px at 20% 15%, rgba(255,77,135,.22), transparent 60%),
-    radial-gradient(900px 600px at 85% 30%, rgba(255,155,189,.22), transparent 60%),
-    linear-gradient(180deg,var(--bg1),var(--bg2));
-  overflow:hidden;
-}
+    --no:#232335;
 
-.card{
-  width:min(980px,100%);
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:28px;
-  box-shadow:var(--shadow);
-  padding:18px;
-}
+    --fur:#fff2f7;
+    --fur2:#ffe6f1;
+    --outline:#2b2b35;
+    --cheek:#ff9fc0;
 
-.grid{
-  display:grid;
-  gap:16px;
-}
-@media(min-width:900px){
-  .grid{grid-template-columns:1fr 1fr;align-items:center;}
-}
+    --heart1:#ff2f78;
+    --heart2:#ff9cc4;
 
-.art{
-  position:relative;
-  background:rgba(255,255,255,.6);
-  border-radius:24px;
-  padding:16px;
-  overflow:hidden;
-  min-height:380px;
-}
+    --arrow:#ffcc4d;
+  }
 
-.sparkles{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background-image:
-    radial-gradient(circle at 12% 18%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 26% 38%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 40% 14%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 64% 18%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 82% 22%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 20% 70%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 48% 78%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 74% 70%, #fff 0 2px, transparent 3px);
-  animation:twinkle 2.6s ease-in-out infinite;
-  opacity:.75;
-}
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 18px;
+    font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1000px 700px at 20% 15%, rgba(255,77,135,.24), transparent 60%),
+      radial-gradient(900px 600px at 85% 30%, rgba(255,155,189,.24), transparent 60%),
+      linear-gradient(180deg,var(--bg1),var(--bg2));
+    overflow:hidden;
+  }
 
-@keyframes twinkle{
-  0%{opacity:.5}
-  50%{opacity:1}
-  100%{opacity:.5}
-}
+  .card{
+    width:min(980px,100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+  }
 
-.star{
-  position:absolute;
-  color:white;
-  font-size:18px;
-  animation:star 1.8s infinite ease-in-out;
-}
-.star.s1{left:14%;top:20%}
-.star.s2{left:82%;top:18%;animation-delay:.6s}
-.star.s3{left:70%;top:76%;animation-delay:1s}
+  .grid{
+    display:grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+    align-items:center;
+  }
+  @media (min-width: 900px){
+    .grid{ grid-template-columns: 1fr 1fr; }
+  }
 
-@keyframes star{
-  0%{transform:scale(.8);opacity:.5}
-  50%{transform:scale(1.2);opacity:1}
-  100%{transform:scale(.8);opacity:.5}
-}
+  .art{
+    position:relative;
+    background: var(--panel2);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 24px;
+    padding: 16px;
+    min-height: 420px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
 
-.copy{
-  text-align:center;
-  padding:10px;
-}
+  /* SVG particle layer sits on top, guaranteed visible */
+  .sparkleSVG{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    filter: drop-shadow(0 10px 16px rgba(255,77,135,.16));
+  }
 
-h1{
-  margin:0;
-  font-size:20px;
-  line-height:1.3;
-}
+  .copy{
+    text-align:center;
+    padding: 10px 6px;
+  }
 
-.sub{
-  font-size:13px;
-  color:var(--muted);
-}
+  h1{
+    margin:0;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
 
-.zone{
-  margin-top:12px;
-  background:#fff;
-  border-radius:22px;
-  height:140px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+  .sub{
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
 
-button{
-  border:none;
-  border-radius:18px;
-  padding:14px 20px;
-  font-weight:900;
-  font-size:15px;
-  cursor:pointer;
-}
+  .zone{
+    margin: 12px auto 0;
+    width:min(520px,100%);
+    height: 150px;
+    background: rgba(255,255,255,.88);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 22px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
 
-.yes{
-  background:linear-gradient(135deg,var(--yes1),var(--yes2));
-}
+  button{
+    border:none;
+    border-radius: 18px;
+    padding: 14px 20px;
+    font-weight: 900;
+    font-size: 15px;
+    cursor:pointer;
+    user-select:none;
+    touch-action: manipulation;
+    transition: transform .08s ease, filter .2s ease;
+  }
+  button:active{ transform: scale(.98); }
 
-.no{
-  background:#222;
-  color:white;
-  position:absolute;
-}
+  .yes{
+    background: linear-gradient(135deg,var(--yes1),var(--yes2));
+    color: #12050b;
+    box-shadow: 0 14px 28px rgba(255,77,135,.25);
+    min-width: 150px;
+  }
+  .yes:hover{ filter: brightness(1.02); }
 
-.result{
-  margin-top:8px;
-  font-weight:900;
-}
+  .no{
+    background: rgba(35,35,53,.94);
+    color:white;
+    min-width: 150px;
+    position:absolute;
+    left: 63%;
+    top: 54%;
+    transform: translate(-50%,-50%);
+  }
 
-.burst{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
+  .hint{
+    position:absolute;
+    left:0;
+    bottom: 10px;
+    width:100%;
+    text-align:center;
+    font-size: 12px;
+    color: var(--muted);
+    opacity:.95;
+    padding: 0 10px;
+  }
 
-.bigHeart{
-  position:absolute;
-  width:180px;
-  height:180px;
-  left:50%;
-  top:55%;
-  transform:translate(-50%,-50%) scale(0);
-  opacity:0;
-}
+  .result{
+    margin-top: 8px;
+    font-weight: 900;
+    min-height: 22px;
+  }
 
-.bigHeart.two{
-  width:140px;
-  height:140px;
-  left:62%;
-  top:50%;
-}
+  /* Cupid hearts overlay */
+  .cupidOverlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
 
-.heart{
-  width:100%;
-  height:100%;
-  background:linear-gradient(135deg,var(--heart1),var(--heart2));
-  transform:rotate(45deg);
-  border-radius:22px;
-  position:relative;
-}
-.heart:before,.heart:after{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:inherit;
-}
-.heart:before{left:-50%}
-.heart:after{top:-50%}
+  .cupidWrap{
+    width: 340px;
+    height: 250px;
+    transform: translateY(10px) scale(0.7);
+    opacity: 0;
+    filter: drop-shadow(0 18px 24px rgba(255,77,135,.18));
+  }
 
-@keyframes pop{
-  to{transform:translate(-50%,-50%) scale(1);opacity:1}
-}
+  .showCupid .cupidWrap{
+    animation: cupidIn .55s ease forwards;
+  }
+
+  @keyframes cupidIn{
+    0% { transform: translateY(14px) scale(0.52); opacity: 0; }
+    70% { transform: translateY(6px) scale(0.80); opacity: 1; }
+    100% { transform: translateY(8px) scale(0.74); opacity: 1; }
+  }
+
+  /* Floating hearts */
+  .floatArea{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+
+  .fHeart{
+    position:absolute;
+    bottom: -30px;
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    transform: translateY(0) rotate(45deg);
+    background: linear-gradient(135deg, var(--heart1), var(--heart2));
+    border-radius: 7px;
+    filter: drop-shadow(0 12px 16px rgba(255,77,135,.16));
+  }
+  .fHeart:before,
+  .fHeart:after{
+    content:"";
+    position:absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: inherit;
+  }
+  .fHeart:before{ left: -11px; top: 0; }
+  .fHeart:after{ top: -11px; left: 0; }
+
+  @keyframes floatUp{
+    0% { transform: translateY(0) rotate(45deg) scale(.92); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(-280px) rotate(45deg) scale(1.15); opacity: 0; }
+  }
+
+  /* Bear bounce */
+  .bounce{
+    animation: bearBounce .55s ease;
+  }
+  @keyframes bearBounce{
+    0%{ transform: translateY(0) scale(1); }
+    45%{ transform: translateY(-6px) scale(1.02); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
 </style>
 </head>
 
 <body>
-<div class="card">
-<div class="grid">
+  <div class="card">
+    <div class="grid">
 
-<div class="art">
-<div class="sparkles"></div>
-<div class="star s1">✦</div>
-<div class="star s2">✦</div>
-<div class="star s3">✦</div>
+      <div class="art" id="art">
+        <!-- SVG particles: dots and stars (guaranteed visible) -->
+        <svg class="sparkleSVG" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <!-- dots -->
+          <g>
+            <circle cx="10" cy="12" r="1.3" fill="white">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.0s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="22" cy="26" r="1.1" fill="white">
+              <animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="38" cy="16" r="1.4" fill="white">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="52" cy="22" r="1.1" fill="white">
+              <animate attributeName="opacity" values="0.2;1;0.2" dur="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="70" cy="14" r="1.4" fill="white">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="86" cy="20" r="1.2" fill="white">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
 
-<svg id="bear" width="320" height="320" viewBox="0 0 320 320">
-<g>
-<circle cx="98" cy="92" r="44" fill="var(--fur)" stroke="var(--outline)" stroke-width="6"/>
-<circle cx="222" cy="92" r="44" fill="var(--fur)" stroke="var(--outline)" stroke-width="6"/>
+            <circle cx="14" cy="54" r="1.2" fill="white">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="30" cy="72" r="1.4" fill="white">
+              <animate attributeName="opacity" values="0.2;1;0.2" dur="2.0s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="44" cy="62" r="1.1" fill="white">
+              <animate attributeName="opacity" values="0.2;1;0.2" dur="2.7s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="62" cy="78" r="1.2" fill="white">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="76" cy="66" r="1.1" fill="white">
+              <animate attributeName="opacity" values="0.2;1;0.2" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="90" cy="76" r="1.4" fill="white">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+          </g>
 
-<ellipse cx="160" cy="160" rx="90" ry="100" fill="var(--fur)" stroke="var(--outline)" stroke-width="7"/>
+          <!-- star shapes -->
+          <g opacity="0.95">
+            <path d="M0 0 L2.2 3.8 L6 6 L2.2 8.2 L0 12 L-2.2 8.2 L-6 6 L-2.2 3.8 Z"
+                  fill="white" transform="translate(16 18)">
+              <animate attributeName="opacity" values="0.35;1;0.35" dur="1.8s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" type="translate" values="16 18;16 18;16 18" dur="1.8s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.9;1.25;0.9" dur="1.8s" repeatCount="indefinite"/>
+            </path>
 
-<ellipse cx="125" cy="150" rx="18" ry="24" fill="var(--outline)"/>
-<ellipse cx="195" cy="150" rx="18" ry="24" fill="var(--outline)"/>
-<circle cx="118" cy="142" r="6" fill="white"/>
-<circle cx="188" cy="142" r="6" fill="white"/>
+            <path d="M0 0 L2.2 3.8 L6 6 L2.2 8.2 L0 12 L-2.2 8.2 L-6 6 L-2.2 3.8 Z"
+                  fill="white" transform="translate(82 16)">
+              <animate attributeName="opacity" values="0.45;1;0.45" dur="2.2s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" type="translate" values="82 16;82 16;82 16" dur="2.2s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.3;0.85" dur="2.2s" repeatCount="indefinite"/>
+            </path>
 
-<ellipse cx="100" cy="175" rx="18" ry="10" fill="var(--cheek)"/>
-<ellipse cx="220" cy="175" rx="18" ry="10" fill="var(--cheek)"/>
+            <path d="M0 0 L2.2 3.8 L6 6 L2.2 8.2 L0 12 L-2.2 8.2 L-6 6 L-2.2 3.8 Z"
+                  fill="white" transform="translate(72 78)">
+              <animate attributeName="opacity" values="0.30;1;0.30" dur="2.0s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" type="translate" values="72 78;72 78;72 78" dur="2.0s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.9;1.2;0.9" dur="2.0s" repeatCount="indefinite"/>
+            </path>
 
-<ellipse cx="160" cy="200" rx="40" ry="30" fill="#fff3df" stroke="var(--outline)" stroke-width="6"/>
-<circle cx="160" cy="190" r="8" fill="var(--outline)"/>
+            <path d="M0 0 L2.2 3.8 L6 6 L2.2 8.2 L0 12 L-2.2 8.2 L-6 6 L-2.2 3.8 Z"
+                  fill="white" transform="translate(22 76)">
+              <animate attributeName="opacity" values="0.40;1;0.40" dur="2.4s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" type="translate" values="22 76;22 76;22 76" dur="2.4s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.25;0.85" dur="2.4s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
 
-<path d="M150 210c8 10 12 10 20 0" stroke="var(--outline)" stroke-width="6" fill="none"/>
-<path d="M158 214c2 6 6 6 8 0c-2 8-6 10-8 0z" fill="#ff8fb9"/>
+        <!-- Bear SVG -->
+        <svg id="bear" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="cute plush bear">
+          <defs>
+            <linearGradient id="furGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--fur)"/>
+              <stop offset="1" stop-color="var(--fur2)"/>
+            </linearGradient>
+            <linearGradient id="muzzleGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fff3df"/>
+              <stop offset="1" stop-color="#ffe1b6"/>
+            </linearGradient>
+          </defs>
 
-<!-- bow -->
-<g transform="translate(200 92)">
-<path d="M0 0c10-10 26-10 34 2c-8 12-24 14-34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5"/>
-<path d="M0 0c-10-10-26-10-34 2c8 12 24 14 34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5"/>
-<circle cx="0" cy="6" r="8" fill="#ffd1e1" stroke="var(--outline)" stroke-width="5"/>
-</g>
-</g>
-</svg>
+          <ellipse cx="160" cy="282" rx="92" ry="18" fill="rgba(43,43,53,.10)"/>
 
-<div class="burst">
-<div class="bigHeart" id="h1"><div class="heart"></div></div>
-<div class="bigHeart two" id="h2"><div class="heart"></div></div>
-</div>
-</div>
+          <circle cx="98" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
+          <circle cx="222" cy="92" r="44" fill="url(#furGrad)" stroke="var(--outline)" stroke-width="6"/>
+          <circle cx="98" cy="98" r="26" fill="#ffd1e1" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
+          <circle cx="222" cy="98" r="26" fill="#ffd1e1" stroke="var(--outline)" stroke-width="5" opacity=".95"/>
 
-<div class="copy">
-<h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
-<p class="sub" id="sub">No is an option. It’s just very difficult.</p>
+          <path d="M70 155c0-62 42-104 90-104s90 42 90 104c0 54-40 96-90 96s-90-42-90-96z"
+                fill="url(#furGrad)" stroke="var(--outline)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 
-<div class="zone" id="zone">
-<button class="yes" id="yes">Yes 💗</button>
-<button class="no" id="no">No</button>
-</div>
+          <path d="M108 84c-22 14-36 40-36 70" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M140 86h40" stroke="rgba(43,43,53,.33)" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 8" opacity=".9"/>
 
-<div class="result" id="result"></div>
-</div>
+          <g transform="translate(205 90)">
+            <path d="M0 0c10-10 26-10 34 2c-8 12-24 14-34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M0 0c-10-10-26-10-34 2c8 12 24 14 34 2z" fill="#ff7fb0" stroke="var(--outline)" stroke-width="5" stroke-linejoin="round"/>
+            <circle cx="0" cy="6" r="8" fill="#ffd1e1" stroke="var(--outline)" stroke-width="5"/>
+            <path d="M-4 2c4-4 8-4 12 0" stroke="rgba(255,255,255,.72)" stroke-width="4" stroke-linecap="round"/>
+          </g>
 
-</div>
-</div>
+          <g>
+            <ellipse cx="125" cy="150" rx="18" ry="24" fill="var(--outline)"/>
+            <circle cx="118" cy="142" r="7" fill="white" opacity=".98"/>
+            <circle cx="132" cy="162" r="3.2" fill="white" opacity=".80"/>
+          </g>
+          <g>
+            <ellipse cx="195" cy="150" rx="18" ry="24" fill="var(--outline)"/>
+            <circle cx="188" cy="142" r="7" fill="white" opacity=".98"/>
+            <circle cx="202" cy="162" r="3.2" fill="white" opacity=".80"/>
+          </g>
+
+          <g opacity=".9">
+            <ellipse cx="98" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
+            <ellipse cx="222" cy="175" rx="18" ry="11" fill="var(--cheek)"/>
+          </g>
+
+          <path d="M118 205c0-28 20-48 42-48s42 20 42 48c0 26-20 42-42 42s-42-16-42-42z"
+                fill="url(#muzzleGrad)" stroke="var(--outline)" stroke-width="6" stroke-linejoin="round"/>
+
+          <path d="M150 186c0-8 6-14 10-14s10 6 10 14c0 8-6 12-10 12s-10-4-10-12z"
+                fill="var(--outline)"/>
+
+          <path d="M148 206c8 12 16 12 24 0" fill="none" stroke="var(--outline)" stroke-width="6" stroke-linecap="round"/>
+          <path d="M160 212c3 5 7 5 10 0c-2 8-8 10-10 0z" fill="#ff8fb9" opacity=".95"/>
+        </svg>
+
+        <div class="cupidOverlay">
+          <div class="cupidWrap" id="cupidWrap">
+            <svg viewBox="0 0 320 240" width="340" height="250" aria-label="two hearts with cupid arrow">
+              <defs>
+                <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ff2f78"/>
+                  <stop offset="1" stop-color="#ff9cc4"/>
+                </linearGradient>
+                <linearGradient id="hg2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ff4d87"/>
+                  <stop offset="1" stop-color="#ffb6d2"/>
+                </linearGradient>
+              </defs>
+
+              <g transform="translate(72 86)">
+                <path d="M40 70 C10 48,0 33,0 20 C0 7,10 0,22 0 C30 0,36 4,40 10 C44 4,50 0,58 0 C70 0,80 7,80 20 C80 33,70 48,40 70Z"
+                      fill="url(#hg1)" stroke="rgba(43,43,53,.22)" stroke-width="3"/>
+              </g>
+
+              <g transform="translate(168 66)">
+                <path d="M40 70 C10 48,0 33,0 20 C0 7,10 0,22 0 C30 0,36 4,40 10 C44 4,50 0,58 0 C70 0,80 7,80 20 C80 33,70 48,40 70Z"
+                      fill="url(#hg2)" stroke="rgba(43,43,53,.22)" stroke-width="3"/>
+              </g>
+
+              <g transform="translate(58 132) rotate(-16 110 0)">
+                <line x1="0" y1="0" x2="250" y2="0" stroke="var(--arrow)" stroke-width="10" stroke-linecap="round"/>
+                <path d="M250 0 L228 -14 L230 0 L228 14 Z" fill="var(--arrow)"/>
+                <path d="M0 0 L-14 -10 L-6 0 L-14 10 Z" fill="var(--arrow)"/>
+              </g>
+
+              <g opacity=".95">
+                <circle cx="84" cy="62" r="3" fill="white"/>
+                <circle cx="256" cy="56" r="3.5" fill="white"/>
+                <circle cx="232" cy="172" r="3" fill="white"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="floatArea" id="floatArea"></div>
+      </div>
+
+      <div class="copy">
+        <h1>Chrissy, on 2/2 of 2026, 11:11 PM,<br>will you be my Valentine?</h1>
+        <p class="sub" id="sub">No is an option. It is just a very difficult option.</p>
+
+        <div class="zone" id="zone">
+          <button class="yes" id="yesBtn">Yes 💗</button>
+          <button class="no" id="noBtn" aria-label="No">No</button>
+          <div class="hint" id="hint">Go ahead. Try “No”.</div>
+        </div>
+
+        <div class="result" id="result"></div>
+      </div>
+
+    </div>
+  </div>
 
 <script>
-const no=document.getElementById("no");
-const zone=document.getElementById("zone");
-const yes=document.getElementById("yes");
-const h1=document.getElementById("h1");
-const h2=document.getElementById("h2");
-const result=document.getElementById("result");
-let locked=false;
+  const zone = document.getElementById("zone");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const hint = document.getElementById("hint");
+  const result = document.getElementById("result");
+  const sub = document.getElementById("sub");
+  const bear = document.getElementById("bear");
+  const art = document.getElementById("art");
+  const floatArea = document.getElementById("floatArea");
 
-function moveNo(){
-  if(locked) return;
-  const r=zone.getBoundingClientRect();
-  no.style.left=Math.random()*(r.width-120)+"px";
-  no.style.top=Math.random()*(r.height-50)+"px";
-}
+  let yesLocked = false;
+  let noMoves = 0;
 
-no.addEventListener("mouseenter",moveNo);
-no.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo();});
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-yes.onclick=()=>{
-  locked=true;
-  h1.style.animation="pop .5s forwards";
-  h2.style.animation="pop .6s forwards";
-  result.textContent="Yay. You’re my Valentine now 🧸💘";
-  no.style.display="none";
-};
+  function moveNoButton(){
+    if (yesLocked) return;
+
+    const rect = zone.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const padding = 10;
+    const maxX = rect.width - btnRect.width - padding;
+    const maxY = rect.height - btnRect.height - padding;
+
+    const x = clamp(Math.random() * maxX + padding, padding, maxX);
+    const y = clamp(Math.random() * maxY + padding, padding, maxY);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.style.transform = "translate(0, 0)";
+
+    noMoves++;
+
+    if (noMoves === 1) hint.textContent = "Nope.";
+    else if (noMoves === 2) hint.textContent = "Still nope.";
+    else if (noMoves === 3) hint.textContent = "The bear is blocking it.";
+    else if (noMoves === 4) hint.textContent = "Try again.";
+    else if (noMoves === 6) hint.textContent = "Okay… maybe press Yes.";
+    else if (noMoves >= 8) hint.textContent = "You already know.";
+
+    if (noMoves >= 5) sub.textContent = "No is an option. It is just not an achievable option.";
+  }
+
+  noBtn.addEventListener("mouseenter", moveNoButton);
+  noBtn.addEventListener("mouseover", moveNoButton);
+
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+
+  zone.addEventListener("mousemove", (e) => {
+    if (yesLocked) return;
+    const rect = noBtn.getBoundingClientRect();
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    const dist = Math.hypot(dx, dy);
+    if (dist < 90) moveNoButton();
+  });
+
+  function spawnFloatingHearts(count=22){
+    for (let i = 0; i < count; i++){
+      const h = document.createElement("div");
+      h.className = "fHeart";
+
+      const left = 6 + Math.random() * 88;
+      h.style.left = left + "%";
+
+      const dur = 1300 + Math.random() * 1100;
+      const delay = Math.random() * 260;
+      const size = 18 + Math.random() * 18;
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+
+      h.style.animation = `floatUp ${dur}ms ease forwards`;
+      h.style.animationDelay = delay + "ms";
+      floatArea.appendChild(h);
+
+      requestAnimationFrame(() => { h.style.opacity = "1"; });
+      setTimeout(() => h.remove(), dur + delay + 80);
+    }
+  }
+
+  function doYes(){
+    if (yesLocked) return;
+    yesLocked = true;
+
+    result.textContent = "Yay. You’re my Valentine now. 🧸💘";
+    hint.textContent = "";
+    sub.textContent = "Correct choice.";
+
+    bear.classList.add("bounce");
+    setTimeout(() => bear.classList.remove("bounce"), 650);
+
+    art.classList.add("showCupid");
+    spawnFloatingHearts(26);
+
+    noBtn.disabled = true;
+    noBtn.style.opacity = ".55";
+    noBtn.style.cursor = "default";
+  }
+
+  yesBtn.addEventListener("click", doYes);
+
+  (function initNo(){
+    const rect = zone.getBoundingClientRect();
+    noBtn.style.position = "absolute";
+    noBtn.style.transform = "translate(-50%, -50%)";
+    noBtn.style.left = Math.round(rect.width * 0.66) + "px";
+    noBtn.style.top = Math.round(rect.height * 0.54) + "px";
+  })();
+
+  window.addEventListener("resize", () => {
+    if (!yesLocked) moveNoButton();
+  });
 </script>
+
 </body>
 </html>
