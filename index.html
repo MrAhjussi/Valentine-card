@@ -1,4 +1,3 @@
-<!-- THIS IS THE ONLY FILE YOU NEED -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,6 +24,7 @@
 
     --heart1:#ff2f78;
     --heart2:#ff9cc4;
+    --heart3:#ff6aa1;
     --arrow:#ffcc4d;
   }
 
@@ -77,7 +77,7 @@
     overflow:hidden;
   }
 
-  /* sparkles: subtle, not noisy */
+  /* More sparkles (still subtle) */
   .sparkleSVG{
     position:absolute;
     inset:0;
@@ -121,15 +121,6 @@
     overflow:hidden;
   }
 
-  /* Keep buttons separated (mobile-safe) */
-  .btnRow{
-    width: 100%;
-    display:flex;
-    justify-content:center;
-    gap: 14px;
-    padding: 0 14px;
-  }
-
   button{
     border:none;
     border-radius: 18px;
@@ -147,17 +138,23 @@
     background: linear-gradient(135deg,var(--yes1),var(--yes2));
     color: #12050b;
     box-shadow: 0 14px 28px rgba(255,77,135,.25);
-    min-width: 170px;
+    min-width: 190px;
+    position:absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
   }
 
   .no{
     background: rgba(35,35,53,.94);
     color:white;
-    min-width: 170px;
-    position:absolute; /* it will dodge */
+    min-width: 190px;
+    position:absolute;
     left: 50%;
-    top: 70%;
+    top: 74%;
     transform: translate(-50%,-50%);
+    z-index: 3;
   }
 
   .hint{
@@ -178,7 +175,7 @@
     min-height: 22px;
   }
 
-  /* Cupid moment overlay: hidden until Yes */
+  /* Cupid moment overlay */
   .moment{
     position:absolute;
     inset:0;
@@ -187,16 +184,16 @@
     align-items:center;
     justify-content:center;
     opacity: 0;
-    transform: translateY(10px) scale(.7);
+    transform: translateY(6px) scale(.84);
     filter: drop-shadow(0 18px 24px rgba(255,77,135,.18));
   }
   .showMoment .moment{
     animation: momentIn .55s ease forwards;
   }
   @keyframes momentIn{
-    0% { opacity:0; transform: translateY(16px) scale(0.55); }
+    0% { opacity:0; transform: translateY(18px) scale(0.60); }
     70%{ opacity:1; transform: translateY(8px) scale(0.92); }
-    100% { opacity:1; transform: translateY(10px) scale(0.88); }
+    100% { opacity:1; transform: translateY(6px) scale(0.90); }
   }
 
   /* Floating hearts */
@@ -206,7 +203,6 @@
     pointer-events:none;
     overflow:hidden;
   }
-
   .fHeart{
     position:absolute;
     bottom: -30px;
@@ -257,29 +253,39 @@
 
       <div class="art" id="art">
 
-        <!-- sparkles -->
+        <!-- Sparkles -->
         <svg class="sparkleSVG" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <g>
-            <circle cx="14" cy="18" r="1.4" fill="white"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.1s" repeatCount="indefinite"/></circle>
-            <circle cx="84" cy="22" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.6s" repeatCount="indefinite"/></circle>
-            <circle cx="20" cy="76" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.4s" repeatCount="indefinite"/></circle>
-            <circle cx="78" cy="78" r="1.4" fill="white"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.2s" repeatCount="indefinite"/></circle>
+            <!-- dots -->
+            <circle cx="12" cy="18" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/></circle>
+            <circle cx="88" cy="18" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.4s" repeatCount="indefinite"/></circle>
+            <circle cx="18" cy="80" r="1.2" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/></circle>
+            <circle cx="82" cy="80" r="1.4" fill="white"><animate attributeName="opacity" values="0.25;1;0.25" dur="2.1s" repeatCount="indefinite"/></circle>
+            <circle cx="52" cy="14" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.8s" repeatCount="indefinite"/></circle>
+            <circle cx="46" cy="86" r="1.1" fill="white" opacity=".85"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.7s" repeatCount="indefinite"/></circle>
 
+            <!-- star sparkles -->
             <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
-                  fill="white" transform="translate(26 26)">
-              <animate attributeName="opacity" values="0.3;1;0.3" dur="1.9s" repeatCount="indefinite"/>
-              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.9;1.25;0.9" dur="1.9s" repeatCount="indefinite"/>
+                  fill="white" transform="translate(24 26)">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.0s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.25;0.85" dur="2.0s" repeatCount="indefinite"/>
             </path>
 
             <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
-                  fill="white" transform="translate(74 32)">
-              <animate attributeName="opacity" values="0.35;1;0.35" dur="2.2s" repeatCount="indefinite"/>
-              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.85;1.22;0.85" dur="2.2s" repeatCount="indefinite"/>
+                  fill="white" transform="translate(78 30)">
+              <animate attributeName="opacity" values="0.25;1;0.25" dur="2.3s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.8;1.22;0.8" dur="2.3s" repeatCount="indefinite"/>
+            </path>
+
+            <path d="M0 0 L2.3 3.8 L6 6 L2.3 8.2 L0 12 L-2.3 8.2 L-6 6 L-2.3 3.8 Z"
+                  fill="white" transform="translate(70 76)">
+              <animate attributeName="opacity" values="0.2;0.95;0.2" dur="2.6s" repeatCount="indefinite"/>
+              <animateTransform attributeName="transform" additive="sum" type="scale" values="0.75;1.18;0.75" dur="2.6s" repeatCount="indefinite"/>
             </path>
           </g>
         </svg>
 
-        <!-- CUTER plush bear (no hearts on face by default) -->
+        <!-- Plush bear -->
         <svg id="bear" width="330" height="330" viewBox="0 0 330 330" role="img" aria-label="plush bear in diaper">
           <defs>
             <radialGradient id="p1" cx="38%" cy="28%" r="70%">
@@ -313,7 +319,6 @@
           <ellipse cx="165" cy="292" rx="104" ry="18" fill="rgba(43,43,53,.10)"/>
 
           <g filter="url(#sh)">
-            <!-- ears -->
             <g filter="url(#fuzz)">
               <circle cx="106" cy="92" r="42" fill="url(#p2)" stroke="#2b2b35" stroke-width="8"/>
               <circle cx="224" cy="92" r="42" fill="url(#p2)" stroke="#2b2b35" stroke-width="8"/>
@@ -321,20 +326,17 @@
               <circle cx="224" cy="98" r="24" fill="#ffd1e1" stroke="#2b2b35" stroke-width="7"/>
             </g>
 
-            <!-- head -->
             <g filter="url(#fuzz)">
               <path d="M85 160c0-76 44-122 80-122s80 46 80 122c0 60-38 104-80 104s-80-44-80-104z"
                     fill="url(#p1)" stroke="#2b2b35" stroke-width="9" stroke-linejoin="round"/>
               <path d="M122 78c-24 18-38 52-38 92" fill="none" stroke="rgba(255,255,255,.60)" stroke-width="12" stroke-linecap="round"/>
             </g>
 
-            <!-- tucked body -->
             <g filter="url(#fuzz)">
               <path d="M112 246c0-44 24-72 53-72s53 28 53 72c0 30-20 52-53 52s-53-22-53-52z"
                     fill="url(#p2)" stroke="#2b2b35" stroke-width="9" stroke-linejoin="round"/>
             </g>
 
-            <!-- paws hugging diaper -->
             <g filter="url(#fuzz)">
               <path d="M78 214c18-22 40-20 54-6c-16 14-26 28-28 48c-16-6-30-22-26-42z"
                     fill="url(#p2)" stroke="#2b2b35" stroke-width="8" stroke-linejoin="round"/>
@@ -342,7 +344,6 @@
                     fill="url(#p2)" stroke="#2b2b35" stroke-width="8" stroke-linejoin="round"/>
             </g>
 
-            <!-- face -->
             <g>
               <circle cx="136" cy="158" r="12" fill="#2b2b35"/>
               <circle cx="194" cy="158" r="12" fill="#2b2b35"/>
@@ -359,7 +360,6 @@
               <path d="M154 214c9 10 17 10 26 0" fill="none" stroke="#2b2b35" stroke-width="8" stroke-linecap="round"/>
             </g>
 
-            <!-- diaper -->
             <g filter="url(#fuzz)">
               <path d="M118 264c10-18 26-28 47-28s37 10 47 28c-10 16-28 26-47 26s-37-10-47-26z"
                     fill="#ffffff" stroke="#2b2b35" stroke-width="8" stroke-linejoin="round"/>
@@ -379,46 +379,53 @@
           </g>
         </svg>
 
-        <!-- Cupid moment (BIG hearts + vertical arrow) -->
+        <!-- YES CELEBRATION: overlapping unequal hearts + slanted arrow (top-right -> bottom-left) -->
         <div class="moment" aria-hidden="true">
-          <svg viewBox="0 0 340 260" width="380" height="320">
+          <svg viewBox="0 0 380 270" width="420" height="340">
             <defs>
-              <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+              <linearGradient id="Hbig" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#ff2f78"/>
                 <stop offset="1" stop-color="#ff9cc4"/>
               </linearGradient>
-              <linearGradient id="hg2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ff4d87"/>
-                <stop offset="1" stop-color="#ffb6d2"/>
+              <linearGradient id="Hsmall" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff6aa1"/>
+                <stop offset="1" stop-color="#ffd0e3"/>
               </linearGradient>
             </defs>
 
-            <g transform="translate(38 58) scale(1.32)">
-              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11 C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
-                    fill="url(#hg1)" stroke="rgba(43,43,53,.18)" stroke-width="3"/>
+            <!-- Big heart (left) -->
+            <g transform="translate(120 88) scale(1.55)">
+              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
+                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
+                    fill="url(#Hbig)" stroke="rgba(43,43,53,.18)" stroke-width="3"/>
             </g>
 
-            <g transform="translate(170 58) scale(1.32)">
-              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11 C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
-                    fill="url(#hg2)" stroke="rgba(43,43,53,.18)" stroke-width="3"/>
+            <!-- Smaller heart (overlapping on right) -->
+            <g transform="translate(215 98) scale(1.15)">
+              <path d="M42 74 C10 50,0 34,0 20 C0 7,10 0,24 0 C32 0,38 4,42 11
+                       C46 4,52 0,60 0 C74 0,84 7,84 20 C84 34,74 50,42 74Z"
+                    fill="url(#Hsmall)" stroke="rgba(43,43,53,.16)" stroke-width="3"/>
             </g>
 
-            <!-- Vertical arrow -->
-            <g transform="translate(170 34)">
-              <line x1="0" y1="0" x2="0" y2="206" stroke="var(--arrow)" stroke-width="12" stroke-linecap="round"/>
-              <path d="M0 0 L-18 -18 L0 -10 L18 -18 Z" fill="var(--arrow)"/>
-              <path d="M0 206 L-18 180 L0 188 L18 180 Z" fill="var(--arrow)"/>
-              <circle cx="0" cy="18" r="4" fill="white" opacity=".9"/>
+            <!-- Slanted arrow: top-right -> bottom-left, arrowhead at bottom-left -->
+            <g transform="translate(0 0)">
+              <!-- shaft -->
+              <line x1="298" y1="50" x2="110" y2="210"
+                    stroke="var(--arrow)" stroke-width="12" stroke-linecap="round"/>
+              <!-- tail sparkle -->
+              <circle cx="298" cy="50" r="4.2" fill="white" opacity=".9"/>
+              <!-- arrow head at bottom-left -->
+              <path d="M110 210 L132 190 L126 214 L150 214 Z" fill="var(--arrow)"/>
             </g>
 
-            <!-- little hearts -->
+            <!-- tiny hearts around -->
             <g opacity=".95">
               <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".75" transform="translate(70 60) scale(0.55)"/>
+                    fill="white" opacity=".75" transform="translate(74 76) scale(0.55)"/>
               <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".75" transform="translate(290 78) scale(0.55)"/>
+                    fill="white" opacity=".72" transform="translate(318 92) scale(0.52)"/>
               <path d="M0 0 C-8 -8,-20 -6,-20 6 C-20 16,-8 24,0 30 C8 24,20 16,20 6 C20 -6,8 -8,0 0Z"
-                    fill="white" opacity=".65" transform="translate(280 210) scale(0.45)"/>
+                    fill="white" opacity=".62" transform="translate(292 218) scale(0.45)"/>
             </g>
           </svg>
         </div>
@@ -431,11 +438,6 @@
         <p class="sub" id="sub">No is an option. It is just a very difficult option.</p>
 
         <div class="zone" id="zone">
-          <div class="btnRow" aria-hidden="true">
-            <button class="yes" type="button">Yes 💗</button>
-            <button class="yes" type="button" style="opacity:0;pointer-events:none">Spacer</button>
-          </div>
-
           <button class="yes" id="yesBtn" type="button">Yes 💗</button>
           <button class="no" id="noBtn" type="button" aria-label="No">No</button>
           <div class="hint" id="hint">Go ahead. Try “No”.</div>
@@ -463,20 +465,12 @@
 
   function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-  function placeYesCenter(){
-    // Keep Yes centered and stable
-    const rect = zone.getBoundingClientRect();
-    yesBtn.style.position = "relative";
-    yesBtn.style.zIndex = "2";
-  }
-
   function placeNoStart(){
-    // Start below Yes, but not overlapping
     const rect = zone.getBoundingClientRect();
     noBtn.style.position = "absolute";
     noBtn.style.transform = "translate(-50%, -50%)";
     noBtn.style.left = Math.round(rect.width * 0.50) + "px";
-    noBtn.style.top  = Math.round(rect.height * 0.70) + "px";
+    noBtn.style.top  = Math.round(rect.height * 0.74) + "px";
   }
 
   function moveNoButton(){
@@ -490,12 +484,10 @@
     const maxX = rect.width - btnRect.width - padding;
     const maxY = rect.height - btnRect.height - padding;
 
-    // try a few times to avoid landing on top of Yes
-    for (let i=0; i<10; i++){
+    for (let i=0; i<12; i++){
       const x = clamp(Math.random() * maxX + padding, padding, maxX);
       const y = clamp(Math.random() * maxY + padding, padding, maxY);
 
-      // convert (x,y) into screen space to test overlap with Yes
       const zoneRect = zone.getBoundingClientRect();
       const candidate = {
         left: zoneRect.left + x,
@@ -529,7 +521,6 @@
     if (noMoves >= 5) sub.textContent = "No is an option. It is just not an achievable option.";
   }
 
-  // dodge triggers
   noBtn.addEventListener("mouseenter", moveNoButton);
   noBtn.addEventListener("mouseover", moveNoButton);
 
@@ -538,7 +529,6 @@
     moveNoButton();
   }, { passive: false });
 
-  // dodge when pointer is close
   zone.addEventListener("mousemove", (e) => {
     if (yesLocked) return;
     const rect = noBtn.getBoundingClientRect();
@@ -548,27 +538,27 @@
     if (dist < 96) moveNoButton();
   });
 
-  function spawnFloatingHearts(count=22){
+  function spawnFloatingHearts(count=24){
     for (let i = 0; i < count; i++){
       const h = document.createElement("div");
       h.className = "fHeart";
 
       const left = 8 + Math.random() * 84;
-      const size = 16 + Math.random() * 20;
+      const size = 16 + Math.random() * 22;
 
       h.style.left = left + "%";
       h.style.width = size + "px";
       h.style.height = size + "px";
 
-      const dur = 1400 + Math.random() * 1300;
-      const delay = Math.random() * 240;
+      const dur = 1400 + Math.random() * 1400;
+      const delay = Math.random() * 260;
       h.style.animation = `floatUp ${dur}ms ease forwards`;
       h.style.animationDelay = delay + "ms";
 
       floatArea.appendChild(h);
       requestAnimationFrame(() => { h.style.opacity = "1"; });
 
-      setTimeout(() => h.remove(), dur + delay + 120);
+      setTimeout(() => h.remove(), dur + delay + 150);
     }
   }
 
@@ -583,9 +573,8 @@
     bear.classList.add("bounce");
     setTimeout(() => bear.classList.remove("bounce"), 650);
 
-    // show cupid moment ONLY after Yes
     art.classList.add("showMoment");
-    spawnFloatingHearts(26);
+    spawnFloatingHearts(28);
 
     noBtn.disabled = true;
     noBtn.style.opacity = ".55";
@@ -594,10 +583,7 @@
 
   yesBtn.addEventListener("click", doYes);
 
-  // init layout
-  placeYesCenter();
   placeNoStart();
-
   window.addEventListener("resize", () => {
     if (!yesLocked) placeNoStart();
   });
